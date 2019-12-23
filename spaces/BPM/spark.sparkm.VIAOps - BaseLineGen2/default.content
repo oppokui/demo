@@ -1,4 +1,4 @@
-<DataPipeModel description="Batch ADF to generate baseline, updated in v1.0" name="VIAOps - BaseLineGen" editBy="flow" is_init="false" useStreaming="auto" durableStreaming="false" streamingAutoStart="false" useHive="yes" batchDuration="P1M" checkpoint="" batchSampling="true" sparkMasterHost="">
+<DataPipeModel description="Batch ADF to generate baseline" name="VIAOps - BaseLineGen" editBy="flow" is_init="false" useStreaming="auto" durableStreaming="false" streamingAutoStart="false" useHive="yes" batchDuration="P1M" checkpoint="" batchSampling="true" sparkMasterHost="">
   <HiveConfig>
     <Properties>
       <Property name="hive.warehouse.hdfs.source" value=""/>
