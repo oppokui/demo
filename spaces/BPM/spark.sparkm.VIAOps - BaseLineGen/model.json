@@ -23,7 +23,7 @@
   ],
   "owner": "vtbaadmin",
   "properties": {
-    "_RESOURCE_Description": "Batch ADF to generate baseline",
+    "_RESOURCE_Description": "Batch ADF to generate baseline, updated in v1.0",
     "_RESOURCE_Type": "sparkm",
     "__references__": "",
     "modelStatus": "valid",

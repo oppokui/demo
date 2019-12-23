@@ -15,16 +15,21 @@
     {
       "fileref": "ModelContentFile3",
       "name": "miniviewData"
+    },
+    {
+      "fileref": "ModelContentFile4",
+      "name": "running.profile"
     }
   ],
   "owner": "vtbaadmin",
   "properties": {
-    "_RESOURCE_Description": "Description of New Model changed...",
+    "_RESOURCE_Description": "Batch ADF to generate baseline",
     "_RESOURCE_Type": "sparkm",
     "__references__": "",
     "modelStatus": "valid",
-    "name": "ABC",
+    "name": "VIAOps - BaseLineGen",
     "subflowReg": "",
+    "typeDeps": "{\"dependencies\":[\"viaops.anomaly.baseline.Baseline_Meta_Store\"],\"contributes\":[]}",
     "typeReg": ""
   }
 }
