@@ -1,4 +1,4 @@
-<DataPipeModel description="The template for file source. It will do audit log and auto stop the ADF model if requireda" name="VIAOps - File Source Template" editBy="flow" is_init="false" useStreaming="auto" durableStreaming="false" streamingAutoStart="true" useHive="yes" batchDuration="P1M" checkpoint="" batchSampling="true" sparkMasterHost="">
+<DataPipeModel description="The template for file source. It will do audit log and auto stop the ADF model if required" name="VIAOps - File Source Template" editBy="flow" is_init="false" useStreaming="auto" durableStreaming="false" streamingAutoStart="true" useHive="yes" batchDuration="P1M" checkpoint="" batchSampling="true" sparkMasterHost="">
   <HiveConfig>
     <Properties>
       <Property name="hive.warehouse.hdfs.source" value=""/>

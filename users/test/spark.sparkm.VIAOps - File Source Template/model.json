@@ -31,7 +31,7 @@
   ],
   "owner": "test",
   "properties": {
-    "_RESOURCE_Description": "The template for file source. It will do audit log and auto stop the ADF model if requireda",
+    "_RESOURCE_Description": "The template for file source. It will do audit log and auto stop the ADF model if required",
     "_RESOURCE_Type": "sparkm",
     "__references__": "adf.subflow:///viaops.ingestion/AuditLog@800",
     "modelStatus": "valid",
