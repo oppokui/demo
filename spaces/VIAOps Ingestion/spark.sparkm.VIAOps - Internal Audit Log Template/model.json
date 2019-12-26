@@ -1,0 +1,31 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "registeredTypes"
+    },
+    {
+      "fileref": "ModelContentFile2",
+      "name": "usedTypes"
+    },
+    {
+      "fileref": "ModelContentFile3",
+      "name": "miniviewData"
+    }
+  ],
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "Internal template model. This model contains a template of Audit Log, which used to write message to parquet.",
+    "_RESOURCE_Type": "sparkm",
+    "__references__": "",
+    "modelStatus": "valid",
+    "name": "VIAOps - Internal Audit Log Template",
+    "subflowReg": "{\"AuditLog\":{\"revision\":\"800\",\"registered\":true,\"subflowPath\":\"viaops.ingestion\"}}",
+    "typeDeps": "{\"dependencies\":[],\"contributes\":[\"com.vitria.charter.CharterAuditlog\"]}",
+    "typeReg": ""
+  }
+}

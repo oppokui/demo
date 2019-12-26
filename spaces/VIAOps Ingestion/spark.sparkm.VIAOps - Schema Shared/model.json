@@ -1,0 +1,31 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "registeredTypes"
+    },
+    {
+      "fileref": "ModelContentFile2",
+      "name": "usedTypes"
+    },
+    {
+      "fileref": "ModelContentFile3",
+      "name": "miniviewData"
+    }
+  ],
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "Description of New Model 0",
+    "_RESOURCE_Type": "sparkm",
+    "__references__": "",
+    "modelStatus": "valid",
+    "name": "VIAOps - Schema Shared",
+    "subflowReg": "",
+    "typeDeps": "{\"dependencies\":[],\"contributes\":[\"viaops.ingestion.MetricCommonFields\",\"viaops.ingestion.AuditLog\",\"viaops.ingestion.DroppedEvents\"]}",
+    "typeReg": "{\"Main\":[{\"types\":[\"DroppedEvents\",\"AuditLog\",\"MetricCommonFields\"],\"ns\":\"viaops.ingestion\",\"f\":\"\"}]}"
+  }
+}
