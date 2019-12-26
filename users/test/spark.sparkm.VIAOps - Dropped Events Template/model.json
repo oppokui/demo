@@ -1,0 +1,35 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "registeredTypes"
+    },
+    {
+      "fileref": "ModelContentFile2",
+      "name": "usedTypes"
+    },
+    {
+      "fileref": "ModelContentFile3",
+      "name": "miniviewData"
+    },
+    {
+      "fileref": "ModelContentFile4",
+      "name": "running.profile"
+    }
+  ],
+  "owner": "test",
+  "properties": {
+    "_RESOURCE_Description": "This ADF model contains a Dropped Events Template, which used to write string events to hive.",
+    "_RESOURCE_Type": "sparkm",
+    "__references__": "adf.subflow:///viaops.ingestion/AuditLog@800",
+    "modelStatus": "valid",
+    "name": "VIAOps - Dropped Events Template",
+    "subflowReg": "{\"DroppedEvents\":{\"revision\":\"809\",\"registered\":true,\"subflowPath\":\"viaops.ingestion\"}}",
+    "typeDeps": "{\"dependencies\":[\"viaops.ingestion.DroppedEvents\"],\"contributes\":[]}",
+    "typeReg": ""
+  }
+}

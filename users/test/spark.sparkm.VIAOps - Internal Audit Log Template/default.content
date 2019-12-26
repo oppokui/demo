@@ -1,0 +1,189 @@
+<DataPipeModel description="Internal template model. This model contains a template of Audit Log, which used to write message to parquet." name="VIAOps - Internal Audit Log Template" editBy="flow" is_init="false" useStreaming="auto" durableStreaming="false" streamingAutoStart="true" useHive="yes" batchDuration="P1M" checkpoint="" batchSampling="true" sparkMasterHost="">
+  <HiveConfig>
+    <Properties>
+      <Property name="hive.warehouse.hdfs.source" value=""/>
+      <Property name="hive.metastore.data.source" value=""/>
+      <Property name="hive.server2.thrift.port" value=""/>
+      <Property name="hive.db.schema" value=""/>
+    </Properties>
+  </HiveConfig>
+  <ModelInfo validated="true">
+    <Pipes>
+      <Pipe index="1000" uuid="" name="(main)"/>
+    </Pipes>
+    <Flows>
+      <Flow index="1000" uuid="Main" isNested="false" revision="54" name="Main" showFooter="true">
+        <Codes/>
+        <Libraries/>
+        <Resources/>
+        <Properties>[]</Properties>
+      </Flow>
+      <Flow index="2000" uuid="AuditLog" isNested="true" revision="806" acceptedSourceTypes="RDD,DStream,DataFrame" registered="true" subflowPath="viaops.ingestion" name="AuditLog" showFooter="true">
+        <Node index="2001" uuid="224f8fb5-0fe9-4c00-8c04-2395c68c02d3" type="inPort" label="In" x="20" y="34" width="70" height="40">
+          <Output name="Out" uid="0" outputType="DStream" dataType="class:viaops.ingestion.AuditLog" referenceType="viaops.ingestion.AuditLog">
+            <Field name="date_key" label="date_key" type="long" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_start_tm" label="aggr_start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_end_tm" label="aggr_end_tm" type="long" clazz="" isArray="false" isOptional="true"/>
+            <Field name="metric_name" label="metric_name" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="metric_value" label="metric_value" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="metric_uom" label="metric_uom" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="uom_label" label="uom_label" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_group" label="source_group" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="system_tm" label="system_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+            <Field name="process_type" label="process_type" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_type" label="aggr_type" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_fmt" label="source_fmt" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_tz" label="source_tz" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="ts_key" label="ts_key" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="ts_value" label="ts_value" type="string" clazz="" isArray="false" isOptional="false"/>
+            <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+          </Output>
+          <Model>
+            <Properties>
+{&quot;portType&quot;:&quot;DStream&quot;,&quot;type&quot;:{&quot;name&quot;:&quot;viaops.ingestion.AuditLog&quot;,&quot;kind&quot;:&quot;caseclass&quot;}}
+</Properties>
+          </Model>
+        </Node>
+        <Node index="2002" uuid="2a748b73-8ff7-4d04-8666-9123dfba32f3" type="outPort" label="Out" x="440" y="34" width="70" height="40">
+          <Source name="source" uid="0" outputType="DStream" dataType="class:viaops.ingestion.AuditLog">
+            <DataSource category="#OUTPUT" id="undefined" name="Out" nodeId="224f8fb5-0fe9-4c00-8c04-2395c68c02d3">
+              <Field name="date_key" label="date_key" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_start_tm" label="aggr_start_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_end_tm" label="aggr_end_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+              <Field name="metric_name" label="metric_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_value" label="metric_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_uom" label="metric_uom" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="uom_label" label="uom_label" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_group" label="source_group" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="system_tm" label="system_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="process_type" label="process_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_type" label="aggr_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_fmt" label="source_fmt" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_tz" label="source_tz" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="ts_key" label="ts_key" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="ts_value" label="ts_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+            </DataSource>
+          </Source>
+          <Model>
+            <Properties>
+{&quot;type&quot;:{&quot;name&quot;:&quot;viaops.ingestion.AuditLog&quot;,&quot;kind&quot;:&quot;caseclass&quot;}}
+</Properties>
+          </Model>
+        </Node>
+        <Node index="2003" uuid="322e4e59-dd18-4247-8532-ecf44de32e0b" type="Compute" label="Normalize" x="140" y="110" width="130" height="75">
+          <Source name="source" uid="0" outputType="DStream" dataType="class:viaops.ingestion.AuditLog">
+            <DataSource category="#OUTPUT" id="undefined" name="Out" nodeId="224f8fb5-0fe9-4c00-8c04-2395c68c02d3">
+              <Field name="date_key" label="date_key" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_start_tm" label="aggr_start_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_end_tm" label="aggr_end_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+              <Field name="metric_name" label="metric_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_value" label="metric_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_uom" label="metric_uom" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="uom_label" label="uom_label" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_group" label="source_group" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="system_tm" label="system_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="process_type" label="process_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_type" label="aggr_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_fmt" label="source_fmt" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_tz" label="source_tz" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="ts_key" label="ts_key" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="ts_value" label="ts_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+            </DataSource>
+          </Source>
+          <Output name="out" uid="0" outputType="DStream" dataType="class:AuditLogTable">
+            <Field name="date_key" label="date_key" type="long" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_start_tm" label="aggr_start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_end_tm" label="aggr_end_tm" type="long" clazz="" isArray="false" isOptional="true"/>
+            <Field name="metric_name" label="metric_name" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="metric_value" label="metric_value" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="metric_uom" label="metric_uom" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="uom_label" label="uom_label" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_group" label="source_group" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="system_tm" label="system_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+            <Field name="process_type" label="process_type" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_type" label="aggr_type" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_fmt" label="source_fmt" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_tz" label="source_tz" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_group_prefix" label="source_group_prefix" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="ts_key" label="ts_key" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="ts_value" label="ts_value" type="string" clazz="" isArray="false" isOptional="false"/>
+            <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+          </Output>
+          <Model _caseClass="AuditLogTable" isClassRef="true">
+            <Computes>
+              <Compute op="sleText" field="*" arg="" value="date_key" outputType="long" alias="date_key" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="aggr_start_tm" outputType="long" alias="aggr_start_tm" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="aggr_end_tm" outputType="long" alias="aggr_end_tm" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="metric_name" outputType="string" alias="metric_name" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="metric_value" outputType="string" alias="metric_value" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="metric_uom" outputType="string" alias="metric_uom" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="uom_label" outputType="string" alias="uom_label" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="source_group" outputType="string" alias="source_group" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="system_tm" outputType="long" alias="system_tm" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="process_type" outputType="string" alias="process_type" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="aggr_type" outputType="string" alias="aggr_type" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="source_fmt" outputType="string" alias="source_fmt" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="source_tz" outputType="string" alias="source_tz" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="&quot;${source}&quot;" outputType="string" alias="source_group_prefix" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="ts_key" outputType="string" alias="ts_key" wordWarp="true"/>
+              <Compute op="sleText" field="*" arg="" value="ts_value" outputType="string" alias="ts_value" wordWarp="true"/>
+            </Computes>
+            <CheckboxStatus isChecked="false"/>
+          </Model>
+        </Node>
+        <Node index="2004" uuid="15ea36d5-561f-4969-8443-62afe82d4154" type="StreamTarget" label="Step 1" x="340" y="110" width="130" height="75">
+          <Source name="source" uid="0" outputType="DStream" dataType="class:AuditLogTable">
+            <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="322e4e59-dd18-4247-8532-ecf44de32e0b">
+              <Field name="date_key" label="date_key" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_start_tm" label="aggr_start_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_end_tm" label="aggr_end_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+              <Field name="metric_name" label="metric_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_value" label="metric_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_uom" label="metric_uom" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="uom_label" label="uom_label" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_group" label="source_group" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="system_tm" label="system_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="process_type" label="process_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_type" label="aggr_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_fmt" label="source_fmt" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_tz" label="source_tz" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_group_prefix" label="source_group_prefix" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="ts_key" label="ts_key" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="ts_value" label="ts_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+            </DataSource>
+          </Source>
+          <Output name="out" uid="0" outputType="DStream" dataType="class:AuditLogTable">
+            <Field name="date_key" label="date_key" type="long" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_start_tm" label="aggr_start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_end_tm" label="aggr_end_tm" type="long" clazz="" isArray="false" isOptional="true"/>
+            <Field name="metric_name" label="metric_name" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="metric_value" label="metric_value" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="metric_uom" label="metric_uom" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="uom_label" label="uom_label" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_group" label="source_group" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="system_tm" label="system_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+            <Field name="process_type" label="process_type" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_type" label="aggr_type" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_fmt" label="source_fmt" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_tz" label="source_tz" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="source_group_prefix" label="source_group_prefix" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="ts_key" label="ts_key" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="ts_value" label="ts_value" type="string" clazz="" isArray="false" isOptional="false"/>
+            <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+          </Output>
+          <Model type="hiveTable" tableName="" partitionType="eventField" partitionSize="" partitionColumn="date_key,source_group" partitionIndex="0,7" timeColumn="" overwrite="false" partitionNum="1" dataSpeed="" dataVolume="">
+            <__binding__><![CDATA[{"snapshotTableName":"","tableName":"audit_log_table"}]]></__binding__>
+          </Model>
+        </Node>
+        <Link srcId="224f8fb5-0fe9-4c00-8c04-2395c68c02d3" srcPort="out:0" tgtId="322e4e59-dd18-4247-8532-ecf44de32e0b" tgtPort="in:0"/>
+        <Link srcId="224f8fb5-0fe9-4c00-8c04-2395c68c02d3" srcPort="out:0" tgtId="2a748b73-8ff7-4d04-8666-9123dfba32f3" tgtPort="in:0"/>
+        <Link srcId="322e4e59-dd18-4247-8532-ecf44de32e0b" srcPort="out:0" tgtId="15ea36d5-561f-4969-8443-62afe82d4154" tgtPort="in:0"/>
+        <Codes/>
+        <Libraries/>
+        <Resources/>
+        <Properties>[{&quot;editorType&quot;:&quot;textInput&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;audit_log_table&quot;,&quot;label&quot;:&quot;Audit Log Table&quot;,&quot;type&quot;:&quot;string&quot;,&quot;optional&quot;:false,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;value&quot;:&quot;viaops_ingestion_auditlog&quot;,&quot;enumSource&quot;:&quot;&quot;,&quot;runtimeControl&quot;:false},{&quot;editorType&quot;:&quot;textInput&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;source&quot;,&quot;label&quot;:&quot;Source Group Prefix&quot;,&quot;type&quot;:&quot;string&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;value&quot;:&quot;&quot;,&quot;enumSource&quot;:&quot;&quot;,&quot;runtimeControl&quot;:false}]</Properties>
+        <Types>[{&quot;name&quot;:&quot;AuditLogTable&quot;,&quot;schema&quot;:[{&quot;name&quot;:&quot;date_key&quot;,&quot;type&quot;:&quot;long&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;aggr_start_tm&quot;,&quot;type&quot;:&quot;long&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;aggr_end_tm&quot;,&quot;type&quot;:&quot;long&quot;,&quot;_isOptional&quot;:true,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;metric_name&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;metric_value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;metric_uom&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;uom_label&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;source_group&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;system_tm&quot;,&quot;type&quot;:&quot;long&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;process_type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;aggr_type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;source_fmt&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;source_tz&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;source_group_prefix&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;ts_key&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false},{&quot;name&quot;:&quot;ts_value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isOptional&quot;:false,&quot;_isArray&quot;:false}]}]</Types>
+      </Flow>
+    </Flows>
+  </ModelInfo>
+</DataPipeModel>

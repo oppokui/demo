@@ -1,0 +1,30 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "registeredTypes"
+    },
+    {
+      "fileref": "ModelContentFile2",
+      "name": "usedTypes"
+    },
+    {
+      "fileref": "ModelContentFile3",
+      "name": "miniviewData"
+    }
+  ],
+  "owner": "test",
+  "properties": {
+    "_RESOURCE_Description": "It contains 3 ADF subflow: 1. Aggregate over event-time jumping window 2. Store metric output into SparkSQL and HDFS 3. Metric's reference data for filtering and enrichment purpose ",
+    "_RESOURCE_Type": "sparkm",
+    "__references__": "adf.subflow:///viaops.ingestion/AuditLog@800,adf.subflow:///viaops.ingestion/DroppedEvents@809",
+    "modelStatus": "valid",
+    "name": "VIAOps - Aggregate Output MetricReferenceData Template",
+    "subflowReg": "{\"Aggregate\":{\"revision\":\"1849\",\"registered\":true,\"subflowPath\":\"viaops.ingestion\"},\"MetricReferenceData\":{\"revision\":\"528\",\"registered\":true,\"subflowPath\":\"viaops.ingestion\"},\"MetricOutput\":{\"revision\":\"4405\",\"registered\":true,\"subflowPath\":\"viaops.ingestion\"}}",
+    "typeReg": ""
+  }
+}
