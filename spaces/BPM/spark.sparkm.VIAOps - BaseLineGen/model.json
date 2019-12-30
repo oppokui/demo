@@ -23,11 +23,11 @@
   ],
   "owner": "vtbaadmin",
   "properties": {
-    "_RESOURCE_Description": "It is the change from v1.0",
+    "_RESOURCE_Description": "Batch ADF to generate baseline, updated in v1.0",
     "_RESOURCE_Type": "sparkm",
     "__references__": "",
     "modelStatus": "valid",
-    "name": "VIAOps - BaseLineGen2",
+    "name": "VIAOps - BaseLineGen",
     "subflowReg": "",
     "typeDeps": "{\"dependencies\":[\"viaops.anomaly.baseline.Baseline_Meta_Store\"],\"contributes\":[]}",
     "typeReg": ""
