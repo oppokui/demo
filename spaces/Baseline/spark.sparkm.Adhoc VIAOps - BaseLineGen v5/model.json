@@ -21,10 +21,10 @@
       "name": "running.profile"
     }
   ],
-  "lastDate": "1589274985470",
+  "lastDate": "1589274998892",
   "owner": "charter_admin",
   "properties": {
-    "_RESOURCE_Description": "Batch ADF to generate baseline",
+    "_RESOURCE_Description": "Batch ADF to generate baseline ",
     "_RESOURCE_Type": "sparkm",
     "__references__": "",
     "modelStatus": "invalid",
