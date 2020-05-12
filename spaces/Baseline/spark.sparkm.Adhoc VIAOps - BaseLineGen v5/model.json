@@ -1,0 +1,35 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "registeredTypes"
+    },
+    {
+      "fileref": "ModelContentFile2",
+      "name": "usedTypes"
+    },
+    {
+      "fileref": "ModelContentFile3",
+      "name": "miniviewData"
+    },
+    {
+      "fileref": "ModelContentFile4",
+      "name": "running.profile"
+    }
+  ],
+  "owner": "charter_admin",
+  "properties": {
+    "_RESOURCE_Description": "Batch ADF to generate baseline ",
+    "_RESOURCE_Type": "sparkm",
+    "__references__": "",
+    "modelStatus": "invalid",
+    "name": "Adhoc VIAOps - BaseLineGen v5",
+    "subflowReg": "",
+    "typeDeps": "{\"dependencies\":[\"viaops.anomaly.baseline.Baseline_Meta_Store\"],\"contributes\":[]}",
+    "typeReg": ""
+  }
+}

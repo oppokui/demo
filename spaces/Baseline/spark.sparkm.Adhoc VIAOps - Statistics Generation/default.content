@@ -1,0 +1,119 @@
+<DataPipeModel description="Description of New Model 1" name="VIAOps - Statistics Generation" editBy="flow" is_init="false" useStreaming="auto" durableStreaming="false" streamingAutoStart="true" useHive="auto" batchDuration="P1M" checkpoint="" batchSampling="true" sparkMasterHost="">
+  <HiveConfig>
+    <Properties>
+      <Property name="hive.warehouse.hdfs.source" value=""/>
+      <Property name="hive.metastore.data.source" value=""/>
+      <Property name="hive.server2.thrift.port" value=""/>
+      <Property name="hive.db.schema" value=""/>
+    </Properties>
+  </HiveConfig>
+  <ModelInfo validated="true">
+    <Pipes>
+      <Pipe index="1000" uuid="" name="(main)"/>
+    </Pipes>
+    <Flows>
+      <Flow index="1000" uuid="Main" isNested="false" revision="147" name="Main" showFooter="true">
+        <Node index="1001" uuid="35fc6de0-ff7a-45e1-8e31-67e9aa139ad6" type="genStatistics" label="Step 1" x="88" y="112" width="130" height="75">
+          <Output name="out" uid="0" outputType="RDD" dataType="class:viaops.anomaly.baseline.Statistics" referenceType="viaops.anomaly.baseline.Statistics">
+            <Field name="adm_name" label="adm_name" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="name" label="name" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="metric_id" label="metric_id" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_func" label="aggr_func" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="seasonality" label="seasonality" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="dow" label="dow" type="string" clazz="" isArray="false" isOptional="true"/>
+            <Field name="seconds_of_day" label="seconds_of_day" type="integer" clazz="" isArray="false" isOptional="true"/>
+            <Field name="stdev" label="stdev" type="double" clazz="" isArray="false" isOptional="false"/>
+            <Field name="mad" label="mad" type="double" clazz="" isArray="false" isOptional="false"/>
+            <Field name="generated_tm" label="generated_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+            <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+          </Output>
+          <Model>
+            <Properties>
+{&quot;dataSource&quot;:&quot;${dataSource}&quot;,&quot;systemModelTable&quot;:&quot;${systemModelTable}&quot;,&quot;adm&quot;:&quot;${adm}&quot;,&quot;dailyFrom&quot;:&quot;${dailyFrom}&quot;,&quot;dailyTo&quot;:&quot;${dailyTo}&quot;,&quot;weekHourlyFrom&quot;:&quot;${weekHourlyFrom}&quot;,&quot;weekHourlyTo&quot;:&quot;${weekHourlyTo}&quot;,&quot;weeklyFrom&quot;:&quot;${weeklyFrom}&quot;,&quot;weeklyTo&quot;:&quot;${weeklyTo}&quot;,&quot;from&quot;:&quot;${from}&quot;,&quot;to&quot;:&quot;${to}&quot;,&quot;case&quot;:{&quot;name&quot;:&quot;viaops.anomaly.baseline.Statistics&quot;,&quot;ref&quot;:&quot;true&quot;,&quot;userTyped&quot;:true}}
+</Properties>
+          </Model>
+        </Node>
+        <Node index="1002" uuid="4318a7c4-9765-449f-85df-3f632c5899bd" type="BatchTarget" label="Step 2" x="560" y="109" width="130" height="75">
+          <Source name="source" uid="0" outputType="RDD" dataType="class:viaops.anomaly.baseline.Statistics">
+            <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="35fc6de0-ff7a-45e1-8e31-67e9aa139ad6">
+              <Field name="adm_name" label="adm_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="name" label="name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_id" label="metric_id" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_func" label="aggr_func" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="seasonality" label="seasonality" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="dow" label="dow" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+              <Field name="seconds_of_day" label="seconds_of_day" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+              <Field name="stdev" label="stdev" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="mad" label="mad" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              <Field name="generated_tm" label="generated_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+            </DataSource>
+          </Source>
+          <Output name="out" uid="0" outputType="RDD" dataType="class:viaops.anomaly.baseline.Statistics">
+            <Field name="adm_name" label="adm_name" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="name" label="name" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="metric_id" label="metric_id" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="aggr_func" label="aggr_func" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="seasonality" label="seasonality" type="string" clazz="" isArray="false" isOptional="false"/>
+            <Field name="dow" label="dow" type="string" clazz="" isArray="false" isOptional="true"/>
+            <Field name="seconds_of_day" label="seconds_of_day" type="integer" clazz="" isArray="false" isOptional="true"/>
+            <Field name="stdev" label="stdev" type="double" clazz="" isArray="false" isOptional="false"/>
+            <Field name="mad" label="mad" type="double" clazz="" isArray="false" isOptional="false"/>
+            <Field name="generated_tm" label="generated_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+            <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+          </Output>
+          <Model type="hive" tableName="${tableName}" cache="false" mode="overwrite" partitionType="eventField" partitionSize="" partitionColumn="adm_name,seasonality" partitionIndex="0,4" timeColumn="" partitionNum="${partitionSize}"/>
+        </Node>
+        <Link srcId="35fc6de0-ff7a-45e1-8e31-67e9aa139ad6" srcPort="out:0" tgtId="4318a7c4-9765-449f-85df-3f632c5899bd" tgtPort="in:0"/>
+        <Codes>
+          <Log4j><![CDATA[# Set everything to be logged to the console
+log4j.appender.File.layout.ConversionPattern=%d %-5p [%c] (%t:%x) %m%n
+log4j.appender.File=org.apache.log4j.DailyRollingFileAppender
+log4j.logger.org.eclipse.jetty=WARN
+log4j.logger.org.eclipse.jetty.util.component.AbstractLifeCycle=ERROR
+log4j.appender.File.File=${vitria.app.home}/log/app.log
+log4j.appender.console.layout=org.apache.log4j.PatternLayout
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+log4j.appender.File.Append=true
+log4j.appender.console.target=System.err
+log4j.logger.org.apache.spark.repl.SparkILoop$SparkILoopInterpreter=WARN
+log4j.appender.File.Threshold=DEBUG
+log4j.logger.org.apache.spark.repl.SparkIMain$exprTyper=WARN
+log4j.appender.console.layout.ConversionPattern=%d %-5p [%c] (%t:%x) %m%n
+log4j.appender.File.layout=org.apache.log4j.PatternLayout
+log4j.rootCategory=INFO, console,File
+
+log4j.logger.org.apache.hadoop.hive.metastore.RetryingHMSHandler=FATAL
+log4j.logger.org.apache.hadoop.hive.ql.exec.FunctionRegistry=ERROR
+log4j.logger.com.vitria.viaops.ad.sdk.StatisticsGenModule=INFO
+#log4j.logger.org.apache.spark.sql.execution.SparkSqlParser=DEBUG
+]]></Log4j>
+          <Spark><![CDATA[########## The following properties are coming from UI configuration ###########
+spark.master=${spark.master}
+spark.cores.max=${spark.cores.max}
+spark.executor.instances=${spark.executor.instances}
+spark.executor.cores=${spark.executor.cores}
+spark.executor.memory=${spark.executor.memory}
+vitria.spark.driver.classpath=${vitria.spark.driver.classpath}
+vitria.app.class=${vitria.app.class}
+vitria.app.name=${vitria.app.name}
+spark.sql.hive.thriftServer.singleSession=true
+spark.serializer=org.apache.spark.serializer.KryoSerializer
+spark.scheduler.minRegisteredResourcesRatio=1.0
+#clean non durable app checkpoint when start
+vitria.spark.delete.checkpointdir=true
+spark.sql.shuffle.partitions=4
+spark.kryo.registrator=${spark.kryo.registrator}
+spark.hadoop.cloneConf=true
+########### Add your spark properties here ###########################
+# vitria.sparkdriver.extraJavaOption=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=18787]]></Spark>
+        </Codes>
+        <Libraries>
+          <Lib scope="system" systemPath="${VTBA_HOME}/VIAOps/libs/AnomalyDetection-1.0.jar"/>
+          <Lib scope="system" systemPath="${VTBA_HOME}/wildfly/modules/com/vitria/driver/main/mysql-connector-java-*-bin.jar"/>
+        </Libraries>
+        <Resources/>
+        <Properties>[{&quot;editorType&quot;:&quot;textInput&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;adm&quot;,&quot;label&quot;:&quot;Anomaly Detection Method Name&quot;,&quot;desc&quot;:&quot;Anomaly Detection Method Name&quot;,&quot;type&quot;:&quot;string&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;value&quot;:&quot;&quot;,&quot;enumSource&quot;:&quot;&quot;,&quot;runtimeControl&quot;:false},{&quot;editorType&quot;:&quot;_dataSourceSelector&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;name&quot;:&quot;dataSource&quot;,&quot;label&quot;:&quot;Anomaly Configuration Datasource&quot;,&quot;type&quot;:&quot;object&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;value&quot;:{&quot;dataSource&quot;:&quot;/vitria/m3o/datasource/DefaultDomain/charter_ref_db&quot;,&quot;databaseURL&quot;:&quot;jdbc:mysql://10.101.3.186:3306/charter_ref_db&quot;,&quot;userName&quot;:&quot;root&quot;,&quot;password&quot;:&quot;&lt;HfpP3MY7emGz3R4HNYYdCU4aB6&gt;&quot;,&quot;driverType&quot;:&quot;com.mysql.jdbc.Driver&quot;},&quot;enumSource&quot;:&quot;&quot;,&quot;runtimeControl&quot;:false,&quot;constraints&quot;:{&quot;type&quot;:&quot;dataSource&quot;,&quot;args&quot;:{}}},{&quot;editorType&quot;:&quot;textInput&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;systemModelTable&quot;,&quot;label&quot;:&quot;System Model Table Name&quot;,&quot;desc&quot;:&quot;Name of System Model Table&quot;,&quot;type&quot;:&quot;string&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;value&quot;:&quot;charter_service_model&quot;,&quot;enumSource&quot;:&quot;&quot;,&quot;runtimeControl&quot;:false},{&quot;editorType&quot;:&quot;textInput&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;tableName&quot;,&quot;label&quot;:&quot;Statistics Table Name&quot;,&quot;type&quot;:&quot;string&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;value&quot;:&quot;viaops_statistics&quot;,&quot;enumSource&quot;:&quot;&quot;,&quot;runtimeControl&quot;:false},{&quot;editorType&quot;:&quot;date&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;dailyFrom&quot;,&quot;label&quot;:&quot;Daily Seasonality From&quot;,&quot;type&quot;:&quot;date&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;runtimeControl&quot;:false,&quot;constraints&quot;:{&quot;itemStyle&quot;:&quot;width: 200px;&quot;,&quot;supportNow&quot;:true}},{&quot;editorType&quot;:&quot;date&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;dailyTo&quot;,&quot;label&quot;:&quot;Daily Seasonality To&quot;,&quot;type&quot;:&quot;date&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;runtimeControl&quot;:false,&quot;constraints&quot;:{&quot;itemStyle&quot;:&quot;width: 200px;&quot;,&quot;supportNow&quot;:true}},{&quot;editorType&quot;:&quot;date&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;weekHourlyFrom&quot;,&quot;label&quot;:&quot;Week Hourly Seasonality From&quot;,&quot;type&quot;:&quot;date&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;runtimeControl&quot;:false,&quot;constraints&quot;:{&quot;itemStyle&quot;:&quot;width: 200px;&quot;,&quot;supportNow&quot;:true}},{&quot;editorType&quot;:&quot;date&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;weekHourlyTo&quot;,&quot;label&quot;:&quot;Week Hourly Seasonality To&quot;,&quot;type&quot;:&quot;date&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;runtimeControl&quot;:false,&quot;constraints&quot;:{&quot;itemStyle&quot;:&quot;width: 200px;&quot;,&quot;supportNow&quot;:true}},{&quot;editorType&quot;:&quot;date&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;weeklyFrom&quot;,&quot;label&quot;:&quot;Weekly Seasonality From&quot;,&quot;type&quot;:&quot;date&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;runtimeControl&quot;:false,&quot;constraints&quot;:{&quot;itemStyle&quot;:&quot;width: 200px;&quot;,&quot;supportNow&quot;:true}},{&quot;editorType&quot;:&quot;date&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;weeklyTo&quot;,&quot;label&quot;:&quot;Weekly Seasonality To&quot;,&quot;type&quot;:&quot;date&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;runtimeControl&quot;:false,&quot;constraints&quot;:{&quot;itemStyle&quot;:&quot;width: 200px;&quot;,&quot;supportNow&quot;:true}},{&quot;editorType&quot;:&quot;date&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;from&quot;,&quot;label&quot;:&quot;No Seasonality From&quot;,&quot;type&quot;:&quot;date&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;runtimeControl&quot;:false,&quot;constraints&quot;:{&quot;itemStyle&quot;:&quot;width: 200px;&quot;,&quot;supportNow&quot;:true}},{&quot;editorType&quot;:&quot;date&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;to&quot;,&quot;label&quot;:&quot;No Seasonality To&quot;,&quot;type&quot;:&quot;date&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;runtimeControl&quot;:false,&quot;constraints&quot;:{&quot;itemStyle&quot;:&quot;width: 200px;&quot;,&quot;supportNow&quot;:true}},{&quot;editorType&quot;:&quot;textInput&quot;,&quot;*&quot;:{&quot;label&quot;:&quot;label&quot;,&quot;desc&quot;:&quot;desc&quot;},&quot;group&quot;:&quot;common&quot;,&quot;name&quot;:&quot;partitionSize&quot;,&quot;label&quot;:&quot;Output Partition Number&quot;,&quot;type&quot;:&quot;string&quot;,&quot;hidden&quot;:&quot;false&quot;,&quot;disabled&quot;:false,&quot;resolveProperty&quot;:false,&quot;value&quot;:&quot;1&quot;,&quot;enumSource&quot;:&quot;&quot;,&quot;runtimeControl&quot;:false}]</Properties>
+      </Flow>
+    </Flows>
+  </ModelInfo>
+</DataPipeModel>

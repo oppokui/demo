@@ -1,0 +1,618 @@
+<DataPipeModel description="Batch ADF to generate baseline " name="Adhoc VIAOps - BaseLineGen v5" editBy="flow" is_init="false" useStreaming="auto" durableStreaming="false" streamingAutoStart="false" useHive="yes" batchDuration="P1M" checkpoint="" batchSampling="true" sparkMasterHost="">
+  <HiveConfig>
+    <Properties>
+      <Property name="hive.warehouse.hdfs.source" value=""/>
+      <Property name="hive.metastore.data.source" value=""/>
+      <Property name="hive.server2.thrift.port" value=""/>
+      <Property name="hive.db.schema" value=""/>
+    </Properties>
+  </HiveConfig>
+  <ModelInfo validated="false">
+    <Pipes>
+      <Pipe index="1000" uuid="" name="(main)">
+      </Pipe>
+    </Pipes>
+    <Flows>
+      <Flow index="1000" uuid="Main" isNested="false" revision="568" name="Main" showFooter="true">
+        <Node index="1001" uuid="05682c26-e6be-4552-8295-f3e216abb7c5" type="BatchTarget" label="Daily Target" x="427" y="29" width="130" height="75">
+            <Source name="source" uid="0" outputType="DataFrame" dataType="">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="62fe73fe-3207-4476-8f64-b07f9558d590">
+                <Field name="adm_name" label="adm_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="name" label="name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="generated_tm" label="generated_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="date_key" label="date_key" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="seasonality" label="seasonality" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="dow" label="dow" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="seconds_of_day" label="seconds_of_day" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="usages" label="usages" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="prior_period" label="prior_period" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="start_tm" label="start_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="end_tm" label="end_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="window_size" label="window_size" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="window_step" label="window_step" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="metric_id" label="metric_id" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="aggr_method" label="aggr_method" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="median" label="median" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="median_baseline" label="median_baseline" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="avg" label="avg" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="stdev" label="stdev" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="mad" label="mad" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="series_count" label="series_count" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="expected_count" label="expected_count" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="series_values" label="series_values" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="out" uid="0" outputType="DataFrame">
+              <Field name="adm_name" label="adm_name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="name" label="name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="generated_tm" label="generated_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="date_key" label="date_key" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="seasonality" label="seasonality" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="dow" label="dow" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="seconds_of_day" label="seconds_of_day" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="usages" label="usages" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="prior_period" label="prior_period" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="start_tm" label="start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="end_tm" label="end_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="window_size" label="window_size" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="window_step" label="window_step" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_id" label="metric_id" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_method" label="aggr_method" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="median" label="median" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="median_baseline" label="median_baseline" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="avg" label="avg" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="stdev" label="stdev" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="mad" label="mad" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="series_count" label="series_count" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="expected_count" label="expected_count" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="series_values" label="series_values" type="string" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model type="hive" tableName="${baselineTable}" cache="false" mode="overwrite" partitionType="eventField" partitionSize="" partitionColumn="adm_name,seasonality,dow" partitionIndex="0,4,5" timeColumn="" partitionNum="${partition}">
+            </Model>
+        </Node>
+        <Node index="1002" uuid="00f43c51-6ff2-45be-8ee0-d7c323555184" type="BatchTarget" label="Override Target" x="426" y="213" width="130" height="75">
+            <Source name="source" uid="0" outputType="DataFrame" dataType="">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="4c685bd6-1b1e-4913-8788-8ae107732277">
+                <Field name="override_id" label="override_id" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="adm_name" label="adm_name" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="name" label="name" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="generated_tm" label="generated_tm" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="date_key" label="date_key" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="seasonality" label="seasonality" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="dow" label="dow" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="seconds_of_day" label="seconds_of_day" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="usages" label="usages" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="prior_period" label="prior_period" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="start_tm" label="start_tm" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="end_tm" label="end_tm" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="window_size" label="window_size" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="window_step" label="window_step" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="metric_id" label="metric_id" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="aggr_method" label="aggr_method" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="median" label="median" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="median_baseline" label="median_baseline" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="avg" label="avg" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="stdev" label="stdev" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="mad" label="mad" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="series_count" label="series_count" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="expected_count" label="expected_count" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="series_values" label="series_values" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="out" uid="0" outputType="DataFrame">
+              <Field name="override_id" label="override_id" type="long" isArray="false" isOptional="false"/>
+              <Field name="adm_name" label="adm_name" type="string" isArray="false" isOptional="false"/>
+              <Field name="name" label="name" type="string" isArray="false" isOptional="false"/>
+              <Field name="generated_tm" label="generated_tm" type="long" isArray="false" isOptional="false"/>
+              <Field name="date_key" label="date_key" type="integer" isArray="false" isOptional="false"/>
+              <Field name="seasonality" label="seasonality" type="string" isArray="false" isOptional="false"/>
+              <Field name="dow" label="dow" type="string" isArray="false" isOptional="false"/>
+              <Field name="seconds_of_day" label="seconds_of_day" type="integer" isArray="false" isOptional="false"/>
+              <Field name="usages" label="usages" type="string" isArray="false" isOptional="false"/>
+              <Field name="prior_period" label="prior_period" type="integer" isArray="false" isOptional="false"/>
+              <Field name="start_tm" label="start_tm" type="long" isArray="false" isOptional="false"/>
+              <Field name="end_tm" label="end_tm" type="long" isArray="false" isOptional="false"/>
+              <Field name="window_size" label="window_size" type="long" isArray="false" isOptional="false"/>
+              <Field name="window_step" label="window_step" type="long" isArray="false" isOptional="false"/>
+              <Field name="metric_id" label="metric_id" type="string" isArray="false" isOptional="false"/>
+              <Field name="aggr_method" label="aggr_method" type="string" isArray="false" isOptional="false"/>
+              <Field name="median" label="median" type="double" isArray="false" isOptional="false"/>
+              <Field name="median_baseline" label="median_baseline" type="double" isArray="false" isOptional="false"/>
+              <Field name="avg" label="avg" type="double" isArray="false" isOptional="false"/>
+              <Field name="stdev" label="stdev" type="double" isArray="false" isOptional="false"/>
+              <Field name="mad" label="mad" type="double" isArray="false" isOptional="false"/>
+              <Field name="series_count" label="series_count" type="integer" isArray="false" isOptional="false"/>
+              <Field name="expected_count" label="expected_count" type="integer" isArray="false" isOptional="false"/>
+              <Field name="series_values" label="series_values" type="string" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model type="hive" tableName="${overrideBaselineTable}" cache="false" mode="overwrite" partitionType="eventField" partitionSize="" partitionColumn="override_id,seasonality,dow" partitionIndex="0,5,6" timeColumn="" partitionNum="${partition}">
+            </Model>
+        </Node>
+        <Node index="1003" uuid="02a24475-d712-4cf6-85de-024944cfa7cc" type="Adhoc" label="Get Daily Meta" x="600" y="29" width="130" height="75">
+            <Source name="source1" uid="0" outputType="DataFrame" dataType="">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="05682c26-e6be-4552-8295-f3e216abb7c5">
+                <Field name="adm_name" label="adm_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="name" label="name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="generated_tm" label="generated_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="date_key" label="date_key" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="seasonality" label="seasonality" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="dow" label="dow" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="seconds_of_day" label="seconds_of_day" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="usages" label="usages" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="prior_period" label="prior_period" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="start_tm" label="start_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="end_tm" label="end_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="window_size" label="window_size" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="window_step" label="window_step" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="metric_id" label="metric_id" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="aggr_method" label="aggr_method" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="median" label="median" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="median_baseline" label="median_baseline" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="avg" label="avg" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="stdev" label="stdev" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="mad" label="mad" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="series_count" label="series_count" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="expected_count" label="expected_count" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="series_values" label="series_values" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="out" uid="0" outputType="DataFrame" dataType="class:viaops.anomaly.baseline.Baseline_Meta_Store" referenceType="viaops.anomaly.baseline.Baseline_Meta_Store">
+              <Field name="bmid" label="bmid" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="adm_name" label="adm_name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="name" label="name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_id" label="metric_id" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="date_key" label="date_key" type="date" clazz="" isArray="false" isOptional="false"/>
+              <Field name="dow" label="dow" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="usages" label="usages" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="overrided_app" label="overrided_app" type="string" clazz="" isArray="false" isOptional="true"/>
+              <Field name="overrided_dimensions" label="overrided_dimensions" type="string" clazz="" isArray="false" isOptional="true"/>
+              <Field name="override_id" label="override_id" type="long" clazz="" isArray="false" isOptional="true"/>
+              <Field name="location" label="location" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="generated_tm" label="generated_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="prior_period" label="prior_period" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="modified_tm" label="modified_tm" type="datetime" clazz="" isArray="false" isOptional="false"/>
+              <Field name="deleted" label="deleted" type="boolean" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model isDynamicSchema="false">
+              <Script><![CDATA[   val retval = source1.selectExpr(
+  "name",
+  "adm_name",
+  "generated_tm",
+  "date_key",
+  "dow",
+  "usages",
+  "prior_period",
+  "metric_id",
+  "'hdfs://host/baseline' as location"
+ ).distinct()]]></Script>
+            </Model>
+        </Node>
+        <Node index="1004" uuid="12c9c222-27d2-4633-88ab-3edb62de723b" type="Adhoc" label="Get Override Meta" x="600" y="213" width="130" height="75">
+            <Source name="source1" uid="0" outputType="DataFrame">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="00f43c51-6ff2-45be-8ee0-d7c323555184">
+                <Field name="override_id" label="override_id" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="adm_name" label="adm_name" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="name" label="name" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="generated_tm" label="generated_tm" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="date_key" label="date_key" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="seasonality" label="seasonality" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="dow" label="dow" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="seconds_of_day" label="seconds_of_day" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="usages" label="usages" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="prior_period" label="prior_period" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="start_tm" label="start_tm" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="end_tm" label="end_tm" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="window_size" label="window_size" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="window_step" label="window_step" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="metric_id" label="metric_id" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="aggr_method" label="aggr_method" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="median" label="median" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="median_baseline" label="median_baseline" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="avg" label="avg" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="stdev" label="stdev" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="mad" label="mad" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="series_count" label="series_count" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="expected_count" label="expected_count" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="series_values" label="series_values" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="out" uid="0" outputType="DataFrame" dataType="class:viaops.anomaly.baseline.Baseline_Meta_Store" referenceType="viaops.anomaly.baseline.Baseline_Meta_Store">
+              <Field name="bmid" label="bmid" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="adm_name" label="adm_name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="name" label="name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_id" label="metric_id" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="date_key" label="date_key" type="date" clazz="" isArray="false" isOptional="false"/>
+              <Field name="dow" label="dow" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="usages" label="usages" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="overrided_app" label="overrided_app" type="string" clazz="" isArray="false" isOptional="true"/>
+              <Field name="overrided_dimensions" label="overrided_dimensions" type="string" clazz="" isArray="false" isOptional="true"/>
+              <Field name="override_id" label="override_id" type="long" clazz="" isArray="false" isOptional="true"/>
+              <Field name="location" label="location" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="generated_tm" label="generated_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="prior_period" label="prior_period" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="modified_tm" label="modified_tm" type="datetime" clazz="" isArray="false" isOptional="false"/>
+              <Field name="deleted" label="deleted" type="boolean" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model isDynamicSchema="false">
+              <Script><![CDATA[val paramFilter = "${overrideFilter}"
+val tmpFilter = paramFilter.replace("\"", "\\\"")
+val filter = "\"" + tmpFilter + "\""
+val retval = source1.selectExpr(
+  "name",
+  "adm_name",
+  "generated_tm",
+  "date_key",
+  "dow",
+  "usages",
+  "prior_period",
+  "metric_id",
+ s"$filter as overrided_app",
+  "override_id"
+).distinct()]]></Script>
+            </Model>
+        </Node>
+        <Node index="1005" uuid="08c2ae35-8b4b-4995-8922-bcb54a9a5631" type="JDBCTarget" label="Write Override meta" x="780" y="213" width="130" height="75">
+            <Source name="source" uid="0" outputType="DataFrame" dataType="class:viaops.anomaly.baseline.Baseline_Meta_Store">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="12c9c222-27d2-4633-88ab-3edb62de723b">
+                <Field name="bmid" label="bmid" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="adm_name" label="adm_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="name" label="name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="metric_id" label="metric_id" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="date_key" label="date_key" type="date" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="dow" label="dow" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="usages" label="usages" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="overrided_app" label="overrided_app" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+                <Field name="overrided_dimensions" label="overrided_dimensions" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+                <Field name="override_id" label="override_id" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+                <Field name="location" label="location" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="generated_tm" label="generated_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="prior_period" label="prior_period" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="modified_tm" label="modified_tm" type="datetime" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="deleted" label="deleted" type="boolean" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="out" uid="0" outputType="DataFrame" dataType="class:viaops.anomaly.baseline.Baseline_Meta_Store">
+              <Field name="bmid" label="bmid" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="adm_name" label="adm_name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="name" label="name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_id" label="metric_id" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="date_key" label="date_key" type="date" clazz="" isArray="false" isOptional="false"/>
+              <Field name="dow" label="dow" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="usages" label="usages" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="overrided_app" label="overrided_app" type="string" clazz="" isArray="false" isOptional="true"/>
+              <Field name="overrided_dimensions" label="overrided_dimensions" type="string" clazz="" isArray="false" isOptional="true"/>
+              <Field name="override_id" label="override_id" type="long" clazz="" isArray="false" isOptional="true"/>
+              <Field name="location" label="location" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="generated_tm" label="generated_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="prior_period" label="prior_period" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="modified_tm" label="modified_tm" type="datetime" clazz="" isArray="false" isOptional="false"/>
+              <Field name="deleted" label="deleted" type="boolean" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model type="table" sourceType="jdbc" dataSpeed="" dataVolume="" dataSource="/vitria/m3o/datasource/DefaultDomain/charter_ref_db" tableSchema="charter_ref_db_b" autoGenerate="false" tableInfo="{&quot;catalog&quot;:&quot;charter_ref_db_b&quot;,&quot;name&quot;:&quot;viaops_anomaly_baseline_meta_store&quot;,&quot;type&quot;:&quot;TABLE&quot;}" mode="append" purge="none" tableName="viaops_anomaly_baseline_meta_store">
+              <__binding__><![CDATA[{"dataSource":"dataSource"}]]></__binding__>
+              <datasource name="/vitria/m3o/datasource/DefaultDomain/charter_ref_db">
+              </datasource>
+              <advancedProperties>
+              </advancedProperties>
+              <mapping>
+                <column name="bmid" type="BIGINT" size="19" field="" label="" mtype="long" nillable="false" isArray="false" isPrimary="true"/>
+                <column name="adm_name" type="VARCHAR" size="200" field="adm_name" label="adm_name" mtype="string" nillable="false" isArray="false" isPrimary="false"/>
+                <column name="name" type="VARCHAR" size="200" field="name" label="name" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="metric_id" type="VARCHAR" size="800" field="metric_id" label="metric_id" mtype="string" nillable="false" isArray="false" isPrimary="false"/>
+                <column name="dimensions" type="VARCHAR" size="800" field="" label="" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="date_key" type="DATE" size="" field="date_key" label="date_key" mtype="date" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="dow" type="VARCHAR" size="40" field="dow" label="dow" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="usages" type="VARCHAR" size="40" field="usages" label="usages" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="overrided_app" type="VARCHAR" size="200" field="overrided_app" label="overrided_app" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="overrided_dimensions" type="VARCHAR" size="800" field="" label="" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="override_id" type="BIGINT" size="19" field="override_id" label="override_id" mtype="long" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="location" type="VARCHAR" size="800" field="" label="" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="generated_tm" type="BIGINT" size="19" field="generated_tm" label="generated_tm" mtype="long" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="prior_period" type="INT" size="10" field="prior_period" label="prior_period" mtype="integer" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="state" type="SMALLINT" size="5" field="" label="" mtype="integer" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="modified_ts" type="DATETIME" size="" field="" label="" mtype="datetime" nillable="true" isArray="false" isPrimary="false"/>
+              </mapping>
+            </Model>
+        </Node>
+        <Node index="1006" uuid="44de7c35-7c19-4aa9-8659-ae1dabd793c3" type="BatchTarget" label="History Target" x="428" y="120" width="130" height="75">
+            <Source name="source" uid="0" outputType="DataFrame" dataType="">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="62fe73fe-3207-4476-8f64-b07f9558d590">
+                <Field name="adm_name" label="adm_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="name" label="name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="generated_tm" label="generated_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="date_key" label="date_key" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="seasonality" label="seasonality" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="dow" label="dow" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="seconds_of_day" label="seconds_of_day" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="usages" label="usages" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="prior_period" label="prior_period" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="start_tm" label="start_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="end_tm" label="end_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="window_size" label="window_size" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="window_step" label="window_step" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="metric_id" label="metric_id" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="aggr_method" label="aggr_method" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="median" label="median" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="median_baseline" label="median_baseline" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="avg" label="avg" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="stdev" label="stdev" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="mad" label="mad" type="double" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="series_count" label="series_count" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="expected_count" label="expected_count" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="series_values" label="series_values" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="out" uid="0" outputType="DataFrame">
+              <Field name="adm_name" label="adm_name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="name" label="name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="generated_tm" label="generated_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="date_key" label="date_key" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="seasonality" label="seasonality" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="dow" label="dow" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="seconds_of_day" label="seconds_of_day" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="usages" label="usages" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="prior_period" label="prior_period" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="start_tm" label="start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="end_tm" label="end_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="window_size" label="window_size" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="window_step" label="window_step" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_id" label="metric_id" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_method" label="aggr_method" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="median" label="median" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="median_baseline" label="median_baseline" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="avg" label="avg" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="stdev" label="stdev" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="mad" label="mad" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="series_count" label="series_count" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="expected_count" label="expected_count" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="series_values" label="series_values" type="string" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model type="hive" tableName="${historyBaselineTable}" cache="false" mode="append" partitionType="eventField" partitionSize="" partitionColumn="adm_name,seasonality,dow" partitionIndex="0,4,5" timeColumn="" partitionNum="${partition}">
+            </Model>
+        </Node>
+        <Node index="1007" uuid="62fe73fe-3207-4476-8f64-b07f9558d590" type="Compute" label="Get rid of OverrideID" x="248" y="29" width="130" height="75">
+            <Source name="source" uid="0" outputType="DataFrame" dataType="">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="4c685bd6-1b1e-4913-8788-8ae107732277">
+                <Field name="override_id" label="override_id" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="adm_name" label="adm_name" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="name" label="name" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="generated_tm" label="generated_tm" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="date_key" label="date_key" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="seasonality" label="seasonality" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="dow" label="dow" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="seconds_of_day" label="seconds_of_day" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="usages" label="usages" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="prior_period" label="prior_period" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="start_tm" label="start_tm" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="end_tm" label="end_tm" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="window_size" label="window_size" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="window_step" label="window_step" type="long" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="metric_id" label="metric_id" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="aggr_method" label="aggr_method" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="median" label="median" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="median_baseline" label="median_baseline" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="avg" label="avg" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="stdev" label="stdev" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="mad" label="mad" type="double" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="series_count" label="series_count" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="expected_count" label="expected_count" type="integer" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+                <Field name="series_values" label="series_values" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="out" uid="0" outputType="DataFrame">
+              <Field name="adm_name" label="adm_name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="name" label="name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="generated_tm" label="generated_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="date_key" label="date_key" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="seasonality" label="seasonality" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="dow" label="dow" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="seconds_of_day" label="seconds_of_day" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="usages" label="usages" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="prior_period" label="prior_period" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="start_tm" label="start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="end_tm" label="end_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="window_size" label="window_size" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="window_step" label="window_step" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_id" label="metric_id" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_method" label="aggr_method" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="median" label="median" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="median_baseline" label="median_baseline" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="avg" label="avg" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="stdev" label="stdev" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="mad" label="mad" type="double" clazz="" isArray="false" isOptional="false"/>
+              <Field name="series_count" label="series_count" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="expected_count" label="expected_count" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="series_values" label="series_values" type="string" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model>
+              <Computes>
+                <Compute op="sleText" field="*" arg="" value="adm_name" outputType="string" alias="adm_name" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="name" outputType="string" alias="name" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="generated_tm" outputType="long" alias="generated_tm" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="date_key" outputType="integer" alias="date_key" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="seasonality" outputType="string" alias="seasonality" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="dow" outputType="string" alias="dow" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="seconds_of_day" outputType="integer" alias="seconds_of_day" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="usages" outputType="string" alias="usages" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="prior_period" outputType="integer" alias="prior_period" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="start_tm" outputType="long" alias="start_tm" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="end_tm" outputType="long" alias="end_tm" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="window_size" outputType="long" alias="window_size" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="window_step" outputType="long" alias="window_step" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="metric_id" outputType="string" alias="metric_id" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="aggr_method" outputType="string" alias="aggr_method" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="median" outputType="double" alias="median" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="median_baseline" outputType="double" alias="median_baseline" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="avg" outputType="double" alias="avg" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="stdev" outputType="double" alias="stdev" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="mad" outputType="double" alias="mad" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="series_count" outputType="integer" alias="series_count" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="expected_count" outputType="integer" alias="expected_count" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="series_values" outputType="string" alias="series_values" wordWarp="true"/>
+              </Computes>
+              <CheckboxStatus isChecked="mixed"/>
+            </Model>
+        </Node>
+        <Node index="1008" uuid="4c685bd6-1b1e-4913-8788-8ae107732277" type="GenerateBaseLine" label="Baseline Generator" x="60" y="120" width="130" height="75">
+            <Output name="out" uid="0" outputType="DataFrame">
+              <Field name="override_id" label="override_id" type="long" isArray="false" isOptional="false"/>
+              <Field name="adm_name" label="adm_name" type="string" isArray="false" isOptional="false"/>
+              <Field name="name" label="name" type="string" isArray="false" isOptional="false"/>
+              <Field name="generated_tm" label="generated_tm" type="long" isArray="false" isOptional="false"/>
+              <Field name="date_key" label="date_key" type="integer" isArray="false" isOptional="false"/>
+              <Field name="seasonality" label="seasonality" type="string" isArray="false" isOptional="false"/>
+              <Field name="dow" label="dow" type="string" isArray="false" isOptional="false"/>
+              <Field name="seconds_of_day" label="seconds_of_day" type="integer" isArray="false" isOptional="false"/>
+              <Field name="usages" label="usages" type="string" isArray="false" isOptional="false"/>
+              <Field name="prior_period" label="prior_period" type="integer" isArray="false" isOptional="false"/>
+              <Field name="start_tm" label="start_tm" type="long" isArray="false" isOptional="false"/>
+              <Field name="end_tm" label="end_tm" type="long" isArray="false" isOptional="false"/>
+              <Field name="window_size" label="window_size" type="long" isArray="false" isOptional="false"/>
+              <Field name="window_step" label="window_step" type="long" isArray="false" isOptional="false"/>
+              <Field name="metric_id" label="metric_id" type="string" isArray="false" isOptional="false"/>
+              <Field name="aggr_method" label="aggr_method" type="string" isArray="false" isOptional="false"/>
+              <Field name="median" label="median" type="double" isArray="false" isOptional="false"/>
+              <Field name="median_baseline" label="median_baseline" type="double" isArray="false" isOptional="false"/>
+              <Field name="avg" label="avg" type="double" isArray="false" isOptional="false"/>
+              <Field name="stdev" label="stdev" type="double" isArray="false" isOptional="false"/>
+              <Field name="mad" label="mad" type="double" isArray="false" isOptional="false"/>
+              <Field name="series_count" label="series_count" type="integer" isArray="false" isOptional="false"/>
+              <Field name="expected_count" label="expected_count" type="integer" isArray="false" isOptional="false"/>
+              <Field name="series_values" label="series_values" type="string" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model>
+<Properties>
+{"dataSource":"${dataSource}","name":"${name}","size":"${samplesize}","fromDate":"${startDate}","toDate":"${endDate}","usage":"${baselineUsage}","filter":"${overrideFilter}","baselineTable":"${baselineTable}","systemModelTable":"${systemModelTable}","groupNum":"100"}
+</Properties>
+            </Model>
+        </Node>
+        <Node index="1009" uuid="bf70b4b7-b2cf-4259-87c7-2894a7a2e4a5" type="JDBCTarget" label="Write Daily Meta" x="780" y="29" width="130" height="75">
+            <Source name="source" uid="0" outputType="DataFrame" dataType="class:viaops.anomaly.baseline.Baseline_Meta_Store">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="02a24475-d712-4cf6-85de-024944cfa7cc">
+                <Field name="bmid" label="bmid" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="adm_name" label="adm_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="name" label="name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="metric_id" label="metric_id" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="date_key" label="date_key" type="date" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="dow" label="dow" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="usages" label="usages" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="overrided_app" label="overrided_app" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+                <Field name="overrided_dimensions" label="overrided_dimensions" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+                <Field name="override_id" label="override_id" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+                <Field name="location" label="location" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="generated_tm" label="generated_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="prior_period" label="prior_period" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="modified_tm" label="modified_tm" type="datetime" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="deleted" label="deleted" type="boolean" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="out" uid="0" outputType="DataFrame" dataType="class:viaops.anomaly.baseline.Baseline_Meta_Store">
+              <Field name="bmid" label="bmid" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="adm_name" label="adm_name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="name" label="name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_id" label="metric_id" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="date_key" label="date_key" type="date" clazz="" isArray="false" isOptional="false"/>
+              <Field name="dow" label="dow" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="usages" label="usages" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="overrided_app" label="overrided_app" type="string" clazz="" isArray="false" isOptional="true"/>
+              <Field name="overrided_dimensions" label="overrided_dimensions" type="string" clazz="" isArray="false" isOptional="true"/>
+              <Field name="override_id" label="override_id" type="long" clazz="" isArray="false" isOptional="true"/>
+              <Field name="location" label="location" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="generated_tm" label="generated_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="prior_period" label="prior_period" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="modified_tm" label="modified_tm" type="datetime" clazz="" isArray="false" isOptional="false"/>
+              <Field name="deleted" label="deleted" type="boolean" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model type="table" sourceType="jdbc" dataSpeed="" dataVolume="" dataSource="/vitria/m3o/datasource/DefaultDomain/charter_ref_db" tableSchema="charter_ref_db_b" autoGenerate="false" tableInfo="{&quot;catalog&quot;:&quot;charter_ref_db_b&quot;,&quot;name&quot;:&quot;viaops_anomaly_baseline_meta_store&quot;,&quot;type&quot;:&quot;TABLE&quot;}" mode="append" purge="none" tableName="viaops_anomaly_baseline_meta_store">
+              <__binding__><![CDATA[{"dataSource":"dataSource"}]]></__binding__>
+              <datasource name="/vitria/m3o/datasource/DefaultDomain/charter_ref_db">
+              </datasource>
+              <advancedProperties>
+              </advancedProperties>
+              <mapping>
+                <column name="bmid" type="BIGINT" size="19" field="" label="" mtype="long" nillable="false" isArray="false" isPrimary="true"/>
+                <column name="adm_name" type="VARCHAR" size="200" field="adm_name" label="adm_name" mtype="string" nillable="false" isArray="false" isPrimary="false"/>
+                <column name="name" type="VARCHAR" size="200" field="name" label="name" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="metric_id" type="VARCHAR" size="800" field="metric_id" label="metric_id" mtype="string" nillable="false" isArray="false" isPrimary="false"/>
+                <column name="dimensions" type="VARCHAR" size="800" field="" label="" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="date_key" type="DATE" size="" field="date_key" label="date_key" mtype="date" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="dow" type="VARCHAR" size="40" field="dow" label="dow" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="usages" type="VARCHAR" size="40" field="usages" label="usages" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="overrided_app" type="VARCHAR" size="200" field="" label="" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="overrided_dimensions" type="VARCHAR" size="800" field="" label="" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="override_id" type="BIGINT" size="19" field="" label="" mtype="long" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="location" type="VARCHAR" size="800" field="location" label="location" mtype="string" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="generated_tm" type="BIGINT" size="19" field="generated_tm" label="generated_tm" mtype="long" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="prior_period" type="INT" size="10" field="prior_period" label="prior_period" mtype="integer" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="state" type="SMALLINT" size="5" field="" label="" mtype="integer" nillable="true" isArray="false" isPrimary="false"/>
+                <column name="modified_ts" type="DATETIME" size="" field="" label="" mtype="datetime" nillable="true" isArray="false" isPrimary="false"/>
+              </mapping>
+            </Model>
+        </Node>
+        <Link srcId="62fe73fe-3207-4476-8f64-b07f9558d590" srcPort="out:0" tgtId="44de7c35-7c19-4aa9-8659-ae1dabd793c3" tgtPort="in:0"/>
+        <Link srcId="05682c26-e6be-4552-8295-f3e216abb7c5" srcPort="out:0" tgtId="02a24475-d712-4cf6-85de-024944cfa7cc" tgtPort="din:0"/>
+        <Link srcId="00f43c51-6ff2-45be-8ee0-d7c323555184" srcPort="out:0" tgtId="12c9c222-27d2-4633-88ab-3edb62de723b" tgtPort="din:0"/>
+        <Link srcId="12c9c222-27d2-4633-88ab-3edb62de723b" srcPort="dout:0" tgtId="08c2ae35-8b4b-4995-8922-bcb54a9a5631" tgtPort="in:0"/>
+        <Link srcId="62fe73fe-3207-4476-8f64-b07f9558d590" srcPort="out:0" tgtId="05682c26-e6be-4552-8295-f3e216abb7c5" tgtPort="in:0"/>
+        <Link srcId="4c685bd6-1b1e-4913-8788-8ae107732277" srcPort="out:0" tgtId="62fe73fe-3207-4476-8f64-b07f9558d590" tgtPort="in:0">
+            <Properties>{"label":"daily","isControlFlow":"data","type":"If","expr":{"script":"return properties.baselineUsage == \"daily\""},"codeGenPolicy":"conditional"}</Properties>
+        </Link>
+        <Link srcId="4c685bd6-1b1e-4913-8788-8ae107732277" srcPort="out:0" tgtId="00f43c51-6ff2-45be-8ee0-d7c323555184" tgtPort="in:0">
+            <Properties>{"label":"override","isControlFlow":"data","type":"Otherwise","expr":{"script":"return properties.baselineUsage == \"override\""},"codeGenPolicy":"conditional"}</Properties>
+        </Link>
+        <Link srcId="02a24475-d712-4cf6-85de-024944cfa7cc" srcPort="dout:0" tgtId="bf70b4b7-b2cf-4259-87c7-2894a7a2e4a5" tgtPort="in:0"/>
+      <Codes>
+          <Spark><![CDATA[########## The following properties are coming from UI configuration ###########
+spark.master=${spark.master}
+spark.cores.max=${spark.cores.max}
+spark.executor.instances=${spark.executor.instances}
+spark.executor.cores=${spark.executor.cores}
+spark.executor.memory=${spark.executor.memory}
+vitria.spark.driver.classpath=${vitria.spark.driver.classpath}
+vitria.app.class=${vitria.app.class}
+vitria.app.name=${vitria.app.name}
+spark.sql.hive.thriftServer.singleSession=true
+spark.serializer=org.apache.spark.serializer.KryoSerializer
+spark.scheduler.minRegisteredResourcesRatio=1.0
+#clean non durable app checkpoint when start
+vitria.spark.delete.checkpointdir=true
+spark.sql.shuffle.partitions=4
+spark.kryo.registrator=${spark.kryo.registrator}
+spark.hadoop.cloneConf=true
+spark.sql.crossJoin.enabled=true
+########### Add your spark properties here ###########################
+# vitria.sparkdriver.extraJavaOption=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=18787]]></Spark>
+          <Hive><![CDATA[########## The following properties are coming from UI configuration ###########
+javax.jdo.option.ConnectionURL=${javax.jdo.option.ConnectionURL}
+javax.jdo.option.ConnectionDriveName=${javax.jdo.option.ConnectionDriveName}
+javax.jdo.option.ConnectionUserName=${javax.jdo.option.ConnectionUserName}
+javax.jdo.option.ConnectionPassword=${javax.jdo.option.ConnectionPassword}
+hive.server2.thrift.port=${hive.server2.thrift.port}
+hive.db.schema=${hive.db.schema}
+spark.sql.warehouse.dir=${hive.metastore.warehouse.dir}
+hive.exec.dynamic.partition.mode=nonstrict
+datanucleus.connectionPoolingType=DBCP
+spark.sql.crossJoin.enabled=true
+########### Add your hive properties here ###########################
+]]></Hive>
+      </Codes>
+      <Libraries>
+          <Lib scope="system" systemPath="${VTBA_HOME}/VIAOps/libs/AnomalyDetection-1.0.jar"/>
+          <Lib scope="system" systemPath="${VTBA_HOME}/wildfly/modules/com/vitria/driver/main/mysql-connector-java-*-bin.jar"/>
+      </Libraries>
+      <Resources>
+      </Resources>
+      <Properties>[{"editorType":"_dataSourceSelector","*":{"label":"label","desc":"desc"},"name":"dataSource","label":"Anomaly Configuration DataSource","type":"object","hidden":"false","disabled":false,"resolveProperty":false,"value":{"dataSource":"/vitria/m3o/datasource/DefaultDomain/charter_ref_db"},"enumSource":"","runtimeControl":false,"constraints":{"type":"dataSource","args":{"node":{"id":"bf70b4b7-b2cf-4259-87c7-2894a7a2e4a5","uuid":"bf70b4b7-b2cf-4259-87c7-2894a7a2e4a5","type":"JDBCTarget","pipe":"Main","x":"780","y":"29","width":"130","height":"75","label":"Write Daily Meta","model":{"func":"JDBCTarget","desc":"","index":"1009","_nodeId":"bf70b4b7-b2cf-4259-87c7-2894a7a2e4a5","sources":[{"sourceName":"source","uid":"0","sourceData":{"category":"#OUTPUT","params":[],"schema":[{"name":"bmid","label":"bmid","type":"long","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"adm_name","label":"adm_name","type":"string","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"name","label":"name","type":"string","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"metric_id","label":"metric_id","type":"string","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"date_key","label":"date_key","type":"date","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"dow","label":"dow","type":"string","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"usages","label":"usages","type":"string","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"overrided_app","label":"overrided_app","type":"string","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":true},{"name":"overrided_dimensions","label":"overrided_dimensions","type":"string","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":true},{"name":"override_id","label":"override_id","type":"long","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":true},{"name":"location","label":"location","type":"string","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"generated_tm","label":"generated_tm","type":"long","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"prior_period","label":"prior_period","type":"integer","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"modified_tm","label":"modified_tm","type":"datetime","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false},{"name":"deleted","label":"deleted","type":"boolean","_isDimension":false,"_isMeasure":false,"clazz":"","_isArray":false,"_isOptional":false}],"uuid":"02a24475-d712-4cf6-85de-024944cfa7cc","nodeId":"02a24475-d712-4cf6-85de-024944cfa7cc","pipeId":"Main","name":"out","outputType":"DataFrame","dataType":"class:viaops.anomaly.baseline.Baseline_Meta_Store"}}],"output":{"schema":[{"name":"bmid","label":"bmid","type":"long","clazz":"","_isArray":false,"_isOptional":false},{"name":"adm_name","label":"adm_name","type":"string","clazz":"","_isArray":false,"_isOptional":false},{"name":"name","label":"name","type":"string","clazz":"","_isArray":false,"_isOptional":false},{"name":"metric_id","label":"metric_id","type":"string","clazz":"","_isArray":false,"_isOptional":false},{"name":"date_key","label":"date_key","type":"date","clazz":"","_isArray":false,"_isOptional":false},{"name":"dow","label":"dow","type":"string","clazz":"","_isArray":false,"_isOptional":false},{"name":"usages","label":"usages","type":"string","clazz":"","_isArray":false,"_isOptional":false},{"name":"overrided_app","label":"overrided_app","type":"string","clazz":"","_isArray":false,"_isOptional":true},{"name":"overrided_dimensions","label":"overrided_dimensions","type":"string","clazz":"","_isArray":false,"_isOptional":true},{"name":"override_id","label":"override_id","type":"long","clazz":"","_isArray":false,"_isOptional":true},{"name":"location","label":"location","type":"string","clazz":"","_isArray":false,"_isOptional":false},{"name":"generated_tm","label":"generated_tm","type":"long","clazz":"","_isArray":false,"_isOptional":false},{"name":"prior_period","label":"prior_period","type":"integer","clazz":"","_isArray":false,"_isOptional":false},{"name":"modified_tm","label":"modified_tm","type":"datetime","clazz":"","_isArray":false,"_isOptional":false},{"name":"deleted","label":"deleted","type":"boolean","clazz":"","_isArray":false,"_isOptional":false}],"name":"out","uid":"0","outputType":"DataFrame","dataType":"class:viaops.anomaly.baseline.Baseline_Meta_Store","dataSpeed":null,"dataVolume":null,"meta":{"cacheEnabled":false,"storageLevel":null,"partitionEnabled":false,"partitionPolicy":null,"partitionNum":null,"shuffle":false,"exploreConfig":{"_index":"Default","items":[{"name":"Default"}]}}},"storeType":"table","sourceType":"jdbc","dataSource":"/vitria/m3o/datasource/DefaultDomain/charter_ref_db","snapshotSettingValue":null,"autoGenerate":"false","databaseName":"charter_ref_db","selectTable":"viaops_anomaly_baseline_meta_store","editTable":"viaops_anomaly_baseline_meta_store","tableInfo":"{\"catalog\":\"charter_ref_db\",\"name\":\"viaops_anomaly_baseline_meta_store\",\"type\":\"TABLE\"}","updatePolicy":"append","purgeType":"none","selectedFields":[],"selectedFields2":[],"dataSpeed":"","dataVolume":"","__binding__":{"dataSource":"dataSource"},"advancedProperties":[],"mapping":[{"columnName":"bmid","columnType":"BIGINT","columnSize":"19","fieldName":"","label":"","name":"","type":"long","nillable":false,"isArray":false,"primaryKey":true},{"columnName":"adm_name","columnType":"VARCHAR","columnSize":"200","fieldName":"adm_name","label":"adm_name","name":"adm_name","type":"string","nillable":false,"isArray":false,"primaryKey":false},{"columnName":"name","columnType":"VARCHAR","columnSize":"200","fieldName":"name","label":"name","name":"name","type":"string","nillable":true,"isArray":false,"primaryKey":false},{"columnName":"metric_id","columnType":"VARCHAR","columnSize":"800","fieldName":"metric_id","label":"metric_id","name":"metric_id","type":"string","nillable":false,"isArray":false,"primaryKey":false},{"columnName":"date_key","columnType":"DATE","columnSize":"","fieldName":"date_key","label":"date_key","name":"date_key","type":"date","nillable":true,"isArray":false,"primaryKey":false},{"columnName":"dow","columnType":"VARCHAR","columnSize":"40","fieldName":"dow","label":"dow","name":"dow","type":"string","nillable":true,"isArray":false,"primaryKey":false},{"columnName":"usages","columnType":"VARCHAR","columnSize":"40","fieldName":"usages","label":"usages","name":"usages","type":"string","nillable":true,"isArray":false,"primaryKey":false},{"columnName":"overrided_app","columnType":"VARCHAR","columnSize":"200","fieldName":"","label":"","name":"","type":"string","nillable":true,"isArray":false,"primaryKey":false},{"columnName":"override_id","columnType":"BIGINT","columnSize":"19","fieldName":"","label":"","name":"","type":"long","nillable":true,"isArray":false,"primaryKey":false},{"columnName":"location","columnType":"VARCHAR","columnSize":"800","fieldName":"location","label":"location","name":"location","type":"string","nillable":true,"isArray":false,"primaryKey":false},{"columnName":"generated_tm","columnType":"BIGINT","columnSize":"19","fieldName":"generated_tm","label":"generated_tm","name":"generated_tm","type":"long","nillable":true,"isArray":false,"primaryKey":false},{"columnName":"prior_period","columnType":"INT","columnSize":"10","fieldName":"prior_period","label":"prior_period","name":"prior_period","type":"integer","nillable":true,"isArray":false,"primaryKey":false},{"columnName":"state","columnType":"SMALLINT","columnSize":"5","fieldName":"","label":"","name":"","type":"integer","nillable":true,"isArray":false,"primaryKey":false},{"columnName":"modified_ts","columnType":"DATETIME","columnSize":"","fieldName":"","label":"","name":"","type":"datetime","nillable":true,"isArray":false,"primaryKey":false}],"databaseURL":"jdbc:mysql://10.101.3.186:3306/charter_ref_db","userName":"root","password":"&lt;qrqFlfGuD@QoJihrQHcXRcg&gt;","driverType":"com.mysql.jdbc.Driver"},"index":"1009"}}}},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"name","label":"Anomaly Detection Method Name","desc":"the name to run baseline","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"samplesize","label":"Sample Size","desc":"Number of days data to collect to run baseline","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"5","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"startDate","label":"Start Date","desc":"yyyy-MM-dd","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"endDate","label":"End Date","desc":"yyyy-MM-dd","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"partition","label":"Partition Number","desc":"Spark SQL Table Partition Number","type":"long","hidden":"false","disabled":false,"resolveProperty":false,"value":1,"enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"overrideFilter","label":"Override Filter","desc":"OverrideFilter","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"baselineTable","label":"Baseline Table Name","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"viaops_baseline","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"overrideBaselineTable","label":"Override Baseline Table Name","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"viaops_override_baseline","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"historyBaselineTable","label":"History Baseline Table Name","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"viaops_history_baseline","enumSource":"","runtimeControl":false},{"editorType":"sparkSelect","*":{"label":"label","desc":"desc","options.daily":"constraints.args.options.0.label","options.override":"constraints.args.options.1.label"},"group":"common","name":"baselineUsage","label":"Baseline Usage","desc":"Determine generate daily or override baseline","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"override","runtimeControl":false,"constraints":{"type":"sparkSelect","args":{"options":[{"label":"Daily","value":"daily"},{"label":"Override","value":"override"}],"needPlaceholder":true,"multiple":false}}},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"systemModelTable","label":"System Model Table Name","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"charter_service_model","enumSource":"","runtimeControl":false}]</Properties>
+      </Flow>
+    </Flows>
+  </ModelInfo>
+</DataPipeModel>
