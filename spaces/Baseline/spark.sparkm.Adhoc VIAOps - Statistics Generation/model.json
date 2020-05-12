@@ -21,10 +21,10 @@
       "name": "running.profile"
     }
   ],
-  "lastDate": "1589275059464",
+  "lastDate": "1589275074198",
   "owner": "charter_admin",
   "properties": {
-    "_RESOURCE_Description": "Description of New Model 1",
+    "_RESOURCE_Description": "Description of New Model 1 ",
     "_RESOURCE_Type": "sparkm",
     "__references__": "",
     "modelStatus": "valid",
