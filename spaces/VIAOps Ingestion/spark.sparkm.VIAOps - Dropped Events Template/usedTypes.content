@@ -1,1 +1,0 @@
-{"Main":{},"DroppedEvents":{"viaops.ingestion.DroppedEvents":[{"name":"error","type":"string","_isOptional":false,"_isArray":false,"id":"_id_0"},{"name":"data","type":"string","_isOptional":false,"_isArray":false,"id":"_id_1"}]}}
