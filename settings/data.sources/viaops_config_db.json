@@ -1,0 +1,18 @@
+{
+  "behavior": "MySQL",
+  "connectionUrl": "jdbc:mysql://oppokuit460p:3306/viaops_config_db?useSSL=false",
+  "dataSourceClass": "com.mysql.jdbc.Driver",
+  "database": "viaops_config_db",
+  "description": "",
+  "dialect": "org.hibernate.dialect.MySQLDialect",
+  "driver": "",
+  "maxPoolSize": "20",
+  "minPoolSize": "0",
+  "notUsedByProjectPersistence": "true",
+  "password": "<u0@prUr0vV0dZwB!BFUg>",
+  "port": 3306,
+  "server": "oppokuit460p",
+  "url": null,
+  "username": "khuang",
+  "xaDataSourceClass": "com.mysql.jdbc.jdbc2.optional.MysqlXADataSource"
+}
