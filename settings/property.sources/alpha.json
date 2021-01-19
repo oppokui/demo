@@ -1,0 +1,10 @@
+{
+  "category": "standalone",
+  "data": {
+    "common": {"hdfs_root": "hdfs://apoopsintprd-ncw-hahdfs/viaops"},
+    "snmp_module": {
+      "snmp_root": "${common.hdfs_root}/snmp",
+      "test": "${domain.hive::warehouse}"
+    }
+  }
+}
