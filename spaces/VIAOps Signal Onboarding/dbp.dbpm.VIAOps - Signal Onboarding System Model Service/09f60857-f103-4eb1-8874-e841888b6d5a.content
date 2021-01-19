@@ -1,0 +1,14 @@
+INSERT INTO viaops_metric_info (
+    metric_id,
+    base_metric_id,
+    service_name,
+    service_label,
+    sub_service_name,
+    sub_service_label,
+    app_name,
+    app_label,
+    metric_name,
+    metric_label,
+    dim_keys,
+    dim_values
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "[]", "[]")

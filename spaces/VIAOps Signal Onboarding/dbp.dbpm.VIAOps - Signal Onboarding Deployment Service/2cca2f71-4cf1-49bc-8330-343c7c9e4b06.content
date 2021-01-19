@@ -1,0 +1,3 @@
+DELETE FROM
+    viaops_signal_onboarding_model_info
+WHERE uuid=? and name=?

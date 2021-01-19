@@ -1,0 +1,86 @@
+[
+	{
+		"name"  : "aggr_start_tm",
+		"label" : "Aggregation Start Timestamp",
+		"expr"  : "(unix_timestamp_millisec(ts)/(5*60000))*5*60",
+		"type"  : "long"
+	},
+	{
+		"name"  : "aggr_end_tm",
+		"label" : "Aggregation End Timestamp",
+		"expr"  : "(unix_timestamp_millisec(ts)/(5*60000))*5*60+5*60",
+		"type"  : "long"
+	},
+	{
+		"name"  : "app",
+		"label" : "Component",
+		"expr"  : "parse_target_app",
+		"type"  : "string"
+	},
+	{
+		"name"  : "ts_key",
+		"label" : "Timestamp Key",
+		"expr"  : "\"\"",
+		"type"  : "string"
+	},
+	{
+		"name"  : "ts_value",
+		"label" : "Timestamp Value",
+		"expr"  : "\"\"",
+		"type"  : "string"
+	},
+	{
+		"name"  : "system_tm",
+		"label" : "System Timestamp",
+		"expr"  : "unix_timestamp_millisec(now()) / 1000",
+		"type"  : "long"
+	},
+	{
+		"name"  : "process_type",
+		"label" : "Process Type",
+		"expr"  : "if(${stop_after_batch}>0,\"Ad-Hoc\",\"Realtime\")",
+		"type"  : "string"
+	},
+	{
+		"name"  : "aggr_type",
+		"label" : "Aggregation Function",
+		"expr"  : "aggr_func",
+		"type"  : "string"
+	},
+	{
+		"name"  : "source_fmt",
+		"label" : "Source Format",
+		"expr"  : "\"csv\"",
+		"type"  : "string"
+	},
+	{
+		"name"  : "source_tz",
+		"label" : "Source Timezone",
+		"expr"  : "\"${time_zone}\"",
+		"type"  : "string"
+	},
+	{
+		"name"  : "date_key",
+		"label" : "Date Key",
+		"expr"  : "cast(format_date(ts,'yyyyMMdd'),'long')",
+		"type"  : "long"
+	},
+	{
+		"name"  : "metric_name",
+		"label" : "Metric Name",
+		"expr"  : "parse_target_metric",
+		"type"  : "string"
+	},
+	{
+		"name"  : "metric_value",
+		"label" : "Metric Value",
+		"expr"  : "metric_value",
+		"type"  : "double"
+	},
+	{
+		"name"  : "metric_uom",
+		"label" : "Unit of Measure",
+		"expr"  : "aggr_func",
+		"type"  : "string"
+	}
+]

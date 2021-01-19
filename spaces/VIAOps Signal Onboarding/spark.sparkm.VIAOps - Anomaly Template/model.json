@@ -1,0 +1,37 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "registeredTypes"
+    },
+    {
+      "fileref": "ModelContentFile2",
+      "name": "usedTypes"
+    },
+    {
+      "fileref": "ModelContentFile3",
+      "name": "miniviewData"
+    },
+    {
+      "fileref": "ModelContentFile4",
+      "name": "debug.configuration"
+    }
+  ],
+  "lastDate": "1608021001565",
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "DO_Sprint12_20201216",
+    "_RESOURCE_Type": "sparkm",
+    "__references__": "adf.subflow:///viaops.anomaly/Baseline Anomaly Detection@5258,adf.subflow:///viaops.anomaly/AnomalyPersistence@95,adf.subflow:///viaops.anomaly/Anomaly Aggregate Metrics@4888,adf.subflow:///viaops.anomaly/Threshold Anomaly Detection@1858,adf.subflow:///viaops.anomaly/Enrich MetricID@1212,adf.subflow:///viaops.anomaly/Map To Anomaly@592",
+    "modelStatus": "valid",
+    "name": "VIAOps - Anomaly Template",
+    "subflowReg": "",
+    "typeDeps": "{\"dependencies\":[\"viaops.anomaly.Raw_Anomaly\",\"viaops.anomaly.Dropped_Metrics\",\"viaops.anomaly.Aggr_Metrics\",\"viaops.anomaly.baseline.conf.Baseline_Conf\"],\"contributes\":[]}",
+    "typeReg": "",
+    "vtui:flags": "31"
+  }
+}

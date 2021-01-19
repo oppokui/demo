@@ -1,0 +1,19 @@
+UPDATE viaops_signal_onboarding_model_info 
+SET 
+    ingestion_model=?,
+    anomaly_model=?,
+    datasource_model=?,
+    system_model=?,
+    hdfs_server_url=?,
+    source_path=?,
+    spark_sql_table_path=?,
+    spark_sql_table=?,
+    anomaly_file_path=?,    
+    dropped_metric=?,
+    adm_name=?,
+    metric_id_list=?,
+    output_name_list=?,
+    ingestion_model_context=?,
+    anomaly_model_context=?,
+    modified_ts=current_timestamp()
+WHERE uuid=? and name=?

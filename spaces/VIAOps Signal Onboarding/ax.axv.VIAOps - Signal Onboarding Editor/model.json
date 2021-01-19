@@ -1,0 +1,21 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "locale"
+    }
+  ],
+  "lastDate": "1608021001583",
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "DO_Sprint12_20201216",
+    "_RESOURCE_Type": "axv",
+    "__references__": "/app/dbp/space/VIA Common Library/dbpm/VIA - Common,/app/dbp/space/VIA Common Library/dbpm/VIA - HDFS Interface,/app/dbp/space/VIA Common Library/dbpm/VIA - Data Source Plugin,/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Service,/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Status Service",
+    "modelStatus": "valid",
+    "name": "VIAOps - Signal Onboarding Editor"
+  }
+}

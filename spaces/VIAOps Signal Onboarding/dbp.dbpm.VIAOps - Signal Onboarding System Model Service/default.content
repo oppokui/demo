@@ -1,0 +1,1707 @@
+<DashboardPluginModel description="" name="VIAOps - Signal Onboarding System Model Service" is_init="false">
+  <ModelInfo validated="true">
+    <Properties>
+    </Properties>
+    <Widgets>
+    </Widgets>
+    <Functions>
+    </Functions>
+    <Services>
+      <Service name="___createCompFilterConfig" args="filterConfigs,contextNames,contextLabels,namePrefix,output,enrich" private="true">
+        <CodeText>
+          <![CDATA[if (filterConfigs == null) {
+    filterConfigs = [];
+}
+
+var queryConfig = this.getQueryConfig();
+
+function helperHas(scope)
+{
+    var filterName = queryConfig["filters"][scope];
+    return "helper.has(${" + filterName + "},['" + contextNames[scope] + "'])";
+}
+
+var filterConfig = {
+    "name" : namePrefix.toLowerCase(),
+    "label" : contextLabels["svc"] + "|" + contextLabels["comp"] + "|" + contextLabels["app"] + " Dimensions",
+    "name-style" : "padding-left:0px;width:0px;",
+    "value-style" : "padding:0px;width:100%;",
+    "display" : "return " + helperHas("svc") + " && " + helperHas("comp") + " && " + helperHas("app"),
+    "dimensions" : []
+};
+
+function addFilterDimension(itemName, itemLabel)
+{
+    var dimension = {
+        "name"      : itemName,
+        "label"     : itemLabel,
+        "dependent" : [queryConfig["filters"]["metric"]],
+        "enable"    : "return " + helperHas("svc") + " && helper.isSet(${" + queryConfig["filters"]["metric"] + "})",
+        "type"      : "DualListBuilder",
+        "type-params" : {
+            "text/placeholder"   : "List of " + itemLabel.toLowerCase(),
+            "dialog/title"       : "Build " + itemLabel.toLowerCase() + " list",
+            "dialog/description" : "Build list to filter on.",
+            "dialog/widget/config/service/url"     : "__OPTIONS_SERVICE__/getOptions",
+            "dialog/widget/config/service/context" : {
+                "execute-context" : [contextNames["svc"], contextNames["comp"], contextNames["app"]],
+                "module-context"  : ["metric", itemName]
+            }
+        },
+        "default" : []
+    };
+    filterConfig.dimensions.push(dimension);
+}
+/*
+pivot.dimensions.forEach(function(item) {
+    addFilterDimension(item.name, item.label || item.name);
+});
+*/
+
+output.forEach(function(item) {
+    if (item.isDimension == true && item.__reserved__ != true) {
+        addFilterDimension(item.name, item.label || item.name);
+    }
+});
+/*
+if (this._hasEnrichment(enrich)) {
+    for (var i=0; i<enrich.joinClause.length; i++) {
+        var clause = enrich.joinClause[i];
+        if (clause.include == true) {
+            addFilterDimension(clause.rightField, clause.rightField);
+        }
+    }
+}
+*/
+filterConfigs.push(filterConfig);
+return filterConfigs;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___createDimensionQueryConfig" args="dimensionQueryConfig,queryKey,sparkTable,pivot,assocSubservice,dimensionList,sourceQueryKey" private="true">
+        <CodeText>
+          <![CDATA[if (dimensionQueryConfig == null) {
+    dimensionQueryConfig = {
+        "service-queries" : {},
+        "source-config-keys" : {}
+    };
+}
+dimensionQueryConfig["source-config-keys"][queryKey] = sourceQueryKey;
+
+//var baseDimensions = [];
+//pivot.dimensions.forEach(function(item) {
+//    baseDimensions.push(item.name);
+//});
+var config = {
+    "params" : {
+        "table-name"          : sparkTable,
+        "where-clause"        : [],
+        //"base-dimensions"     : baseDimensions,
+        "compound-dimensions" : [],
+        "exclude-dimensions"  : [],
+    }
+};
+
+if (assocSubservice != null && dimensionList != null) {
+    var metricDimensionList = [];
+    dimensionList.forEach(function(item) {
+        metricDimensionList.push({
+            "filter" : assocSubservice.toLowerCase() + "." + item.filter,
+            "name"   : item.name,
+            "label"  : item.label,
+            "group"  : item.group,
+        });
+    });
+    config["dimension-list"] = metricDimensionList;
+}
+
+dimensionQueryConfig["service-queries"][queryKey] = config;
+return dimensionQueryConfig;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___createFilterConfig" args="project,namePrefix,output,enrich,metricMap" private="true">
+        <CodeText>
+          <![CDATA[var partition = [{
+    svc: project.svc,
+    svcLabel: project.svcLabel || project.svc,
+    subSvc: project.comp,
+    subSvcLabel: project.compLabel || project.comp,
+    comp: project.app,
+    compLabel: project.appLabel || project.app
+}];
+
+if (project.subservices.length > 0 && metricMap != null) {
+    partition = partition.concat(project.subservices);
+}
+
+var filterConfig = [];
+var self = this;
+partition.forEach(function (item) {
+    var contextNames = {
+        svc  : item.svc,
+        comp : item.subSvc,
+        app  : item.comp,
+    };
+    var contextLabels = {
+        svc  : item.svcLabel  || item.svc,
+        comp : item.subSvcLabel || item.subSvc,
+        app  : item.compLabel || item.comp
+    };
+
+    var compNamePrefix = namePrefix;
+    if (item.svc != project.svc || item.subSvc != project.comp || item.comp != project.app) {
+        compNamePrefix = item.svc + "." + item.subSvc + "." + item.comp + "." + namePrefix;
+    }
+    filterConfig = self.___createCompFilterConfig(filterConfig, contextNames, contextLabels, compNamePrefix, output, enrich);
+});
+
+return filterConfig;]]>
+        </CodeText>
+      </Service>
+      <Service name="___createOptionsDimKeyConfig" args="project,queryKey,namePrefix,sparkTable,output,enrich,metricMap" private="true">
+        <CodeText>
+          <![CDATA[var partition = [{
+    svc: project.svc,
+    svcLabel: project.svcLabel || project.svc,
+    subSvc: project.comp,
+    subSvcLabel: project.compLabel || project.comp,
+    comp: project.app,
+    compLabel: project.appLabel || project.app
+}];
+
+if (project.subservices.length > 0 && metricMap != null) {
+    partition = partition.concat(project.subservices);
+}
+
+
+var optionsDimKeyConfig = {};
+function addOptionsDimKey(compQueryKey, compNamePrefix, column, type)
+{
+    if (!optionsDimKeyConfig[compQueryKey]) {
+        optionsDimKeyConfig[compQueryKey] = [];
+    }
+    var item = {
+        "option"       : column,
+        "table-name"   : sparkTable,
+        "select-value" : column,
+        "where-clause" : [
+        ],
+        "filter-names" : [
+            compNamePrefix.toLowerCase() + "." + column
+        ]
+    }
+    
+    if (type == null || type == "string") {
+        item["where-clause"].push("and " + column + " != ''");
+    }
+    (optionsDimKeyConfig[compQueryKey]).push(item);
+}
+
+output.forEach(function(ditem) {
+    if (ditem.isDimension == true && ditem.__reserved__ != true) {
+        partition.forEach(function (item) {
+            var compNamePrefix = namePrefix;
+            if (item.svc != project.svc || item.subSvc != project.comp || item.comp != project.app) {
+                compNamePrefix = item.svc + "." + item.subSvc + "." + item.comp + "." + namePrefix;
+            }
+            var compQueryKey = item.svc + "|" + item.subSvc + "|" + item.comp;
+            addOptionsDimKey(compQueryKey, compNamePrefix, ditem.name);
+        });
+        
+    }
+});
+
+return optionsDimKeyConfig;]]>
+        </CodeText>
+      </Service>
+      <Service name="___createOptionsQueryConfig" args="project,sparkTable,output,enrich" private="true">
+        <CodeText>
+          <![CDATA[var queryConfig = this.getQueryConfig();
+
+var optionsQueryConfig = {
+    "option-queries":{}
+};
+
+function addOptionQuery(column, type)
+{
+    var queryKey = project.svc+"|"+project.comp+"|"+project.app+"[metric|"+column+"]";
+    if (project.subservices.length > 0) {
+        for (var i=0, iN=project.subservices.length; i<iN; i++) {
+            var item = project.subservices[i];
+            var assocQueryKey = item.svc+"|"+item.subSvc+"|"+item.comp+"[metric|"+column+"]";
+            optionsQueryConfig["option-queries"][assocQueryKey] = queryKey;
+        }
+    }
+    optionsQueryConfig["option-queries"][queryKey] = {
+        "table-name"          : sparkTable,
+        "distinct-column"     : column,
+        "option-where-clause" : [{
+            "option"   : "metrics", 
+            "filter"   : queryConfig["filters"]["metric"],
+            "column"   : "metric_name",
+            "required" : true
+        }],
+        "custom-where-clause" : [
+        ],
+        "dimension-clause-attributes" : {
+            "svc"  : queryConfig["filters"]["svc"],
+            "comp" : queryConfig["filters"]["comp"],
+            "app"  : queryConfig["filters"]["app"],
+        }            
+    };
+    
+    if (type == null || type == "string") {
+        optionsQueryConfig["option-queries"][queryKey]["custom-where-clause"].push(column + " != ''")
+    }
+}
+
+/*
+pivot.dimensions.forEach(function(item) {
+    addOptionQuery(item.name);
+});
+*/
+
+output.forEach(function(item) {
+    if (item.isDimension == true && item.__reserved__ != true) {
+        addOptionQuery(item.name);
+    }
+});
+
+/*
+if (this._hasEnrichment(enrich)) {
+    var schema = {};
+    for (var j=0; j<enrich.rightFields.length; j++) {
+        schema[enrich.rightFields[j].name] = enrich.rightFields[j];
+    }
+    for (var i=0; i<enrich.joinClause.length; i++) {
+        var clause = enrich.joinClause[i];
+        if (clause.include == true) {
+            var field = schema[clause.rightField];
+            addOptionQuery(clause.rightField, field.type);
+        }
+    }
+}
+*/
+return optionsQueryConfig;]]>
+        </CodeText>
+      </Service>
+      <Service name="___createServiceConfig" args="project,mode,dimensionValues,metricList,metricMap" private="true">
+        <CodeText>
+          <![CDATA[var serviceConfig = {
+    groups: []
+};
+
+var partition = [{
+    svc: project.svc,
+    svcLabel: project.svcLabel || project.svc,
+    subSvc: project.comp,
+    subSvcLabel: project.compLabel || project.comp,
+    comp: project.app,
+    compLabel: project.appLabel || project.app
+}];
+
+if (project.subservices.length > 0 && metricMap != null) {
+    partition = partition.concat(project.subservices);
+}
+
+var serviceMap = {};
+partition.forEach(function (item) {
+    if (!serviceMap[item.svc]) serviceMap[item.svc] = [];
+    
+    serviceMap[item.svc].push(item);
+});
+
+var self = this;
+for (var pro in serviceMap) {
+    self.___createSvcServiceConfig(project, mode, dimensionValues, metricList, metricMap, serviceConfig, serviceMap[pro]);
+}
+
+return serviceConfig;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___createSourceConfig" args="project,sourceGroup,targetGroup,metricList,dimensionList,metricMap" private="true">
+        <CodeText>
+          <![CDATA[function getFilteredList(svc, subSvc, comp) {
+    var list = [];
+    var key = svc + "|" + subSvc + "|" + comp;
+    for (var i = 0, iN = metricList.length; i < iN; i++) {
+        var metric = metricList[i];
+        if (metricMap[metric.name + "[" + key + "]"]) {
+            list.push(metric);
+        }
+    }
+    return list;
+}
+
+var partition = [{
+    svc: project.svc,
+    svcLabel: project.svcLabel || project.svc,
+    subSvc: project.comp,
+    subSvcLabel: project.compLabel || project.comp,
+    comp: project.app,
+    compLabel: project.appLabel || project.app
+}];
+
+if (project.subservices.length > 0 && metricMap != null) {
+    partition = partition.concat(project.subservices);
+}
+
+var sourceConfig = {};
+partition.forEach(function(item) {
+    var config = {};
+    if (sourceGroup != null) config["source-group"] = sourceGroup;
+    if (targetGroup != null) config["target-group"] = targetGroup;
+    if (project.subservices.length > 0 && metricMap != null) {
+        if (metricList != null) config["metric-list"] = this.___getSourceConfigMetricList(getFilteredList(item.svc, item.subSvc, item.comp));
+    } else {
+        if (metricList != null) config["metric-list"] = this.___getSourceConfigMetricList(metricList);
+    }
+    if (dimensionList != null) config["dimension-list"] = dimensionList;
+    sourceConfig[item.svc + "|" + item.subSvc + "|" + item.comp] = config;
+});
+return sourceConfig;]]>
+        </CodeText>
+      </Service>
+      <Service name="___createSvcServiceConfig" args="project,mode,dimensionValues,metricList,metricMap,serviceConfig,partition" private="true">
+        <CodeText>
+          <![CDATA[if (!partition || partition.length == 0) return;
+
+function hasMetric() {
+    if (project.subservices.length > 0 && metricMap != null) {
+        for (var i = 0; i < partition.length; i++) {
+            var item = partition[i]
+            if (getFilteredList(item.svc, item.subSvc, item.comp).length > 0) {
+                return true;
+            }
+        }
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function generateSubserviceMap(subServiceMap) {
+    partition.forEach(function(item) {
+        if (!subServiceMap[item.subSvc]) {
+            subServiceMap[item.subSvc] = {
+                name: item.subSvc,
+                label: item.subSvcLabel,
+                comp: {}
+            };
+        }
+
+        var subService = subServiceMap[item.subSvc];
+        if (!subService.comp[item.comp]) {
+            subService.comp[item.comp] = {
+                name: item.comp,
+                label: item.compLabel
+            }
+        }
+    });
+}
+
+function getFilteredList(svc, subSvc, comp) {
+    var list = [];
+    var key = svc + "|" + subSvc + "|" + comp;
+    for (var i = 0, iN = metricList.length; i < iN; i++) {
+        var metric = metricList[i];
+        if (metricMap[metric.name + "[" + key + "]"]) {
+            list.push(metric);
+        }
+    }
+    return list;
+}
+
+function getDimensionValues(svc, subSvc, comp) {
+    var values = [];
+    if (comp == null) {
+        var key = "subSvc:" + svc;
+        if (dimensionValues[key] != null && dimensionValues[key].length > 0) {
+            values = values.concat(dimensionValues["subSvc:" + svc]);
+        }
+        
+        key = "subSvc:" + svc + "|" + subSvc;
+        if (dimensionValues[key] != null  && dimensionValues[key].length > 0) {
+            values = values.concat(dimensionValues[key]);
+        }
+    } else {
+        var key = "comp:" + svc + "|" + subSvc;
+        if (dimensionValues[key] != null  && dimensionValues[key].length > 0) {
+            values = values.concat(dimensionValues[key]);
+        }
+        
+        key = "comp:" + svc + "|" + subSvc + "|" + comp;
+        if (dimensionValues[key] != null  && dimensionValues[key].length > 0) {
+            values = values.concat(dimensionValues[key]);
+        }
+    }
+    return values.length > 0 ? values : null;
+}
+
+function mergeDimensionValues(meta, dimensionValues) {
+    // HOW TO MERGE?
+    meta["dimension-values"] = dimensionValues;
+}
+
+if (!hasMetric()) return;
+
+var svcMetadata = {};
+if (mode == "demo") {
+    svcMetadata["release-tag"] = "NuovaStella";
+}
+
+var serviceName = partition[0].svc;
+var serviceLabel = partition[0].svcLabel;
+var subServiceMap = {};
+var metricIdMap = {};
+generateSubserviceMap(subServiceMap);
+
+var svc = {
+    name: serviceName,
+    label: serviceLabel,
+    "fa-label": serviceLabel || serviceName,
+    meta: svcMetadata,
+    groups: []
+};
+if (dimensionValues["svc:" + serviceName] != null) {
+    if (svc.meta == null) svc.meta = {};
+    mergeDimensionValues(svc.meta, dimensionValues["svc:" + serviceName]);
+}
+
+var self = this;
+for (var subSvcPro in subServiceMap) {
+    if (subSvcPro != "*") {
+        var subSvcItem = subServiceMap[subSvcPro];
+        var comp = {
+            name: subSvcItem.name,
+            label: subSvcItem.label || subSvcItem.name,
+            "fa-label": subSvcItem.label || subSvcItem.name,
+            groups: []
+        };
+
+        var compDimensionValues = getDimensionValues(serviceName, subSvcItem.name, null);
+        if (compDimensionValues != null) {
+            if (comp.meta == null) comp.meta = {};
+            mergeDimensionValues(comp.meta, compDimensionValues);
+        }
+        svc.groups.push(comp);
+
+        for (var compPro in subSvcItem.comp) {
+            if (compPro != "*") {
+                var compItem = subSvcItem.comp[compPro];
+                var app = {
+                    name: compItem.name,
+                    label: compItem.label || compItem.label
+                };
+                var appDimensionValues = getDimensionValues(serviceName, subSvcItem.name, compItem.name);
+                if (appDimensionValues != null) {
+                    if (app.meta == null) app.meta = {};
+                    mergeDimensionValues(app.meta, appDimensionValues);
+                }
+                comp.groups.push(app);
+                if (project.subservices.length > 0 && metricMap != null) {
+                    app.items = getFilteredList(serviceName, subSvcItem.name, compItem.name);
+                } else {
+                    app.items = metricList;
+                }
+            } else {
+                comp.items = metricList;
+            }
+        }
+    } else {
+        svc.items = metricList;
+    }
+}
+
+serviceConfig.groups.push(svc);
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___createTrendQueryConfig" args="trendQueryConfig,queryKey,mode,sparkTable,assocSubservice,dimensionList,sourceQueryKey" private="true">
+        <CodeText>
+          <![CDATA[if (trendQueryConfig == null) {
+    trendQueryConfig = {
+        "service-queries" : {},
+        "source-config-keys" : {}
+    };
+}
+trendQueryConfig["source-config-keys"][queryKey] = sourceQueryKey;
+
+var queryConfig = {
+    "params" : {
+        "metric-table": sparkTable,
+    },
+    "options" : {
+        "use-precomputed-baseline" : mode == "deploy",
+    }
+};
+
+if (assocSubservice != null && dimensionList != null) {
+    var metricDimensionList = [];
+    dimensionList.forEach(function(item) {
+        metricDimensionList.push({
+            "filter" : assocSubservice.toLowerCase() + "." + item.filter,
+            "column" : item.name,
+            "group"  : item.group,
+        });
+    });
+    queryConfig["params"]["metric-dimension-list"] = metricDimensionList;
+}
+
+trendQueryConfig["service-queries"][queryKey] = queryConfig;
+
+return trendQueryConfig;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___getServiceConfigDimensionValues" args="output,qdc" private="true">
+        <CodeText>
+          <![CDATA[var dimensionTypes = {};
+for (var i=0; i<output.length; i++) {
+    dimensionTypes[output[i]["name"]] = output[i]["type"];
+}
+var dimensionValues = {};
+for (var scope in qdc) {
+    var scopeQDC = qdc[scope];
+    var dimValue = null;
+    var dimList = null;
+    if (scopeQDC.operator == "and") {
+        dimValue = [];
+        dimList = dimValue;
+        dimensionValues[scope] = dimValue;
+    } else {
+        dimValue = {};
+        dimList = [];
+        dimValue[scopeQDC.operator] = dimList;
+        dimensionValues[scope] = [dimValue];
+    }
+    var list = dimList;
+    if (scopeQDC.items != null && scopeQDC.items.length > 0) {
+        for (var i=0; i<scopeQDC.items.length; i++) {
+            var item = scopeQDC.items[i];
+            if (item.type != "JSON") {
+                switch (dimensionTypes[item.name]) {
+                    case "string":
+                    case "datetime":
+                        if (Array.isArray(item.value)) {
+                            for (var j=0; j<item.value.length; j++) {
+                                if (typeof item.value[j] == "string") {
+                                    item.value[j] = item.value[j].trim();
+                                }
+                            }
+                        }
+                        else if (item.value != null && (typeof item.value == "string")) {
+                            item.value = item.value.trim();
+                        }
+                        break;
+
+                    case "int":
+                    case "long":
+                    case "float":
+                    case "double":
+                        if (Array.isArray(item.value)) {
+                            for (var j=0; j<item.value.length; j++) {
+                                item.value[j] = Number(item.value[j]);
+                                if (isNaN(item.value[j])) item.value[j] = null;
+                            }
+                        }
+                        else if (item.value != null) {
+                            item.value = Number(item.value);
+                            if (isNaN(item.value)) item.value = null;
+                        }
+                        break;
+                    case "boolean":
+                        if (Array.isArray(item.value)) {
+                            for (var j=0; j<item.value.length; j++) {
+                                item.value[j] = item.value[j] == true || item.value[j].toLowerCase() == "true";
+                            }
+                        }
+                        else if (item.value != null) {
+                            item.value = item.value == true || item.value.toLowerCase() == "true";
+                        }
+                        break;
+                }
+                switch (item.oper) {
+                    case "EQ":
+                        if (item.sql) {
+                            list.push({
+                                name  : item.name,
+                                sql   : true,
+                                value : item.value,
+                            });
+                        }
+                        else if (item.regex) {
+                            list.push({
+                                name  : item.name,
+                                regex : true,
+                                value : item.value,
+                            });
+                        }
+                        else {
+                            list.push({
+                                name  : item.name,
+                                value : item.value,
+                            });
+                        }
+                        break;
+                    case "NE":
+                        if (item.sql) {
+                            list.push({
+                                name  : item.name,
+                                sql   : true,
+                                not   : true,
+                                value : item.value,
+                            });
+                        }
+                        else if (item.regex) {
+                            list.push({
+                                name  : item.name,
+                                regex : true,
+                                not   : true,
+                                value : item.value,
+                            });
+                        }
+                        else {
+                            list.push({
+                                name  : item.name,
+                                not   : true,
+                                value : item.value,
+                            });
+                        }
+                        break;
+                }
+            } else if (item.type == "JSON") {
+                var _json = null;
+                try {
+                    if (typeof item.value == "string") {
+                        _json = JSON.parse(item.value);
+                    } else {
+                        _json = item.value;
+                    }
+                } catch (ex) {
+                    print("___getServiceConfigDimensionValues: failed to parse json qdc " + item.value);
+                }
+                if (_json != null) {
+                    list.push(_json);
+                }
+            }
+        }
+    }
+    
+    if (dimList.length == 0) {
+        dimensionValues[scope] = null;
+    }
+}
+return dimensionValues;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___getServiceConfigMetricList" args="metricList" private="true">
+        <CodeText>
+          <![CDATA[var serviceConfigMetricList = [];
+for (var i=0, n=metricList.length; i<n; i++) {
+    var metric = metricList[i];
+    serviceConfigMetricList.push({
+        name  : metric.name,
+        label : metric.label,
+        uom   : metric.uom,
+        aggr  : metric.aggr,
+    });
+}
+return serviceConfigMetricList;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___getSourceConfigDimensionList" args="namePrefix,output,enrich" private="true">
+        <CodeText>
+          <![CDATA[var sourceConfigDimensionList = [];
+
+function addSourceDimension(itemName, itemLabel)
+{
+    sourceConfigDimensionList.push({
+        name   : itemName,
+        label  : itemLabel,
+        filter : namePrefix.toLowerCase() + "." + itemName,
+        group  : false,
+    });
+}
+/*
+pivot.dimensions.forEach(function(item) {
+    addSourceDimension(item.name, item.label || item.name);
+});
+*/
+
+output.forEach(function(item) {
+    if (item.isDimension == true && item.__reserved__ != true) {
+        addSourceDimension(item.name, item.label || item.name);
+    }
+});
+
+/**
+if (this._hasEnrichment(enrich)) {
+    for (var i=0; i<enrich.joinClause.length; i++) {
+        var clause = enrich.joinClause[i];
+        if (clause.include == true) {
+            addSourceDimension(clause.rightField, clause.rightField);
+        }
+    }
+}
+*/
+
+return sourceConfigDimensionList;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___getSourceConfigMetricList" args="metricList" private="true">
+        <CodeText>
+          <![CDATA[var sourceConfigMetricList = {};
+for (var i=0, n=metricList.length; i<n; i++) {
+    var metric = metricList[i];
+    sourceConfigMetricList[metric.name] = {
+        name : metric.value,
+        sourceName: metric.sourceName,
+        aggr : metric.aggr,
+    };
+}
+return sourceConfigMetricList;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="__generateSystemModel" args="project,deployment,mode,schema,pivot,count,enrich,output,qdc,metric" private="true">
+        <CodeText>
+          <![CDATA[var queryConfig = this.getQueryConfig();
+var defaultValues = this._getDefaultValues();
+var nameDefaults = this.getNameDefaults(project);
+
+var deploymentGlobalMap = {};
+deployment.parserProfile.common["Parser Properties"].forEach(function (item) {
+    deploymentGlobalMap[item.id] = item;
+});
+
+var queryKey    = project.svc+"|"+project.comp+"|"+project.app;
+var namePrefix  = (project.safePrefix || nameDefaults.namePrefix);
+
+var sourceGroup = (project.sourceGroup || nameDefaults.sourceGroup);
+var targetGroup = (project.targetGroup || nameDefaults.targetGroup);
+var sparkTable = deploymentGlobalMap["spark_sql_table"].value || deploymentGlobalMap["spark_sql_table"].defaultValue;
+
+var metricList = this.___getMetricList(pivot, count);
+metricList = metricList.filter(function (metric) {
+    return metric.include !== false; 
+});
+
+
+var subserviceMetricMap = null;
+if (project.subservices.length > 0) {
+    subserviceMetricMap = {};
+    for (var i=0, iN=metric.length; i<iN; i++) {
+        var model = metric[i];
+        for (var key in model) {
+            if (key != "_metricName_" && key != "_metricLabel_") {
+                subserviceMetricMap[model._metricName_+"["+key+"]"] = model[key];
+            }
+        }
+    }
+}
+
+var serviceConfigMetricList      = this.___getServiceConfigMetricList(metricList);
+var sourceConfigDimensionList    = this.___getSourceConfigDimensionList(namePrefix, output, enrich);
+var serviceConfigDimensionValues = this.___getServiceConfigDimensionValues(output, qdc);
+
+var serviceConfig = this.___createServiceConfig(project, mode, serviceConfigDimensionValues, serviceConfigMetricList, subserviceMetricMap);
+
+var sourceConfig  = this.___createSourceConfig(project, sourceGroup, targetGroup, metricList, sourceConfigDimensionList, subserviceMetricMap);
+
+var trendQueryConfig = this.___createTrendQueryConfig(null, queryKey, mode, sparkTable, null, null, queryKey);
+if (project.subservices.length > 0) {
+    for (var i=0, iN=project.subservices.length; i<iN; i++) {
+        var subservice = project.subservices[i];
+        var subserviceQueryKey = subservice.svc+"|"+subservice.subSvc+"|"+subservice.comp;
+        var subservicePrefix = subservice.svc+"."+subservice.subSvc+"."+subservice.comp;
+        trendQueryConfig = this.___createTrendQueryConfig(trendQueryConfig, subserviceQueryKey, mode, sparkTable, subservicePrefix, sourceConfigDimensionList, queryKey);
+    }
+}
+
+var dimensionQueryConfig = this.___createDimensionQueryConfig(null, queryKey, sparkTable, pivot, null, null, queryKey);
+if (project.subservices.length > 0) {
+    for (var i=0, iN=project.subservices.length; i<iN; i++) {
+        var subservice = project.subservices[i];
+        var subserviceQueryKey = subservice.svc+"|"+subservice.subSvc+"|"+subservice.comp;
+        var subservicePrefix = subservice.svc+"."+subservice.subSvc+"."+subservice.comp;
+        dimensionQueryConfig = this.___createDimensionQueryConfig(dimensionQueryConfig, subserviceQueryKey, sparkTable, pivot, subservicePrefix, sourceConfigDimensionList, queryKey);
+    }
+}
+
+var filterConfig = this.___createFilterConfig(project, namePrefix, output, enrich, subserviceMetricMap);
+var optionsQueryConfig = this.___createOptionsQueryConfig(project, sparkTable, output, enrich, subserviceMetricMap);
+var optionsDimKeyConfig = this.___createOptionsDimKeyConfig(project, queryKey, namePrefix, sparkTable, output, enrich, subserviceMetricMap);
+
+return {
+    "service-config"         : serviceConfig,
+    "source-config"          : sourceConfig,
+    "trend-query-config"     : trendQueryConfig,
+    "dimension-query-config" : dimensionQueryConfig,
+    "filter-config"          : filterConfig,
+    "options-query-config"   : optionsQueryConfig,
+    "options-dimkey-config"  : optionsDimKeyConfig,
+};
+]]>
+        </CodeText>
+      </Service>
+      <Service name="_cleanupAnomalySOL" args="queryConfig,name" private="true">
+        <CodeText>
+          <![CDATA[var DATASOURCE = queryConfig["data-source"]["anomaly-model"];
+
+var DELETE_SQL = Context.getLocalResource("ANOMALY_BASELINE_META_STORE_DELETE_SQL");
+this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "Anomaly Baseline", "Delete"], DATASOURCE, DELETE_SQL, [[name]]);
+
+DELETE_SQL = Context.getLocalResource("ANOMALY_SOL_DELETE_SQL");
+this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "Anomaly SOL", "Delete"], DATASOURCE, DELETE_SQL, [[name]]);]]>
+        </CodeText>
+      </Service>
+      <Service name="_cleanupIncidentConfig" args="queryConfig,metrics" private="true">
+        <CodeText>
+          <![CDATA[var DATASOURCE = queryConfig["data-source"]["incident-model"];
+
+if (metrics.length > 0) {
+    var DELETE_SQL = Context.getLocalResource("INCIDENT_MODEL_DELETE_SQL");
+    this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "Incident Config", "Delete"], DATASOURCE, DELETE_SQL, metrics);
+}
+]]>
+        </CodeText>
+      </Service>
+      <Service name="_cleanupMetricQDC" args="queryConfig,metrics" private="true">
+        <CodeText>
+          <![CDATA[var DATASOURCE = queryConfig["data-source"]["metric-qdc"];
+
+if (metrics.length > 0) {
+    var DELETE_SQL = Context.getLocalResource("QDC_TABLE_DELETE_SQL");
+    this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "Metric QDC", "Delete"], DATASOURCE, DELETE_SQL, metrics);
+}
+]]>
+        </CodeText>
+      </Service>
+      <Service name="_cleanupParseTable" args="queryConfig,metrics" private="true">
+        <CodeText>
+          <![CDATA[var DATASOURCE = queryConfig["data-source"]["parse-model"];
+
+if (metrics.length > 0) {
+    var DELETE_SQL = Context.getLocalResource("PARSE_TABLE_DELETE_SQL");
+    this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "Parse Table", "Delete"], DATASOURCE, DELETE_SQL, metrics);
+}
+]]>
+        </CodeText>
+      </Service>
+      <Service name="_clenupMetricInfo" args="queryConfig,metrics" private="true">
+        <CodeText>
+          <![CDATA[var DATASOURCE = queryConfig["data-source"]["metric-info"];
+
+if (metrics.length > 0) {
+    var DELETE_SQL = Context.getLocalResource("METRIC_INFO_DELETE_SQL");
+    this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "Metric Info", "Delete"], DATASOURCE, DELETE_SQL, metrics);
+}
+]]>
+        </CodeText>
+      </Service>
+      <Service name="_createIncidentConfig" args="queryConfig,metricId,sparkTable,algorithm,threshold_policy,threshold_high,threshold_med,threshold_low,warmup_threshold,warmup_period,cooldown_period" private="true">
+        <CodeText>
+          <![CDATA[var CONFIG_PLUGIN = queryConfig["dependent-plugins"]["ConfigPlugin"];
+if (CONFIG_PLUGIN && CONFIG_PLUGIN["url"]) {
+    var DEFAULT_VALUES = this._getDefaultValues();
+    var configDefaultValues = {
+        algorithm        : algorithm,
+        threshold_policy : threshold_policy,
+        threshold_high   : threshold_high   || DEFAULT_VALUES["disable-high-threshold"]   || 99999999,
+        threshold_med    : threshold_med    || DEFAULT_VALUES["disable-medium-threshold"] || 99999999,
+        threshold_low    : threshold_low    || DEFAULT_VALUES["disable-low-threshold"]    || 99999999,
+        warmup_threshold : warmup_threshold || DEFAULT_VALUES["disable-warmup-threshold"] || 99999999,
+        warmup_period    : warmup_period    || DEFAULT_VALUES["disable-warmup-period"]    || 99999999,
+        cooldown_period  : cooldown_period  || DEFAULT_VALUES["disable-cooldown-period"]  || 99999999,
+        call_metric_id   : "none",
+        generate         : "y",
+    };
+
+    // defaults cooldown exception to match warmup setting
+    switch (algorithm) {
+        case "score":
+            configDefaultValues["min_metric_vol"] = configDefaultValues["warmup_threshold"];
+            configDefaultValues["min_call_vol"]   = DEFAULT_VALUES["disable-cooldown-call-volume"] || 99999999;
+            break;
+        case "simple_threshold":
+            configDefaultValues["min_metric_vol"] = configDefaultValues["warmup_threshold"];
+            break;
+    }
+
+    // disables escalation by default
+    configDefaultValues["med_threshold_period"]  = DEFAULT_VALUES["disable-escalate-high-period"]   || 86400;
+    configDefaultValues["high_threshold_period"] = DEFAULT_VALUES["disable-escalate-medium-period"] || 86400;
+
+    var toks    = metricId.split("|");
+    var url     = CONFIG_PLUGIN["url"] + "/createIncidentModel";
+    var headers = {
+        config : JSON.stringify({
+            svc                  : toks[0],
+            comp                 : toks[1],
+            app                  : toks[2],
+            metric               : toks[3],
+            anomalyWindow        : "5/5",
+            "spark_metric_table" : sparkTable,
+            "default-values"     : configDefaultValues,
+            "update-metric-info" : false,
+            "update-metric-qdc"  : false,
+        }),
+        overwrite : "true"
+    };
+    Context.POST(url, headers);
+}
+]]>
+        </CodeText>
+      </Service>
+      <Service name="_deleteIncidentConfig" args="queryConfig,metricIds,algorithm,threshold_policy" private="true">
+        <CodeText>
+          <![CDATA[var CONFIG_PLUGIN = queryConfig["dependent-plugins"]["ConfigPlugin"];
+if (CONFIG_PLUGIN && CONFIG_PLUGIN["url"]) {
+    var selection = [];
+    for (var i=0; i<metricIds.length; i++) {
+        var metricId = metricIds[i];
+        var toks = metricId.split("|");
+        selection.push({
+            metric_id        : metricId,
+            service          : toks[0],
+            sub_service      : toks[1],
+            anomaly_window   : "5/5",
+            algorithm        : algorithm,
+            threshold_policy : threshold_policy,
+        });
+    }
+    var url = CONFIG_PLUGIN["url"] + "/deleteIncidentModel";
+    var headers = {
+        selection : JSON.stringify(selection),
+        version : "V2"
+    };
+    Context.POST(url, headers);
+}
+]]>
+        </CodeText>
+      </Service>
+      <Service name="_generateParseTableModel" args="serviceConfig,sourceConfig,queryConfig" private="true">
+        <CodeText>
+          <![CDATA[var CONFIG_PLUGIN = queryConfig["dependent-plugins"]["ConfigPlugin"];
+var url = CONFIG_PLUGIN["url"] + "/getParseModel";
+
+var serviceConfigUUID = Context.generateRandomUUID();
+var sourceConfigUUID = Context.generateRandomUUID();
+
+var CacheUtil = com.vitria.util.CacheUtil;
+var cache = CacheUtil.getCache("VIA.SIGNAL.ONBOARDING", 5);
+cache.put(serviceConfigUUID, JSON.stringify(serviceConfig));
+cache.put(sourceConfigUUID, JSON.stringify(sourceConfig));
+
+var headers = {
+    "serviceConfig" : JSON.stringify({
+        __cache__: true,
+        category : "VIA.SIGNAL.ONBOARDING",
+        key      : serviceConfigUUID
+    }),
+    "sourceConfig" : JSON.stringify({
+        __cache__: true,
+        category : "VIA.SIGNAL.ONBOARDING",
+        key      : sourceConfigUUID
+    })
+};
+
+var result = this._callExternalService(url, headers);
+cache.remove(serviceConfigUUID);
+cache.remove(sourceConfigUUID);
+return result;]]>
+        </CodeText>
+      </Service>
+      <Service name="_generateQDCMap" args="serviceConfig,sourceConfig,queryConfig" private="true">
+        <CodeText>
+          <![CDATA[var CONFIG_PLUGIN = queryConfig["dependent-plugins"]["ConfigPlugin"];
+var url = CONFIG_PLUGIN["url"] + "/getQDCMap";
+
+var serviceConfigUUID = Context.generateRandomUUID();
+var sourceConfigUUID = Context.generateRandomUUID();
+
+var CacheUtil = com.vitria.util.CacheUtil;
+var cache = CacheUtil.getCache("VIA.SIGNAL.ONBOARDING", 5);
+cache.put(serviceConfigUUID, JSON.stringify(serviceConfig));
+cache.put(sourceConfigUUID, JSON.stringify(sourceConfig));
+
+var headers = {
+    "serviceConfig" : JSON.stringify({
+        __cache__: true,
+        category : "VIA.SIGNAL.ONBOARDING",
+        key      : serviceConfigUUID
+    }),
+    "sourceConfig" : JSON.stringify({
+        __cache__: true,
+        category : "VIA.SIGNAL.ONBOARDING",
+        key      : sourceConfigUUID
+    })
+};
+
+var result = this._callExternalService(url, headers);
+cache.remove(serviceConfigUUID);
+cache.remove(sourceConfigUUID);
+return result;]]>
+        </CodeText>
+      </Service>
+      <Service name="_updateMetricInfo" args="queryConfig,systemModel,deleteOnly" private="true">
+        <CodeText>
+          <![CDATA[var serviceConfig = systemModel["service-config"] || systemModel["ServiceConfig"];
+if (serviceConfig == null) return;
+
+var DATASOURCE = queryConfig["data-source"]["metric-info"];
+var inserts = [];
+var deletes = [];
+serviceConfig.groups.forEach(function(svc) {
+    if (svc.items != null) {
+        var rootMetricId = svc.name + "|*|*";
+        deletes.push([rootMetricId + "|%"]);
+        svc.items.forEach(function(metric) {
+            deletes.push([rootMetricId + "|" + metric.name]);
+            if (!deleteOnly) {
+                inserts.push([
+                    rootMetricId + "|" + metric.name, rootMetricId + "|" + metric.name,
+                    svc.name, svc.label, "*", "*", "*", "*", metric.name, metric.label
+                ]);
+            }
+        });
+    }
+    if (svc.groups != null) {
+        svc.groups.forEach(function(comp) {
+            if (comp.items != null) {
+                var rootMetricId = svc.name + "|" + comp.name + "|*";
+                deletes.push([rootMetricId + "|%"]);
+                comp.items.forEach(function(metric) {
+                    deletes.push([rootMetricId + "|" + metric.name]);
+                    if (!deleteOnly) {
+                        inserts.push([
+                            rootMetricId + "|" + metric.name, rootMetricId + "|" + metric.name,
+                            svc.name, svc.label, comp.name, comp.label, "*", "*", metric.name, metric.label
+                        ]);
+                    }
+                });
+            }
+            if (comp.groups != null) {
+                comp.groups.forEach(function(app) {
+                    if (app.items != null) {
+                        var rootMetricId = svc.name + "|" + comp.name + "|" + app.name;
+                        app.items.forEach(function(metric) {
+                            deletes.push([rootMetricId + "|" + metric.name]);
+                            if (!deleteOnly) {
+                                inserts.push([
+                                    rootMetricId + "|" + metric.name, rootMetricId + "|" + metric.name,
+                                    svc.name, svc.label, comp.name, comp.label, app.name, app.label, metric.name, metric.label
+                                ]);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+});
+
+//print("_updateMetricInfo: deletes="+__prettyPrintJSON(deletes));
+if (deletes.length > 0) {
+    var DELETE_SQL = Context.getLocalResource("METRIC_INFO_DELETE_SQL");
+    this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "Metric Info", "Delete"], DATASOURCE, DELETE_SQL, deletes);
+}
+
+//print("_updateMetricInfo: inserts="+__prettyPrintJSON(inserts));
+if (inserts.length > 0) {
+    var INSERT_SQL = Context.getLocalResource("METRIC_INFO_INSERT_SQL");
+    this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "Metric Info", "Delete"], DATASOURCE, INSERT_SQL, inserts);
+}
+]]>
+        </CodeText>
+      </Service>
+      <Service name="_updateParseTable" args="queryConfig,systemModel,deleteOnly" private="true">
+        <CodeText>
+          <![CDATA[var sourceConfig = systemModel["source-config"] || systemModel["SourceConfig"];
+if (sourceConfig == null) return;
+
+var serviceConfig = systemModel["service-config"] || systemModel["ServiceConfig"];
+if (serviceConfig == null) return;
+
+var DATASOURCE = queryConfig["data-source"]["parse-model"];
+var inserts = [];
+var deletes_by_group = [];
+var deletes_by_metric_id = [];
+
+for (var svc_comp_app in sourceConfig) {
+    var parse_source_group = sourceConfig[svc_comp_app]["source-group"];
+    var parse_target_group = sourceConfig[svc_comp_app]["target-group"];
+    deletes_by_group.push([parse_source_group,parse_target_group]);
+}
+
+
+function isValid(metric)
+{
+    if (metric["parseSourceGroup"] == null) return false;
+    if (metric["parseSourceName"] == null) return false;
+    if (metric["parseAggrFunc"] == null) return false;
+    if (metric["parseTargetGroup"] == null) return false;
+    if (metric["parseTargetApp"] == null) return false;
+    if (metric["parseTargetMetric"] == null) return false;
+    return true;
+}
+
+var parseModel = this._generateParseTableModel(serviceConfig, sourceConfig, queryConfig);
+if (parseModel != null) {
+    parseModel.forEach(function(metric) {
+        if (isValid(metric)) {
+            deletes_by_metric_id.push([metric["metricId"]]);
+            if (!deleteOnly) {
+                inserts.push([
+                    metric["metricId"],
+                    metric["parseAggrFunc"],
+                    metric["parseSourceGroup"],
+                    metric["parseSourceName"],
+                    metric["parseTargetGroup"],
+                    metric["parseTargetApp"],
+                    metric["parseTargetMetric"],
+                ]);
+            }
+        }
+    });
+}
+
+//print("_updateParseTable: deletes_by_group="+__prettyPrintJSON(deletes_by_group));
+//if (deletes_by_group.length > 0) {
+//    var DELETE_SQL = Context.getLocalResource("PARSE_TABLE_DELETE_BY_GROUP_SQL");
+//    SQL.executeUpdate(DATASOURCE, DELETE_SQL, deletes_by_group);
+//}
+
+//print("_updateParseTable: deletes_by_metric_id="+__prettyPrintJSON(deletes_by_metric_id));
+if (deletes_by_metric_id.length > 0) {
+    var DELETE_SQL = Context.getLocalResource("PARSE_TABLE_DELETE_BY_METRIC_ID_SQL");
+    this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "Parse Table", "Delete"], DATASOURCE, DELETE_SQL, deletes_by_metric_id);
+}
+//print("_updateParseTable: inserts="+__prettyPrintJSON(inserts));
+if (inserts.length > 0) {
+    var INSERT_SQL = Context.getLocalResource("PARSE_TABLE_INSERT_SQL");
+    this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "Parse Table", "Insert"], DATASOURCE, INSERT_SQL, inserts);
+}
+]]>
+        </CodeText>
+      </Service>
+      <Service name="_updateQdcTable" args="queryConfig,systemModel,deleteOnly" private="true">
+        <CodeText>
+          <![CDATA[//print("_updateQdcTable: systemModel="+__prettyPrintJSON(systemModel));
+
+var sourceConfig = systemModel["source-config"] || systemModel["SourceConfig"];
+if (sourceConfig == null) return;
+
+var serviceConfig = systemModel["service-config"] || systemModel["ServiceConfig"];
+if (serviceConfig == null) return;
+
+var DATASOURCE = queryConfig["data-source"]["metric-qdc"];
+var inserts = [];
+var deletes = [];
+
+/**
+for (var svc_comp_app in sourceConfig) {
+    var parse_target_group = sourceConfig[svc_comp_app]["target-group"];
+    deletes.push([svc_comp_app + "|%"]);
+}
+*/
+
+var qdcMap = this._generateQDCMap(serviceConfig, sourceConfig, queryConfig) || {};
+for (var pro in qdcMap) {
+    var metric_id = pro;
+    deletes.push([metric_id]);
+    if (!deleteOnly) {
+        var aggr_func = qdcMap[pro].aggrFunc;
+        var parse_target_group = qdcMap[pro].parseTargetGroup;
+        
+        var json_qdc = qdcMap[pro].jsonQDC.slice(0);
+        var sql_qdc = this._convertDimensionValuesToWhereClause({
+            "evaluate-nested-sql" : true,
+            "cache-nested-sql-result": true
+        }, null, json_qdc, null);
+        
+        if (json_qdc.length > 1) {
+            json_qdc = JSON.stringify([{
+                "and" : json_qdc
+            }]);
+        }
+        else {
+            json_qdc = JSON.stringify(json_qdc);
+        }
+        inserts.push([metric_id, sql_qdc, json_qdc, aggr_func, parse_target_group]);
+    }
+}
+//print("_updateQdcTable: deletes="+__prettyPrintJSON(deletes));
+if (deletes.length > 0) {
+    var DELETE_SQL = Context.getLocalResource("QDC_TABLE_DELETE_SQL");
+    this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "QDC Table", "Delete"], DATASOURCE, DELETE_SQL, deletes);
+}
+//print("_updateQdcTable: inserts="+__prettyPrintJSON(inserts));
+if (inserts.length > 0) {
+    var INSERT_SQL = Context.getLocalResource("QDC_TABLE_INSERT_SQL");
+    this.executeSQLUpdate(queryConfig, [], ["Signal Onboarding", "QDC Table", "Insert"], DATASOURCE, INSERT_SQL, inserts);
+}
+]]>
+        </CodeText>
+      </Service>
+      <Service name="getDefaultIncidentConfig" args="project,fromEpoch,toEpoch,swagOnly" private="false">
+        <CodeText>
+          <![CDATA[//var algorithm = project.detectionAlgorithm;
+//var thresholdPolicy = project.thresholdPolicy;
+//print("getDefaultIncidentConfig: algorithm="+algorithm);
+//print("getDefaultIncidentConfig: thresholdPolicy="+thresholdPolicy);
+
+var defaultValues = this._getDefaultValues();
+
+var FACTOR_FUNCTION = defaultValues["score-factor-function"];
+var USE_PERCENTILE = defaultValues["use-percentile-cutoff"];
+var HIGH_CUTOFF = defaultValues["high-threshold-cutoff"];
+var MEDIUM_CUTOFF = defaultValues["medium-threshold-cutoff"];
+var LOW_CUTOFF = defaultValues["low-threshold-cutoff"];
+var WARMUP_CUTOFF = defaultValues["warmup-threshold-cutoff"];
+
+var ALGORITHM = ["score", "simple_threshold"];
+var THRESHOLD_POLICY = ["above", "below"];
+
+var configs = [];
+
+function computeScoreFactor(result) {
+    var baselines = [];
+    for (var i = 0, n = result.length; i < n; i++) {
+        var record = result[i];
+        var baseline = record["_baseline1_"];
+        if (baseline != null) {
+            baselines.push(baseline);
+        }
+    }
+    var factor = 0;
+    switch (FACTOR_FUNCTION) {
+        case "median":
+            baselines.sort(function(a, b) {
+                if (a > b) return 1;
+                else if (a < b) return -1;
+                return 0;
+            });
+            factor = (baselines[Math.floor((baselines.length - 1) / 2)] + baselines[Math.floor(baselines.length / 2)]) / 2;
+            break;
+        case "mean":
+            var sum = 0;
+            baselines.forEach(function(baseline) {
+                sum += baseline;
+            });
+            factor = sum / baselines.length;
+            factor = Number(factor.toFixed(2));
+            break;
+    }
+    // DO-222: custom adjustments to factor
+    if (factor < 25) factor += 25;
+    else if (factor < 50) factor = 50;
+    return factor;
+}
+
+function computeScores(factor, result, algorithm, thresholdPolicy) {
+    var scores = [];
+    for (var i = 0, n = result.length; i < n; i++) {
+        var record = result[i];
+        switch (algorithm) {
+            case "score":
+                var OFFSET = 1;
+                var actual = record["_value1_"];
+                var baseline = record["_baseline1_"];
+                if (OFFSET != null) {
+                    actual = (actual != null ? actual : 0) + OFFSET;
+                    baseline = (baseline != null ? baseline : 0) + OFFSET;
+                }
+                if (actual != null && baseline != null) {
+                    var score = ((actual - baseline) / factor) * 100;
+                    score = Number(score.toFixed(2));
+                    switch (thresholdPolicy) {
+                        case "above":
+                            if (score > 0) {
+                                scores.push(Math.abs(score));
+                            }
+                            break;
+                        case "below":
+                            if (score < 0) {
+                                scores.push(Math.abs(score));
+                            }
+                            break;
+                    }
+                }
+                break;
+            case "simple_threshold":
+                var actual = record["_value1_"];
+                if (actual != null) {
+                    var score = actual;
+                    score = Number(score.toFixed(2));
+                    scores.push(score);
+                }
+                break;
+        }
+    }
+    scores.sort(function(a, b) {
+        if (a > b) return 1;
+        else if (a < b) return -1;
+        return 0;
+    });
+    return scores;
+}
+
+function computeSetting(metricId, result, algorithm, thresholdPolicy) {
+    //print("computeConfig: metricId="+metricId+" result="+__prettyPrintJSON(result));
+    var factor = 0;
+    if (algorithm == "score") {
+        factor = computeScoreFactor(result);
+    }
+    var scores = computeScores(factor, result, algorithm, thresholdPolicy);
+    if (scores.length == 0) return null;
+
+    var description = "";
+    var incidentHighThreshold = 0,
+        incidentMediumThreshold = 0,
+        incidentLowThreshold = 0,
+        incidentWarmupThreshold = 0,
+        incidentWarmupPeriod = 900,
+        incidentCooldownPeriod = 900;
+    switch (algorithm) {
+        case "score":
+            if (USE_PERCENTILE) {
+                // percentile
+                description = "SWAG/Percentile:" + HIGH_CUTOFF + "/" + MEDIUM_CUTOFF + "/" + LOW_CUTOFF + "/" + WARMUP_CUTOFF;
+                incidentHighThreshold = scores[Math.floor((HIGH_CUTOFF / 100) * scores.length)];
+                incidentMediumThreshold = scores[Math.floor((MEDIUM_CUTOFF / 100) * scores.length)];
+                incidentLowThreshold = scores[Math.floor((LOW_CUTOFF / 100) * scores.length)];
+                incidentWarmupThreshold = scores[Math.floor((WARMUP_CUTOFF / 100) * scores.length)];
+            } else {
+                // percent
+                description = "SWAG/Percent:" + HIGH_CUTOFF + "/" + MEDIUM_CUTOFF + "/" + LOW_CUTOFF + "/" + WARMUP_CUTOFF;
+                var max_score = scores[scores.length - 1];
+                incidentHighThreshold = (HIGH_CUTOFF / 100) * max_score;
+                incidentMediumThreshold = (MEDIUM_CUTOFF / 100) * max_score;
+                incidentLowThreshold = (LOW_CUTOFF / 100) * max_score;
+                incidentWarmupThreshold = (WARMUP_CUTOFF / 100) * max_score;
+            }
+            break;
+        case "simple_threshold":
+            switch (thresholdPolicy) {
+                case "above":
+                    if (USE_PERCENTILE) {
+                        // percentile
+                        description = "SWAG/Percentile:" + HIGH_CUTOFF + "/" + MEDIUM_CUTOFF + "/" + LOW_CUTOFF + "/" + WARMUP_CUTOFF;
+                        incidentHighThreshold = scores[Math.floor((HIGH_CUTOFF / 100) * scores.length)];
+                        incidentMediumThreshold = scores[Math.floor((MEDIUM_CUTOFF / 100) * scores.length)];
+                        incidentLowThreshold = scores[Math.floor((LOW_CUTOFF / 100) * scores.length)];
+                        incidentWarmupThreshold = scores[Math.floor((WARMUP_CUTOFF / 100) * scores.length)];
+                    } else {
+                        // percent
+                        description = "SWAG/Percent:" + HIGH_CUTOFF + "/" + MEDIUM_CUTOFF + "/" + LOW_CUTOFF + "/" + WARMUP_CUTOFF;
+                        var score_range = scores[scores.length - 1] - scores[0];
+                        incidentHighThreshold = (HIGH_CUTOFF / 100) * score_range;
+                        incidentMediumThreshold = (MEDIUM_CUTOFF / 100) * score_range;
+                        incidentLowThreshold = (LOW_CUTOFF / 100) * score_range;
+                        incidentWarmupThreshold = (WARMUP_CUTOFF / 100) * score_range;
+                    }
+                    break;
+                case "below":
+                    if (USE_PERCENTILE) {
+                        // percentile
+                        description = "SWAG/Percentile:" + (100 - HIGH_CUTOFF) + "/" + (100 - MEDIUM_CUTOFF) + "/" + (100 - LOW_CUTOFF) + "/" + (100 - WARMUP_CUTOFF);
+                        incidentHighThreshold = scores[Math.floor(((100 - HIGH_CUTOFF) / 100) * scores.length)];
+                        incidentMediumThreshold = scores[Math.floor(((100 - MEDIUM_CUTOFF) / 100) * scores.length)];
+                        incidentLowThreshold = scores[Math.floor(((100 - LOW_CUTOFF) / 100) * scores.length)];
+                        incidentWarmupThreshold = scores[Math.floor(((100 - WARMUP_CUTOFF) / 100) * scores.length)];
+                    } else {
+                        // percent
+                        description = "SWAG/Percent:" + (100 - HIGH_CUTOFF) + "/" + (100 - MEDIUM_CUTOFF) + "/" + (100 - LOW_CUTOFF) + "/" + (100 - WARMUP_CUTOFF);
+                        var max_score = scores[scores.length - 1];
+                        var score_range = scores[scores.length - 1] - scores[0];
+                        incidentHighThreshold = max_score - (((100 - HIGH_CUTOFF) / 100) * score_range);
+                        incidentMediumThreshold = max_score - (((100 - MEDIUM_CUTOFF) / 100) * score_range);
+                        incidentLowThreshold = max_score - (((100 - LOW_CUTOFF) / 100) * score_range);
+                        incidentWarmupThreshold = max_score - (((100 - WARMUP_CUTOFF) / 100) * score_range);
+                    }
+                    break;
+            }
+            break;
+    }
+    var config = {
+        description: description,
+        algorithm: algorithm,
+        thresholdPolicy: thresholdPolicy,
+    };
+    if (incidentHighThreshold != null) {
+        config["highThreshold"] = incidentHighThreshold;
+    }
+    if (incidentMediumThreshold != null) {
+        config["mediumThreshold"] = incidentMediumThreshold;
+    }
+    if (incidentLowThreshold != null) {
+        config["lowThreshold"] = incidentLowThreshold;
+    }
+    if (incidentWarmupThreshold != null) {
+        config["warmupThreshold"] = incidentWarmupThreshold;
+    }
+    if (incidentWarmupPeriod != null) {
+        config["warmupPeriod"] = incidentWarmupPeriod;
+    }
+    if (incidentCooldownPeriod != null) {
+        config["cooldownPeriod"] = incidentCooldownPeriod;
+    }
+    return config;
+}
+
+var pivot = this.loadProjectPivot(project);
+var count = this.loadProjectCount(project);
+var metricList = this.___getMetricList(pivot, count);
+
+var metricNames = [];
+var metricLabels = [];
+for (var i = 0, n = metricList.length; i < n; i++) {
+    var metric = metricList[i];
+    metricNames.push(metric.name);
+    metricLabels.push(metric.label);
+}
+
+var svcValues = [project.svc];
+var compValues = [project.comp];
+var appValues = [project.app];
+if (project.subservices && project.subservices.length > 0) {
+    for (var i = 0, iN = project.subservices.length; i < iN; i++) {
+        var subservice = project.subservices[i];
+        if (svcValues.indexOf(subservice.svc) == -1) {
+            svcValues.push(subservice.svc);
+        }
+        
+        if (compValues.indexOf(subservice.subSvc) == -1) {
+            compValues.push(subservice.subSvc);
+        }
+
+        if (appValues.indexOf(subservice.comp) == -1) {
+            appValues.push(subservice.comp);
+        }
+    }
+}
+var filters = [{
+    name: "data.svc",
+    value: svcValues
+}, {
+    name: "data.comp",
+    value: compValues,
+}, {
+    name: "data.app",
+    value: appValues,
+}, {
+    name: "data.metric",
+    value: metricNames,
+}, {
+    name: "data.timeRange",
+    value: "absolute:" + fromEpoch + "/" + toEpoch,
+}, {
+    name: "$.interval",
+    value: [{ "seconds": null, "interval": "5*M" }]
+}];
+var start = Date.now();
+var result = this._invokeTrendAnalysisService(this.getQueryConfig(), filters);
+//print("getDefaultIncidentConfig/getTrendData: elapsed="+(Date.now()-start)+"ms");
+//print(__prettyPrintJSON(result));
+var trends = {};
+var metricMap = {};
+for (var i = 0, iN = metricLabels.length; i < iN; i++) {
+    var metricIdLabel = (project.svcLabel || project.svc) + "|" + (project.compLabel || project.comp) + "|" + (project.appLabel || project.app) + "|" + metricLabels[i];
+    var metricId = project.svc + "|" + project.comp + "|" + project.app + "|" + metricNames[i];
+    trends[metricIdLabel] = [];
+    metricMap[metricIdLabel] = {
+        id: metricId,
+        svc:  project.svc,
+        comp: project.comp,
+        app:  project.app,
+        metricName: metricNames[i]
+    };
+    if (project.subservices && project.subservices.length > 0) {
+        for (var j = 0, jN = project.subservices.length; j < jN; j++) {
+            var subservice = project.subservices[j];
+            metricIdLabel = (subservice.svcLabel || subservice.svc) + "|" + (subservice.subSvcLabel || subservice.subSvc) + "|" + (subservice.compLabel || subservice.comp) + "|" + metricLabels[i];
+            metricId = subservice.svc + "|" + subservice.subSvc + "|" + subservice.comp + "|" + metricNames[i];
+            trends[metricIdLabel] = [];
+            metricMap[metricIdLabel] = {
+                id: metricId,
+                svc:  subservice.svc,
+                comp: subservice.subSvc,
+                app:  subservice.comp,
+                metricName: metricNames[i]
+            };
+        }
+    }
+}
+//print("getDefaultIncidentConfig: trends=" + __prettyPrintJSON(trends));
+for (var i = 0, iN = result.length; i < iN; i++) {
+    var record = result[i];
+    var trend = trends[record._group_];
+    if (trend != null) {
+        trend.push(record);
+    } else {
+        print("getDefaultIncidentConfig: ERROR unknown group '" + record._group_ + "' found in result");
+        print("getDefaultIncidentConfig: metrics=" + __prettyPrintJSON(metricLabels));
+        print("getDefaultIncidentConfig: record=" + __prettyPrintJSON(record));
+    }
+}
+for (var metricIdLabel in trends) {
+    var trend = trends[metricIdLabel];
+    var metricId = metricMap[metricIdLabel].id;
+    var metricName = metricMap[metricIdLabel].metricName;
+    if (trend != null && trend.length > 0) {
+        trend.sort(function(a, b) {
+            if (a._epoch_ > b._epoch_) return 1;
+            else if (a._epoch_ < b._epoch_) return -1;
+            return 0;
+        });
+        var config = {
+            metricId: metricId,
+            metricInfo: {
+                svc: metricMap[metricIdLabel].svc,
+                comp: metricMap[metricIdLabel].comp,
+                app: metricMap[metricIdLabel].app,
+                metric: metricName,
+            },
+            settings: {},
+        };
+        ALGORITHM.forEach(function(algorithm) {
+            THRESHOLD_POLICY.forEach(function(thresholdPolicy) {
+                var setting = computeSetting(metricId, trend, algorithm, thresholdPolicy);
+                if (setting != null) {
+                    setting.rating = Math.round(100 * Math.random());
+                    config.settings[Context.generateRandomUUID()] = setting;
+                }
+            });
+        });
+        configs.push(config);
+    }
+}
+//print(__prettyPrintJSON(configs));
+var workbenchConfig = this.getWorkbenchConfig();
+if (!swagOnly && workbenchConfig["incident-setting-service"] != null) {
+    var data = {
+        configs: configs,
+        start_time: fromEpoch,
+        end_time: toEpoch
+    };
+    print("metricOnBoarding: data=" + __prettyPrintJSON(data));
+    var url = workbenchConfig["incident-setting-service"]["url"];
+    var headers = workbenchConfig["incident-setting-service"]["headers"];
+    headers["arguments"] = JSON.stringify([data]);
+    var response = Context.POST(url, headers);
+    if (response != null && response != "") {
+        response = JSON.parse(response);
+        if (response.status == "OK") {
+            configs = JSON.parse(response.value);
+            print("metricOnBoarding: config=" + __prettyPrintJSON(configs));
+        }
+    }
+}
+configs.forEach(function(config) {
+    var ratings = [];
+    for (var key in config.settings) {
+        var setting = config.settings[key];
+        ratings.push({
+            key: key,
+            rating: setting.rating,
+        });
+    }
+    if (ratings.length > 0) {
+        ratings.sort(function(a, b) {
+            if (a.rating > b.rating) return -1;
+            else if (a.rating < b.rating) return 1;
+            else return 0;
+        });
+        //print(__prettyPrintJSON(ratings));
+        var setting = config.settings[ratings[0].key];
+        config.settingDescription = setting.description;
+        config.incidentAlgorithm = setting.algorithm;
+        config.incidentThresholdPolicy = setting.thresholdPolicy;
+        config.incidentHighThreshold = setting.highThreshold;
+        config.incidentMediumThreshold = setting.mediumThreshold;
+        config.incidentLowThreshold = setting.lowThreshold;
+        config.incidentWarmupThreshold = setting.warmupThreshold;
+        config.incidentWarmupPeriod = setting.warmupPeriod;
+        config.incidentCooldownPeriod = setting.cooldownPeriod;
+    }
+});
+//print(__prettyPrintJSON(configs));
+return configs;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="getSystemModelJoinConditionsSchema" args="project,pivot" private="false">
+        <CodeText>
+          <![CDATA[var schema = this.___getPivotOutputSchema(pivot);
+schema.forEach(function (item) {
+    item.name = "source1." + item.name;
+    item.label = "source1." + item.label;
+});
+
+var parseTableSchema = JSON.parse(Context.getLocalResource("PARSE_MODEL_TABLE_SCHEMA"));
+
+var result = {};
+result.properties = JSON.parse(Context.getLocalResource("PARSER_MODEL_GLOBAL_PROPERTIES"));
+result.schema = schema.concat(parseTableSchema);
+return result;]]>
+        </CodeText>
+      </Service>
+    </Services>
+    <Resources>
+      <Resource uuid="02d73dc2-ea8e-4b3a-82fb-5e358dd6792b" name="METRIC_INFO_DELETE_SQL" type="application/sql" size="54" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+      <Resource uuid="09f60857-f103-4eb1-8874-e841888b6d5a" name="METRIC_INFO_INSERT_SQL" type="application/sql" size="295" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+      <Resource uuid="e50c0523-0f03-45a3-823d-c8505fa90325" name="PARSE_MODEL_TABLE_SCHEMA" type="application/json" size="0" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+      <Resource uuid="601fd5ba-8e8c-4020-81d7-977e9aeb988b" name="PARSE_TABLE_DELETE_BY_GROUP_SQL" type="application/sql" size="85" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+      <Resource uuid="6a7a6cef-adb1-4781-8ee5-d472ceb8bd3b" name="PARSE_TABLE_DELETE_BY_METRIC_ID_SQL" type="application/sql" size="49" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+      <Resource uuid="b0a95f58-6440-4fa7-8a22-04fd8fd20083" name="PARSE_TABLE_DELETE_SQL" type="text/plain" size="53" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+      <Resource uuid="2dc4269a-bb9a-4e8a-8419-e7c4bbdf50e8" name="PARSE_TABLE_INSERT_SQL" type="application/sql" size="211" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+      <Resource uuid="8259dfd4-e155-4832-8d18-d25cb4aa3701" name="QDC_TABLE_DELETE_SQL" type="application/sql" size="52" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+      <Resource uuid="e85b3358-b446-436d-86a1-e8b556b307c8" name="QDC_TABLE_INSERT_SQL" type="application/sql" size="136" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+    </Resources>
+    <Plugins>
+    </Plugins>
+  </ModelInfo>
+</DashboardPluginModel>

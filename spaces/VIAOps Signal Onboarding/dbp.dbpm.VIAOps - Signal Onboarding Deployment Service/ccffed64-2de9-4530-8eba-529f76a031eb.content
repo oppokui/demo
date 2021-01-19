@@ -1,0 +1,150 @@
+{
+    "instance.identifier": "",
+    "common": {
+        "global": [{
+                "label": "Anomaly Model Space",
+                "type": "string",
+                "id": "anomaly_model_space",
+                "defaultValue": ""
+            }, {
+                "label": "Anomaly Model Name",
+                "type": "string",
+                "id": "anomaly_model_name",
+                "defaultValue": ""
+            }, {
+                "label": "Anomaly Configuration Datasource",
+                "type": "datasource",
+                "id": "dataSource",
+                "defaultValue": {
+                    "dataSource": "/vitria/m3o/datasource/DefaultDomain/viaops_config_db",
+                    "driverType": "com.mysql.jdbc.Driver"
+                }
+            },
+            {
+                "label": "Anomaly Configuration Poll Rate in Minutes",
+                "type": "string",
+                "id": "pull_r",
+                "defaultValue": "5"
+            },
+            {
+                "label": "Start Date",
+                "type": "string",
+                "id": "s_date",
+                "defaultValue": " "
+            },
+            {
+                "label": "Anomaly Detection Method Name",
+                "type": "string",
+                "id": "adm_name_m",
+                "defaultValue": ""
+            },
+            {
+                "label": "Metric Source",
+                "type": "string",
+                "id": "m_source",
+                "defaultValue": ""
+            },
+            {
+                "label": "Incident Target",
+                "type": "string",
+                "id": "incident_url",
+                "defaultValue": ""
+            },
+            {
+                "label": "Incident File Prefix",
+                "type": "string",
+                "id": "incident_file_prefix",
+                "defaultValue": ""
+            },
+            {
+                "label": "Dropped Source Metric",
+                "type": "string",
+                "id": "dropped_metric",
+                "defaultValue": ""
+            },
+            {
+                "label": "Anomaly Table Name",
+                "type": "string",
+                "id": "anomaly",
+                "defaultValue": "viaops_metric_history"
+            },
+            {
+                "label": "Dropped Aggregated Metrics",
+                "type": "string",
+                "id": "dropped_aggr_metrics",
+                "defaultValue": "viaops_audit_anomaly_dropped"
+            },
+            {
+                "label": "Baseline Table Name",
+                "type": "string",
+                "id": "baseline_table_name",
+                "defaultValue": "viaops_baseline"
+            },
+            {
+                "label": "Override Baseline Table Name",
+                "type": "string",
+                "id": "override_baseline_table_name",
+                "defaultValue": "viaops_override_baseline"
+            },
+            {
+                "label": "Percentile Table Name",
+                "type": "string",
+                "id": "percentile",
+                "defaultValue": "viaops_percentile"
+            },
+            {
+                "label": "Statistic Table Name",
+                "type": "string",
+                "id": "statistic",
+                "defaultValue": "viaops_statistics"
+            },
+            {
+                "label": "System Model Table",
+                "type": "string",
+                "id": "p_system_model",
+                "defaultValue": "viaops_metric_qdc"
+            }
+        ],
+        "spark": [{
+                "id": "spark.master",
+                "label": "Spark Master",
+                "defaultLabel": "",
+                "defaultValue": ""
+            },
+            {
+                "id": "autostart",
+                "label": "Auto Start",
+                "defaultValue": false
+            },
+            {
+                "id": "durable",
+                "label": "Durable Streaming",
+                "defaultValue": false
+            },
+            {
+                "id": "batch.duration",
+                "label": "Batch Duration",
+                "defaultValue": "P1M",
+                "defaultLabel": "1 minute"
+            },
+            {
+                "id": "checkpoint",
+                "label": "Checkpoint",
+                "defaultLabel": "",
+                "defaultValue": ""
+            },
+            {
+                "id": "hive.warehouse.hdfs.source",
+                "label": "Hive Warehouse",
+                "defaultValue": "hdfs_warehouse",
+                "defaultLabel": "hdfs_warehouse (inherited)"
+            },
+            {
+                "id": "hive.metastore.data.source",
+                "label": "Hive Metastore",
+                "defaultValue": "hive",
+                "defaultLabel": "hive (inherited)"
+            }
+        ]
+    }
+}

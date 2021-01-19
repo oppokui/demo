@@ -1,0 +1,149 @@
+<DashboardPluginModel description="" name="VIAOps - Signal Onboarding Status Service" is_init="false">
+  <ModelInfo validated="true">
+    <Properties>
+    </Properties>
+    <Widgets>
+    </Widgets>
+    <Functions>
+      <Function name="_getCollabMgr" args="controller" private="true">
+        <CodeText>
+          <![CDATA[if (this._isCollabMgrEnable(controller)) {
+    return controller.appController.collabMgr;
+} else {
+    return null;
+}]]>
+        </CodeText>
+      </Function>
+      <Function name="_isCollabMgrEnable" args="controller" private="true">
+        <CodeText>
+          <![CDATA[return controller && controller.appController && controller.appController.collabMgr;]]>
+        </CodeText>
+      </Function>
+      <Function name="addHandler" args="controller,callback" private="false">
+        <CodeText>
+          <![CDATA[if (!this._isCollabMgrEnable(controller)) return;
+
+var collabMgr = this._getCollabMgr(controller);
+return collabMgr.addHandler(callback);]]>
+        </CodeText>
+      </Function>
+      <Function name="onEditClose" args="controller,project" private="false">
+        <CodeText>
+          <![CDATA[var collabMgr = this._getCollabMgr(controller);
+if (!collabMgr) return;
+
+collabMgr.onEditClose({uuid: project.uuid});]]>
+        </CodeText>
+      </Function>
+      <Function name="onEditOpen" args="controller,project" private="false">
+        <CodeText>
+          <![CDATA[var collabMgr = this._getCollabMgr(controller);
+if (!collabMgr) return;
+
+collabMgr.onEditOpen({uuid: project.uuid});]]>
+        </CodeText>
+      </Function>
+      <Function name="onEditSave" args="controller,project" private="false">
+        <CodeText>
+          <![CDATA[var collabMgr = this._getCollabMgr(controller);
+if (!collabMgr) return;
+
+collabMgr.onEditSave({uuid: project.uuid});]]>
+        </CodeText>
+      </Function>
+      <Function name="removeHandler" args="controller,handler" private="false">
+        <CodeText>
+          <![CDATA[if (!this._isCollabMgrEnable(controller) || !handler) return;
+
+var collabMgr = this._getCollabMgr(controller);
+collabMgr.removeHandler(handler);]]>
+        </CodeText>
+      </Function>
+      <Function name="showNotification" args="controller,project,selector" private="false">
+        <CodeText>
+          <![CDATA[var self = this;
+require([
+    "dojo/on",
+    "dojo/mouse",
+    "dijit/Tooltip",
+    (window.vtAppId ||  '/vitria-oi/app/dojoclient') + "/html/scripts/Jquery/src/jquery.js"
+],function(on, mouse, Tooltip) {
+    if ($(selector + " .notificationDiv").length == 0) {
+        var notificationDiv = $('<div></div>', {
+            "class": "notificationDiv modelCollaborative",
+            "style": "display: block; height: 100%; width: auto; position: absolute; right: 5px; top: 0px;"
+        });
+        $(selector).append(notificationDiv);
+    }
+    
+    var notificationDiv = $(selector + " .notificationDiv")[0];
+    var infos = null;
+    var collabMgr = self._getCollabMgr(controller);
+    if (collabMgr != null) {
+        infos = collabMgr.getEditInfos(project.uuid);
+    }
+    
+    if (infos != null && infos.length > 0) {
+        $(selector + " .notificationDiv").css("display", "");
+        var info = infos[0];
+        notificationDiv.innerHTML = "<i class='fas fa-edit editingIcon'></i><span class='box-padding editingInfo'>Editing: " + info.clientAddress + "</span>";
+        
+        on(notificationDiv, mouse.enter, function(){
+            var tips =collabMgr.getEditTips(project.uuid);
+            Tooltip.show(tips, notificationDiv);
+        });
+        on(notificationDiv, mouse.leave, function(){
+            Tooltip.hide(notificationDiv);
+        });
+    } else {
+        $(selector + " .notificationDiv").css("display", "none");
+    }
+});
+]]>
+        </CodeText>
+      </Function>
+      <Function name="showNotificationToElement" args="controller,project,element" private="false">
+        <CodeText>
+          <![CDATA[var self = this;
+require([
+    "dojo/on",
+    "dojo/mouse",
+    "dijit/Tooltip",
+    (window.vtAppId ||  '/vitria-oi/app/dojoclient') + "/html/scripts/Jquery/src/jquery.js"
+],function(on, mouse, Tooltip) {
+    $(element).empty();
+    var notificationDiv = $('<div></div>', {
+        "class": "notificationDiv modelCollaborative"
+    });
+    $(element).append(notificationDiv);
+    var infos = null;
+    var collabMgr = self._getCollabMgr(controller);
+    if (collabMgr != null) {
+        infos = collabMgr.getEditInfos(project.uuid);
+    }
+    
+    if (infos != null && infos.length > 0) {
+        var info = infos[0];
+        notificationDiv[0].innerHTML = "<i class='fas fa-edit editingIcon'></i><span class='box-padding editingInfo'>Editing: " + info.clientAddress + "</span>";
+        
+        on(notificationDiv, mouse.enter, function(){
+            var tips =collabMgr.getEditTips(project.uuid);
+            Tooltip.show(tips, notificationDiv);
+        });
+        on(notificationDiv, mouse.leave, function(){
+            Tooltip.hide(notificationDiv);
+        });
+    }
+});
+]]>
+        </CodeText>
+      </Function>
+    </Functions>
+    <Services>
+    </Services>
+    <Resources>
+    </Resources>
+    <Plugins>
+    </Plugins>
+  </ModelInfo>
+</DashboardPluginModel>

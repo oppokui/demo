@@ -1,0 +1,220 @@
+{
+    "instance.identifier": "",
+    "common": {
+        "global": [{
+                "label": "Ingestion Model Space",
+                "type": "string",
+                "id": "parser_model_space",
+                "defaultValue": ""
+            }, {
+                "label": "Ingestion Model Name",
+                "type": "string",
+                "id": "parser_model_name",
+                "defaultValue": ""
+            }, {
+                "label": "Resource Model Name",
+                "type": "string",
+                "id": "resource_model_name",
+                "defaultValue": ""
+            }, {
+                "label": "System Model Name",
+                "type": "string",
+                "id": "system_model_name",
+                "defaultValue": ""
+            }, {
+                "label": "Stop After n Microbatch",
+                "type": "integer",
+                "id": "stop_after_batch",
+                "defaultValue": "0"
+            },
+            {
+                "label": "Operation Mode",
+                "type": "string",
+                "id": "target",
+                "defaultValue": "Both"
+            },
+            {
+                "label": "Source Group",
+                "type": "string",
+                "id": "source_group",
+                "defaultValue": ""
+            },
+            {
+                "label": "Source Group Prefix",
+                "type": "string",
+                "id": "source_group_prefix",
+                "defaultValue": ""
+            },
+            {
+                "label": "Time Zone",
+                "type": "string",
+                "id": "time_zone",
+                "defaultValue": "Etc/GMT"
+            },
+            {
+                "label": "File URL",
+                "type": "string",
+                "id": "file_url",
+                "defaultValue": ""
+            },
+            {
+                "label": "File Filter",
+                "type": "string",
+                "id": "file_filter",
+                "defaultValue": ".*_*\\.*"
+            },
+            {
+                "label": "Skip First Line",
+                "type": "boolean",
+                "id": "isSkipFirstLine",
+                "defaultValue": "false"
+            },
+            {
+                "label": "Kafka URLs",
+                "type": "string",
+                "id": "kafka_urls",
+                "defaultValue": ""
+            },
+            {
+                "label": "Kafka Topics",
+                "type": "string",
+                "id": "kafka_topics",
+                "defaultValue": ""
+            },
+            {
+                "label": "Max Batch Size (MB)",
+                "type": "string",
+                "id": "max_batch_size",
+                "defaultValue": "0"
+            },
+            {
+                "label": "Start Date",
+                "type": "date",
+                "id": "start_date",
+                "defaultValue": ""
+            },
+            {
+                "label": "End Date",
+                "type": "date",
+                "id": "end_date",
+                "defaultValue": ""
+            },
+            {
+                "label": "Datasource",
+                "type": "datasource",
+                "id": "data_source",
+                "defaultValue": {
+                    "dataSource": "/vitria/m3o/datasource/DefaultDomain/viaops_config_db"
+                }
+            },
+            {
+                "label": "System Model Table",
+                "type": "string",
+                "id": "ref_table",
+                "defaultValue": "viaops_parse_model"
+            },
+            {
+                "label": "Poll Rate (Minutes)",
+                "type": "integer",
+                "id": "poll_rate",
+                "defaultValue": "1"
+            },
+            {
+                "label": "Spark SQL Table URL",
+                "type": "string",
+                "id": "spark_sql_table_url",
+                "defaultValue": ""
+            },
+            {
+                "label": "Spark SQL Table",
+                "type": "string",
+                "id": "spark_sql_table",
+                "defaultValue": ""
+            },
+            {
+                "label": "Anomaly File URL",
+                "type": "string",
+                "id": "anomaly_file_url",
+                "defaultValue": ""
+            },
+            {
+                "label": "Anomaly File Name Prefix",
+                "type": "string",
+                "id": "anomaly_file_name_prefix",
+                "defaultValue": ""
+            },
+            {
+                "label": "Dropped Events Table",
+                "type": "string",
+                "id": "agg_dropped_events",
+                "defaultValue": "viaops_audit_parser_dropped"
+            },
+            {
+                "label": "Audit Log",
+                "type": "boolean",
+                "id": "enableAudit",
+                "defaultValue": "true"
+            },
+            {
+                "label": "Audit Log Table",
+                "type": "string",
+                "id": "auditUrl",
+                "defaultValue": "viaops_audit_parser"
+            },
+            {
+                "label": "Enrichment Datasource",
+                "type": "datasource",
+                "id": "enrich_datasource",
+                "defaultValue": {
+                }
+            }, 
+            {
+                "label": "Enrichment Database Table",
+                "type": "string",
+                "id": "tableList",
+                "defaultValue": ""
+            }
+        ],
+        "spark": [{
+                "id": "spark.master",
+                "label": "Spark Master",
+                "defaultLabel": "",
+                "defaultValue": ""
+            },
+            {
+                "id": "autostart",
+                "label": "Auto Start",
+                "defaultValue": "false"
+            },
+            {
+                "id": "durable",
+                "label": "Durable Streaming",
+                "defaultValue": "false"
+            },
+            {
+                "id": "batch.duration",
+                "label": "Batch Duration",
+                "defaultValue": "P1M",
+                "defaultLabel": "1 minute"
+            },
+            {
+                "id": "checkpoint",
+                "label": "Checkpoint",
+                "defaultLabel": "",
+                "defaultValue": ""
+            },
+            {
+                "id": "hive.warehouse.hdfs.source",
+                "label": "Hive Warehouse",
+                "defaultValue": "hdfs_warehouse",
+                "defaultLabel": "hdfs_warehouse (inherited)"
+            },
+            {
+                "id": "hive.metastore.data.source",
+                "label": "Hive Metastore",
+                "defaultValue": "hive",
+                "defaultLabel": "hive (inherited)"
+            }
+        ]
+    }
+}

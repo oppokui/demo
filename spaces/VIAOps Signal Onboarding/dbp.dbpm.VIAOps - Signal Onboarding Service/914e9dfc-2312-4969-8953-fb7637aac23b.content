@@ -1,0 +1,474 @@
+{
+    "templates" : {
+        "application/vnd.ms-excel" : "text/csv",
+        "text/csv" : [
+            {
+                "name" : "csv",
+                "format" : "CSV",
+                "description" : "Simple CSV data",
+                "parse-sample" : "__csvParseSampleData"
+            }
+        ],
+        "application/json" : [
+            {
+                "name" : "json",
+                "format" : "JSON",
+                "description" : "JSON data"
+            }
+        ],
+        "*" : [
+            {
+                "name" : "default",
+                "format" : "DEFAULTS",
+                "description" : "Default templates",
+                "parser-model" : {
+                    "uri" : "/app/spark/user/viaops_admin/sparkm/VIAOps - Parse Template",
+                    "helper" : {
+                        "generate" : "__generateParserModel"
+                    }
+                },
+                "resource-model" : {
+                    "uri" : "/app/drd/user/viaops_admin/drm/VIAOps - RT Parse Table Template",
+                    "helper" : {
+                        "generate" : "__generateResourceModel"
+                    }
+                },
+                "system-model" : {
+                    "helper" : {
+                        "generate" : "__generateSystemModel"
+                    }
+                },
+                "anomaly-model" : {
+                    "uri" : "/app/spark/user/viaops_admin/sparkm/VIAOps - Anomaly Template",
+                    "helper" : {
+                        "generate" : "__generateAnomalyModel"
+                    }
+                }
+            }
+        ]
+    },
+    "default-values" : {
+        "timezone"           : "Etc/GMT",
+        "dst"                : false,
+        "space"              : "Signal Onboarding 001",
+        "filename-filter"    : "",
+        "*-substitution"     : "any",
+        "#hdfs-server-url"    : "hdfs://master:8020",
+        "system-model-table" : "viaops_parse_table",
+        "use-parser-library" : false,
+
+        "parser-batch-duration" : "P1M",
+        "anomaly-batch-duration" : "P1M",
+
+        "source-path"  : "/signal_onboarding/source/",
+        "anomaly-path" : "/signal_onboarding/anomaly/",
+
+        "baseline-seasonality"    : "dow",
+        "anomaly-seasonality"     : "weekly",
+        "anomaly-trigger"         : "upper",
+        "score-factor-function"   : "mean",
+        "use-percentile-cutoff"   : true,
+        "high-threshold-cutoff"   : 99,
+        "medium-threshold-cutoff" : 97,
+        "low-threshold-cutoff"    : 95,
+        "warmup-threshold-cutoff" : 90,
+        
+        "disable-high-threshold"         : 99999999,
+        "disable-medium-threshold"       : 99999999,
+        "disable-low-threshold"          : 99999999,
+        "disable-warmup-threshold"       : 99999999,
+        "disable-cooldown-call-volume"   : 99999999,
+        "disable-escalate-high-period"   : 86400,
+        "disable-escalate-medium-period" : 86400
+    },
+
+    "baseline-generation-service" : {
+        "adf-model" : "/app/spark/user/viaops_admin/sparkm/VIAOps - BaseLine Generation",
+        "adf-profile" : {
+            "common": {
+                "global": [
+                    {
+                        "label": "Anomaly Configuration DataSource",
+                        "type": "object",
+                        "id": "dataSource",
+                        "defaultValue": {
+                            "dataSource": "/vitria/m3o/datasource/DefaultDomain/viaops_config_db"
+                        },
+                        "value": {
+                            "dataSource": "/vitria/m3o/datasource/DefaultDomain/viaops_config_db"
+                        }
+                    },
+                    {
+                        "label": "Anomaly Detection Method Name",
+                        "type": "string",
+                        "id": "name",
+                        "defaultValue": "",
+                        "value": "viaops_metric_ott_video-5/5"
+                    },
+                    {
+                        "label": "Baseline Table Name",
+                        "type": "string",
+                        "id": "baselineTable",
+                        "defaultValue": "viaops_baseline"
+                    },
+                    {
+                        "label": "History Baseline Table Name",
+                        "type": "string",
+                        "id": "historyBaselineTable",
+                        "defaultValue": "viaops_baseline_history",
+                        "value": "viaops_baseline_history"
+                    },
+                    {
+                        "label": "Override Baseline Table Name",
+                        "type": "string",
+                        "id": "overrideBaselineTable",
+                        "defaultValue": "viaops_override_baseline"
+                    },
+                    {
+                        "label": "System Model Table Name",
+                        "type": "string",
+                        "id": "systemModelTable",
+                        "defaultValue": "viaops_metric_qdc",
+                        "value": "viaops_metric_qdc"
+                    },
+                    {
+                        "label": "Start Date",
+                        "type": "string",
+                        "id": "startDate",
+                        "defaultValue": "",
+                        "value": "2018-11-19"
+                    },
+                    {
+                        "label": "End Date",
+                        "type": "string",
+                        "id": "endDate",
+                        "defaultValue": "",
+                        "value": "2018-11-26"
+                    }
+                ]
+            }
+        }
+    },
+    
+    "percentile-generation-service" : {
+        "adf-model" : "/app/spark/user/viaops_admin/sparkm/VIAOps - Percentile Generation",
+        "adf-profile" : {
+            "common": {
+                "global": [
+                    {
+                        "label": "Anomaly Configuration DataSource",
+                        "type": "object",
+                        "id": "dataSource",
+                        "defaultValue": {
+                            "dataSource": "/vitria/m3o/datasource/DefaultDomain/viaops_config_db"
+                        },
+                        "value": {
+                            "dataSource": "/vitria/m3o/datasource/DefaultDomain/viaops_config_db"
+                        }
+                    },
+                    {
+                        "label": "Anomaly Detection Method Name",
+                        "type": "string",
+                        "id": "name",
+                        "defaultValue": "viaops_metric_customer_calls_view-5/5",
+                        "value": "viaops_metric_customer_calls_view-5/5"
+                    },
+                    {
+                        "label": "System Model Table Name",
+                        "type": "string",
+                        "id": "systemModelTable",
+                        "defaultValue": "viaops_metric_qdc",
+                        "value": "viaops_metric_qdc"
+                    },
+                    {
+                        "label": "Percentile Table Name",
+                        "type": "string",
+                        "id": "tableName",
+                        "defaultValue": "viaops_percentile"
+                    },
+                    {
+                        "label": "Date From",
+                        "type": "date",
+                        "id": "from",
+                        "defaultValue": "2019-06-14",
+                        "value": "2019-08-01"
+                    },
+                    {
+                        "label": "Date To",
+                        "type": "date",
+                        "id": "to",
+                        "value": "2019-08-08"
+                    }
+                ]
+            }
+        }
+    },
+    
+    "statistics-generation-service" : {
+        "adf-model" : "/app/spark/user/viaops_admin/sparkm/VIAOps - Statistics Generation",
+        "adf-profile" : {
+            "common": {
+                "global": [
+                    {
+                        "label": "Anomaly Configuration DataSource",
+                        "type": "object",
+                        "id": "dataSource",
+                        "defaultValue": {
+                            "dataSource": "/vitria/m3o/datasource/DefaultDomain/viaops_config_db"
+                        },
+                        "value": {
+                            "dataSource": "/vitria/m3o/datasource/DefaultDomain/viaops_config_db"
+                        }
+                    },
+                    {
+                        "label": "Anomaly Detection Method Name",
+                        "type": "string",
+                        "id": "adm",
+                        "defaultValue": "",
+                        "value": "viaops_metric_ott_video-5/5"
+                    },
+                    {
+                        "label": "System Model Table Name",
+                        "type": "string",
+                        "id": "systemModelTable",
+                        "defaultValue": "viaops_metric_qdc",
+                        "value": "viaops_metric_qdc"
+                    },
+                    {
+                        "label": "Statistics Table Name",
+                        "type": "string",
+                        "id": "tableName",
+                        "defaultValue": "viaops_statistics"
+                    },
+                    {
+                        "label": "Daily Seasonality From",
+                        "type": "date",
+                        "id": "dailyFrom",
+                        "value": "2019-08-01"
+                    },
+                    {
+                        "label": "Daily Seasonality To",
+                        "type": "date",
+                        "id": "dailyTo",
+                        "value": "2019-08-08"
+                    },
+                    {
+                        "label": "Week Hourly Seasonality From",
+                        "type": "date",
+                        "id": "weekHourlyFrom",
+                        "value": "2019-08-01"
+                    },
+                    {
+                        "label": "Week Hourly Seasonality To",
+                        "type": "date",
+                        "id": "weekHourlyTo",
+                        "value": "2019-08-08"
+                    },
+                    {
+                        "label": "Weekly Seasonality From",
+                        "type": "date",
+                        "id": "weeklyFrom",
+                        "value": "2019-08-01"
+                    },
+                    {
+                        "label": "Weekly Seasonality To",
+                        "type": "date",
+                        "id": "weeklyTo",
+                        "value": "2019-08-08"
+                    },
+                    {
+                        "label": "No Seasonality From",
+                        "type": "date",
+                        "id": "from",
+                        "value": "2019-08-01"
+                    },
+                    {
+                        "label": "No Seasonality To",
+                        "type": "date",
+                        "id": "to",
+                        "value": "2019-08-08"
+                    }
+                ]
+            }
+        }
+    },
+    
+    "incident-baseline-score" : {
+        "adf-model" : "/app/spark/user/viaops_admin/sparkm/RT VIAOps Scored Incident",
+        "adf-profile" : {
+            "common": {
+                "global": [
+                    {
+                        "label": "Anomaly Source",
+                        "type": "string",
+                        "id": "p_anomaly_source",
+                        "defaultValue": "hdfs://master:8020/do_dev/viaops/stream_anomaly",
+                        "value": ""
+                    },
+                    {
+                        "label": "REST URI",
+                        "type": "string",
+                        "id": "p_rest_uri",
+                        "defaultValue": "https://localhost:8080/vitria-oi/rest",
+                        "value": ""
+                    },
+                    {
+                        "label": "Incident Plus DA Result",
+                        "type": "string",
+                        "id": "p_incident_plus_da",
+                        "defaultValue": "hdfs://master:8020/do_dev/viaops/incident_plus_da",
+                        "value": ""
+                    }
+                ]
+            }
+        }
+    },
+    
+    "incident-simple-threshold" : {
+        "adf-model" : "/app/spark/user/viaops_admin/sparkm/RT VIAOps Simple Threshold Incident",
+        "adf-profile" : {
+            "common": {
+                "global": [
+                    {
+                        "label": "Metric Source",
+                        "type": "string",
+                        "id": "p_source",
+                        "defaultValue": "hdfs://master:8020/do_dev/viaops/stream_anomaly",
+                        "value": ""
+                    },
+                    {
+                        "label": "Incident Plus DA Result",
+                        "type": "string",
+                        "id": "p_incident_plus_da",
+                        "defaultValue": "hdfs://master:8020/do_dev/viaops/incident_plus_da",
+                        "value": ""
+                    }
+                ]
+            }
+        }
+    },
+    
+    "incident-simple-deviation" : {
+        "adf-model" : "/app/spark/user/viaops_admin/sparkm/RT VIAOps Simple Deviation Incident",
+        "adf-profile" : {
+            "common": {
+                "global": [
+                    {
+                        "label": "Metric Source",
+                        "type": "string",
+                        "id": "p_source",
+                        "defaultValue": "hdfs://master:8020/do_dev/viaops/stream_anomaly",
+                        "value": ""
+                    },
+                    {
+                        "label": "Incident Plus DA Result",
+                        "type": "string",
+                        "id": "p_incident_plus_da",
+                        "defaultValue": "hdfs://master:8020/do_dev/viaops/incident_plus_da",
+                        "value": ""
+                    }
+                ]
+            }
+        }
+    },
+    
+    "incident-declared-event" : {
+        "adf-model" : "/app/spark/user/viaops_admin/sparkm/RT VIAOps Declared Incident",
+        "adf-profile" : {
+            "common": {
+                "global": [
+                    {
+                        "label": "Event Source",
+                        "type": "string",
+                        "id": "p_event_source",
+                        "defaultValue": "hdfs://master:8020/do_dev/viaops/planned_maintenance",
+                        "value": ""
+                    },
+                    {
+                        "label": "Incident Output Stream",
+                        "type": "string",
+                        "id": "p_incident_plus_da",
+                        "defaultValue": "hdfs://master:8020/do_dev/viaops/incident_plus_da",
+                        "value": ""
+                    }
+                ]
+            }
+        }
+    },
+
+    "incident-setting-service" : {
+        "url" : "/app/pyj/space/VIA Analytics Library/pyjm/VIAOps - Knob Settings Service?op=call",
+        "headers" : {
+            "service" : "metricOnBoarding",
+            "arguments" : null
+        }
+    },
+
+    "quick-links" : {
+        "menu/databaseTool" : "/app/ax/user/via_common/axv/VIA - Data Source Comp",
+        "menu/serverLogs"   : "/app/ax/user/via_common/axv/VIA - Server Logs Comp"
+    },
+    
+    "seasonality" : {
+        "day-of-week" : {
+            "sun" : [0,0,0,0,0,0,0,0,1,1,2,3,3,3,3,4,5,6,6,7,4,3,2,0],
+            "mon" : [0,0,0,0,0,0,1,3,7,9,9,9,8,9,9,9,9,9,8,6,5,3,2,0],
+            "tue" : [0,0,0,0,0,0,1,3,7,9,9,9,8,9,9,9,9,9,8,6,5,3,2,0],
+            "wed" : [0,0,0,0,0,0,1,3,7,9,9,9,8,9,9,9,9,9,8,6,5,3,2,0],
+            "thu" : [0,0,0,0,0,0,1,3,7,9,9,9,8,9,9,9,9,9,8,6,5,3,2,0],
+            "fri" : [0,0,0,0,0,0,1,3,7,9,9,9,8,9,9,9,9,9,8,6,5,3,2,0],
+            "sat" : [0,0,0,0,0,0,0,0,1,1,2,3,3,3,3,4,5,6,6,7,4,3,2,0]
+        }
+    },
+    
+    "datetime-formats" : [
+        {
+            "#sample"  : "2019-09-13 16:30:00",
+            "regexp"   : "^[0-9][0-9][0-9][0-9]\\-[0-1][0-9]\\-[0-3][0-9] [0-9]{1,2}\\:[0-9][0-9]\\:[0-9][0-9]$",
+            "format"   : "yyyy-MM-dd HH:mm:ss",
+            "interval" : 300
+        },
+        {
+            "#sample"  : "13 Sep 2019 09:45:00",
+            "regexp"   : "^[0-3][0-9] [A-Z][a-z][a-z] [0-9][0-9][0-9][0-9] [0-9]{1,2}\\:[0-9][0-9]\\:[0-9][0-9]$",
+            "format"   : "dd MMM yyyy HH:mm:ss",
+            "interval" : 300
+        },
+        {
+            "#sample"  : "2019-10-24",
+            "regexp"   : "^[0-9][0-9][0-9][0-9]\\-[0-1][0-9]\\-[0-3][0-9]$",
+            "format"   : "yyyy-MM-dd",
+            "interval" : 86400
+        },
+        {
+            "#sample"  : "11/14/2019 02:36:54 AM",
+            "regexp"   : "^[0-1][0-9]/[0-3][0-9]/[0-9][0-9][0-9][0-9] [0-9]{1,2}\\:[0-9][0-9]\\:[0-9][0-9] [AP]M$",
+            "format"   : "MM/dd/yyyy HH:mm:ss a",
+            "interval" : 300
+        },
+        {
+            "#sample"  : "2019-12-09T00:30:00.000Z",
+            "regexp"   : "^[0-9][0-9][0-9][0-9]\\-[0-1][0-3]\\-[0-9][0-9]T[0-9][0-9]\\:[0-9][0-9]\\:[0-9][0-9]\\.[0-9][0-9][0-9]Z$",
+            "format"   : "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            "interval" : 300
+        },
+        {
+            "#sample"  : "08/31/2014 23:00:00",
+            "regexp"   : "^[0-1][0-9]/[0-3][0-9]/[0-9][0-9][0-9][0-9] [0-9]{1,2}\\:[0-9][0-9]\\:[0-9][0-9]$",
+            "format"   : "MM/dd/yyyy HH:mm:ss",
+            "interval" : 300
+        },
+        {
+            "#sample"  : "08/31/2014",
+            "regexp"   : "^[0-1][0-9]/[0-3][0-9]/[0-9][0-9][0-9][0-9]$",
+            "format"   : "MM/dd/yyyy",
+            "interval" : 86400
+        },
+        {
+            "#sample"  : "23:00:00",
+            "regexp"   : "^[0-9]{1,2}\\:[0-9][0-9]\\:[0-9][0-9]$",
+            "format"   : "HH:mm:ss",
+            "interval" : 300
+        }
+    ]
+}

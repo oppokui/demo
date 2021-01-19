@@ -1,0 +1,114 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "179bb3a2-ad75-4a96-8c89-ba0cf726c9cd"
+    },
+    {
+      "fileref": "ModelContentFile2",
+      "name": "58c25d92-0801-4765-8b8f-fed6af5d4f39"
+    },
+    {
+      "fileref": "ModelContentFile3",
+      "name": "9b0e6cba-208b-4dc1-8000-f2777a1e03b5"
+    },
+    {
+      "fileref": "ModelContentFile4",
+      "name": "33c78b0f-b90b-4173-8a0d-6de13a3401f2"
+    },
+    {
+      "fileref": "ModelContentFile5",
+      "name": "914e9dfc-2312-4969-8953-fb7637aac23b"
+    },
+    {
+      "fileref": "ModelContentFile6",
+      "name": "d0b096ec-e821-460e-856f-bbdb1de1ae41"
+    },
+    {
+      "fileref": "ModelContentFile7",
+      "name": "fcb067ce-d7c9-45dd-8af7-7383f1bc9d99"
+    },
+    {
+      "fileref": "ModelContentFile8",
+      "name": "4d2b63e6-3075-4aaf-8c00-2ee2102adc58"
+    },
+    {
+      "fileref": "ModelContentFile9",
+      "name": "86708c4c-170f-4475-8d70-a118b55b037e"
+    },
+    {
+      "fileref": "ModelContentFile10",
+      "name": "d0f99a65-c8b4-40b0-87ea-941f164ca792"
+    },
+    {
+      "fileref": "ModelContentFile11",
+      "name": "597d61ac-5ca6-49a6-817c-2589625755ff"
+    },
+    {
+      "fileref": "ModelContentFile12",
+      "name": "b8614be7-dda0-47c0-8935-e6d95a225d1d"
+    },
+    {
+      "fileref": "ModelContentFile13",
+      "name": "f2752834-45d8-4285-832a-62095d41dd57"
+    },
+    {
+      "fileref": "ModelContentFile14",
+      "name": "3a70c4a7-e4e7-4e7d-8fdc-d92226f04490"
+    },
+    {
+      "fileref": "ModelContentFile15",
+      "name": "5842c7c6-c376-4cb9-8e7d-408afd9d03c1"
+    },
+    {
+      "fileref": "ModelContentFile16",
+      "name": "b4e76bc2-5c74-48a9-88ad-5ca0f1644c2b"
+    },
+    {
+      "fileref": "ModelContentFile17",
+      "name": "493a5291-c21a-41ee-8e71-6f6a6845b528"
+    },
+    {
+      "fileref": "ModelContentFile18",
+      "name": "7010b0c5-d607-4c20-8188-60af7c8f58b6"
+    },
+    {
+      "fileref": "ModelContentFile19",
+      "name": "aba111dc-21c6-408f-8855-b52449d304e0"
+    },
+    {
+      "fileref": "ModelContentFile20",
+      "name": "6eb69979-867f-444a-87b4-745ec1feeb00"
+    },
+    {
+      "fileref": "ModelContentFile21",
+      "name": "612a771b-00c1-4fd8-80cb-9b82745a97a8"
+    },
+    {
+      "fileref": "ModelContentFile22",
+      "name": "3f42c9d1-dcd1-46f2-85d7-fe8ca7a00fbd"
+    },
+    {
+      "fileref": "ModelContentFile23",
+      "name": "2d03f60c-206e-48df-89b5-e0297184ba90"
+    },
+    {
+      "fileref": "ModelContentFile24",
+      "name": "2d7340d8-67f1-481f-8a8c-bd60480febaa"
+    }
+  ],
+  "lastDate": "1608021012711",
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "",
+    "_RESOURCE_Type": "dbpm",
+    "__indexed_contents__": "9b0e6cba-208b-4dc1-8000-f2777a1e03b5,58c25d92-0801-4765-8b8f-fed6af5d4f39,2d7340d8-67f1-481f-8a8c-bd60480febaa,4d2b63e6-3075-4aaf-8c00-2ee2102adc58,d0b096ec-e821-460e-856f-bbdb1de1ae41,86708c4c-170f-4475-8d70-a118b55b037e,fcb067ce-d7c9-45dd-8af7-7383f1bc9d99,d0f99a65-c8b4-40b0-87ea-941f164ca792,2d03f60c-206e-48df-89b5-e0297184ba90,7010b0c5-d607-4c20-8188-60af7c8f58b6,612a771b-00c1-4fd8-80cb-9b82745a97a8,b4e76bc2-5c74-48a9-88ad-5ca0f1644c2b,aba111dc-21c6-408f-8855-b52449d304e0,493a5291-c21a-41ee-8e71-6f6a6845b528,5842c7c6-c376-4cb9-8e7d-408afd9d03c1,3f42c9d1-dcd1-46f2-85d7-fe8ca7a00fbd,f2752834-45d8-4285-832a-62095d41dd57,6eb69979-867f-444a-87b4-745ec1feeb00,3a70c4a7-e4e7-4e7d-8fdc-d92226f04490,179bb3a2-ad75-4a96-8c89-ba0cf726c9cd,33c78b0f-b90b-4173-8a0d-6de13a3401f2,b8614be7-dda0-47c0-8935-e6d95a225d1d,597d61ac-5ca6-49a6-817c-2589625755ff,914e9dfc-2312-4969-8953-fb7637aac23b",
+    "__references__": "/app/dbp/space/VIA Digital Operations/dbpm/VIAOps - Base Service,/app/dbp/space/VIA Common Library/dbpm/VIA - File Service,/app/dbp/space/VIA Common Library/dbpm/VIA - Parser Library,/app/dbp/space/VIAOps Signal Onboarding V2/dbpm/VIAOps - Signal Onboarding Deployment Service V2,/app/dbp/space/VIA Digital Operations/dbpm/VIAOps - Config Property,/app/dbp/space/VIAOps Signal Onboarding V2/dbpm/VIAOps - Signal Onboarding System Model Service V2",
+    "modelStatus": "valid",
+    "name": "VIAOps - Signal Onboarding Service V2"
+  }
+}

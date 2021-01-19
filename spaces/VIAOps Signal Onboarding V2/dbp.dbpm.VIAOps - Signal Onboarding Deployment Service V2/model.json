@@ -1,0 +1,86 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "aaf24aaa-c64d-42f5-8c17-e081ba2724a0"
+    },
+    {
+      "fileref": "ModelContentFile2",
+      "name": "facc7903-2f77-4a06-8d4b-81f1604062c4"
+    },
+    {
+      "fileref": "ModelContentFile3",
+      "name": "cef7022b-a9e4-42cf-8115-bc8c630a79d7"
+    },
+    {
+      "fileref": "ModelContentFile4",
+      "name": "c353528a-5cdf-46dc-8a74-b66bf089000c"
+    },
+    {
+      "fileref": "ModelContentFile5",
+      "name": "2fba8ab4-7375-4196-801e-d93977f52d89"
+    },
+    {
+      "fileref": "ModelContentFile6",
+      "name": "fa9ae1b5-e617-4d90-8587-25326ed2a81a"
+    },
+    {
+      "fileref": "ModelContentFile7",
+      "name": "1d7e4f3d-4046-4641-80b9-41db7a029d15"
+    },
+    {
+      "fileref": "ModelContentFile8",
+      "name": "1d55d084-c542-48ed-8cd5-2389ca5e9c27"
+    },
+    {
+      "fileref": "ModelContentFile9",
+      "name": "655686c5-bdcb-44fd-8bca-df0623f9f58b"
+    },
+    {
+      "fileref": "ModelContentFile10",
+      "name": "2cca2f71-4cf1-49bc-8330-343c7c9e4b06"
+    },
+    {
+      "fileref": "ModelContentFile11",
+      "name": "16dd1df8-0808-4973-8b03-8d6b08306f56"
+    },
+    {
+      "fileref": "ModelContentFile12",
+      "name": "60591d92-2b34-4057-8f05-5ea810f83e49"
+    },
+    {
+      "fileref": "ModelContentFile13",
+      "name": "2860b18e-ec5c-480e-88cf-c87022040403"
+    },
+    {
+      "fileref": "ModelContentFile14",
+      "name": "d32c3aba-98c8-4d1a-8833-6e87add2ac7a"
+    },
+    {
+      "fileref": "ModelContentFile15",
+      "name": "e5c24e3d-9a0f-484f-83b2-83d8dce76faa"
+    },
+    {
+      "fileref": "ModelContentFile16",
+      "name": "3aa76353-4516-4c62-8b5b-a2e9d8a9d32d"
+    },
+    {
+      "fileref": "ModelContentFile17",
+      "name": "be5de59d-d65f-417c-89c0-1e2303ad4358"
+    }
+  ],
+  "lastDate": "1608021012698",
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "",
+    "_RESOURCE_Type": "dbpm",
+    "__indexed_contents__": "be5de59d-d65f-417c-89c0-1e2303ad4358,655686c5-bdcb-44fd-8bca-df0623f9f58b,2cca2f71-4cf1-49bc-8330-343c7c9e4b06,16dd1df8-0808-4973-8b03-8d6b08306f56,60591d92-2b34-4057-8f05-5ea810f83e49,e5c24e3d-9a0f-484f-83b2-83d8dce76faa,2860b18e-ec5c-480e-88cf-c87022040403,d32c3aba-98c8-4d1a-8833-6e87add2ac7a,3aa76353-4516-4c62-8b5b-a2e9d8a9d32d,1d55d084-c542-48ed-8cd5-2389ca5e9c27,aaf24aaa-c64d-42f5-8c17-e081ba2724a0,facc7903-2f77-4a06-8d4b-81f1604062c4,cef7022b-a9e4-42cf-8115-bc8c630a79d7,c353528a-5cdf-46dc-8a74-b66bf089000c,2fba8ab4-7375-4196-801e-d93977f52d89,fa9ae1b5-e617-4d90-8587-25326ed2a81a,1d7e4f3d-4046-4641-80b9-41db7a029d15",
+    "__references__": "",
+    "modelStatus": "valid",
+    "name": "VIAOps - Signal Onboarding Deployment Service V2"
+  }
+}

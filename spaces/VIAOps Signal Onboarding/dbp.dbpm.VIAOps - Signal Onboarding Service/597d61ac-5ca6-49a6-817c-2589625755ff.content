@@ -1,0 +1,21 @@
+<DashboardPluginModel description="" name="___MODEL_NAME___" is_init="false">
+  <ModelInfo validated="true">
+    <Properties>
+    </Properties>
+    <Widgets>
+    </Widgets>
+    <Functions>
+    </Functions>
+    <Services>
+    </Services>
+    <Resources>
+      <Resource uuid="___PAYLOAD_UUID___" name="SYSTEM_MODEL" type="application/json" size="___PAYLOAD_SIZE___" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+    </Resources>
+    <Plugins>
+    </Plugins>
+  </ModelInfo>
+</DashboardPluginModel>

@@ -1,0 +1,661 @@
+<DashboardPluginModel description="" name="VIAOps - Signal Onboarding System Model Service V2" is_init="false">
+  <ModelInfo validated="true">
+    <Properties>
+    </Properties>
+    <Widgets>
+    </Widgets>
+    <Functions>
+    </Functions>
+    <Services>
+      <Service name="___createCompFilterConfig" args="filterConfigs,contextNames,contextLabels,namePrefix,output,enrich" private="true">
+        <CodeText>
+          <![CDATA[if (filterConfigs == null) {
+    filterConfigs = [];
+}
+
+var queryConfig = this.getQueryConfig();
+
+function helperHas(scope)
+{
+    var filterName = queryConfig["filters"][scope];
+    return "helper.has(${" + filterName + "},['" + contextNames[scope] + "'])";
+}
+
+var filterConfig = {
+    "name" : namePrefix.toLowerCase(),
+    "label" : contextLabels["svc"] + "|" + contextLabels["comp"] + "|" + contextLabels["app"] + " Dimensions",
+    "name-style" : "padding-left:0px;width:0px;",
+    "value-style" : "padding:0px;width:100%;",
+    "display" : "return " + helperHas("svc") + " && " + helperHas("comp") + " && " + helperHas("app"),
+    "dimensions" : []
+};
+
+function addFilterDimension(itemName, itemLabel)
+{
+    var dimension = {
+        "name"      : itemName,
+        "label"     : itemLabel,
+        "dependent" : [queryConfig["filters"]["metric"]],
+        "enable"    : "return " + helperHas("svc") + " && helper.isSet(${" + queryConfig["filters"]["metric"] + "})",
+        "type"      : "DualListBuilder",
+        "type-params" : {
+            "text/placeholder"   : "List of " + itemLabel.toLowerCase(),
+            "dialog/title"       : "Build " + itemLabel.toLowerCase() + " list",
+            "dialog/description" : "Build list to filter on.",
+            "dialog/widget/config/service/url"     : "__OPTIONS_SERVICE__/getOptions",
+            "dialog/widget/config/service/context" : {
+                "execute-context" : [contextNames["svc"], contextNames["comp"], contextNames["app"]],
+                "module-context"  : ["metric", itemName]
+            }
+        },
+        "default" : []
+    };
+    filterConfig.dimensions.push(dimension);
+}
+
+output.forEach(function(item) {
+    if (item.isDimension == true && item.__reserved__ != true) {
+        addFilterDimension(item.name, item.label || item.name);
+    }
+});
+
+filterConfigs.push(filterConfig);
+return filterConfigs;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___createDimensionQueryConfig" args="dimensionQueryConfig,queryKey,sparkTable,pivot,assocSubservice,dimensionList,sourceQueryKey" private="true">
+        <CodeText>
+          <![CDATA[if (dimensionQueryConfig == null) {
+    dimensionQueryConfig = {
+        "service-queries" : {},
+        "source-config-keys" : {}
+    };
+}
+dimensionQueryConfig["source-config-keys"][queryKey] = sourceQueryKey;
+
+var config = {
+    "params" : {
+        "table-name"          : sparkTable,
+        "where-clause"        : [],
+        //"base-dimensions"     : baseDimensions,
+        "compound-dimensions" : [],
+        "exclude-dimensions"  : [],
+    }
+};
+
+if (assocSubservice != null && dimensionList != null) {
+    var metricDimensionList = [];
+    dimensionList.forEach(function(item) {
+        metricDimensionList.push({
+            "filter" : assocSubservice.toLowerCase() + "." + item.filter,
+            "name"   : item.name,
+            "label"  : item.label,
+            "group"  : item.group,
+        });
+    });
+    config["dimension-list"] = metricDimensionList;
+}
+
+dimensionQueryConfig["service-queries"][queryKey] = config;
+return dimensionQueryConfig;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___createFilterConfig" args="project,serviceInfo,namePrefix,output,enrich" private="true">
+        <CodeText>
+          <![CDATA[var partition = [{
+    svc: serviceInfo.service,
+    svcLabel: serviceInfo.serviceLabel || serviceInfo.service,
+    subSvc: serviceInfo.subService,
+    subSvcLabel: serviceInfo.subServiceLabel || serviceInfo.subService,
+    comp: serviceInfo.component,
+    compLabel: serviceInfo.component || serviceInfo.componentLabel
+}];
+
+
+var filterConfig = [];
+var self = this;
+partition.forEach(function (item) {
+    var contextNames = {
+        svc  : item.svc,
+        comp : item.subSvc,
+        app  : item.comp,
+    };
+    var contextLabels = {
+        svc  : item.svcLabel  || item.svc,
+        comp : item.subSvcLabel || item.subSvc,
+        app  : item.compLabel || item.comp
+    };
+
+    var compNamePrefix = namePrefix;
+    filterConfig = self.___createCompFilterConfig(filterConfig, contextNames, contextLabels, compNamePrefix, output, enrich);
+});
+
+return filterConfig;]]>
+        </CodeText>
+      </Service>
+      <Service name="___createOptionsDimKeyConfig" args="project,serviceInfo,queryKey,namePrefix,sparkTable,output,enrich,metricMap" private="true">
+        <CodeText>
+          <![CDATA[var partition = [{
+    svc: serviceInfo.service,
+    svcLabel: serviceInfo.serviceLabel || serviceInfo.service,
+    subSvc: serviceInfo.subService,
+    subSvcLabel: serviceInfo.subServiceLabel || serviceInfo.subService,
+    comp: serviceInfo.component,
+    compLabel: serviceInfo.component || serviceInfo.componentLabel
+}];
+
+
+var optionsDimKeyConfig = {};
+function addOptionsDimKey(compQueryKey, compNamePrefix, column, type)
+{
+    if (!optionsDimKeyConfig[compQueryKey]) {
+        optionsDimKeyConfig[compQueryKey] = [];
+    }
+    var item = {
+        "option"       : column,
+        "table-name"   : sparkTable,
+        "select-value" : column,
+        "where-clause" : [
+        ],
+        "filter-names" : [
+            compNamePrefix.toLowerCase() + "." + column
+        ]
+    }
+    
+    if (type == null || type == "string") {
+        item["where-clause"].push("and " + column + " != ''");
+    }
+    (optionsDimKeyConfig[compQueryKey]).push(item);
+}
+
+output.forEach(function(ditem) {
+    if (ditem.isDimension == true && ditem.__reserved__ != true) {
+        partition.forEach(function (item) {
+            var compNamePrefix = namePrefix;
+            if (item.svc != project.svc || item.subSvc != project.comp || item.comp != project.app) {
+                compNamePrefix = item.svc + "." + item.subSvc + "." + item.comp + "." + namePrefix;
+            }
+            var compQueryKey = item.svc + "|" + item.subSvc + "|" + item.comp;
+            addOptionsDimKey(compQueryKey, compNamePrefix, ditem.name);
+        });
+        
+    }
+});
+
+return optionsDimKeyConfig;]]>
+        </CodeText>
+      </Service>
+      <Service name="___createOptionsQueryConfig" args="project,serviceInfo,sparkTable,output,enrich" private="true">
+        <CodeText>
+          <![CDATA[var queryConfig = this.getQueryConfig();
+
+var optionsQueryConfig = {
+    "option-queries":{}
+};
+
+function addOptionQuery(column, type)
+{
+    var queryKey = serviceInfo.service+"|"+serviceInfo.subService+"|"+serviceInfo.component+"[metric|"+column+"]";
+    optionsQueryConfig["option-queries"][queryKey] = {
+        "table-name"          : sparkTable,
+        "distinct-column"     : column,
+        "option-where-clause" : [{
+            "option"   : "metrics", 
+            "filter"   : queryConfig["filters"]["metric"],
+            "column"   : "metric_name",
+            "required" : true
+        }],
+        "custom-where-clause" : [
+        ],
+        "dimension-clause-attributes" : {
+            "svc"  : queryConfig["filters"]["svc"],
+            "comp" : queryConfig["filters"]["comp"],
+            "app"  : queryConfig["filters"]["app"],
+        }            
+    };
+    
+    if (type == null || type == "string") {
+        optionsQueryConfig["option-queries"][queryKey]["custom-where-clause"].push(column + " != ''")
+    }
+}
+
+
+
+output.forEach(function(item) {
+    if (item.isDimension == true && item.__reserved__ != true) {
+        addOptionQuery(item.name);
+    }
+});
+
+return optionsQueryConfig;]]>
+        </CodeText>
+      </Service>
+      <Service name="___createServiceConfig" args="project,serviceInfo,dimensionValues,metricList" private="true">
+        <CodeText>
+          <![CDATA[var serviceConfig = {
+    groups: []
+};
+
+var partition = [{
+    svc: serviceInfo.service,
+    svcLabel: serviceInfo.serviceLabel || serviceInfo.service,
+    subSvc: serviceInfo.subService,
+    subSvcLabel: serviceInfo.subServiceLabel || serviceInfo.subService,
+    comp: serviceInfo.component,
+    compLabel: serviceInfo.component || serviceInfo.componentLabel
+}];
+
+
+var serviceMap = {};
+partition.forEach(function (item) {
+    if (!serviceMap[item.svc]) serviceMap[item.svc] = [];
+    
+    serviceMap[item.svc].push(item);
+});
+
+var self = this;
+for (var pro in serviceMap) {
+    self.___createSvcServiceConfig(project, dimensionValues, metricList, serviceConfig, serviceMap[pro]);
+}
+
+return serviceConfig;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___createSourceConfig" args="project,serviceInfo,sourceGroup,targetGroup,metricList,dimensionList,metricMap" private="true">
+        <CodeText>
+          <![CDATA[function getFilteredList(svc, subSvc, comp) {
+    var list = [];
+    var key = svc + "|" + subSvc + "|" + comp;
+    for (var i = 0, iN = metricList.length; i < iN; i++) {
+        var metric = metricList[i];
+        if (metricMap[metric.name + "[" + key + "]"]) {
+            list.push(metric);
+        }
+    }
+    return list;
+}
+
+var partition = [{
+    svc: serviceInfo.service,
+    svcLabel: serviceInfo.serviceLabel || serviceInfo.service,
+    subSvc: serviceInfo.subService,
+    subSvcLabel: serviceInfo.subServiceLabel || serviceInfo.subService,
+    comp: serviceInfo.component,
+    compLabel: serviceInfo.component || serviceInfo.componentLabel
+}];
+
+
+var sourceConfig = {};
+partition.forEach(function(item) {
+    var config = {};
+    if (sourceGroup != null) config["source-group"] = sourceGroup;
+    if (targetGroup != null) config["target-group"] = targetGroup;
+    if (metricList != null) config["metric-list"] = this.___getSourceConfigMetricList(metricList);
+    if (dimensionList != null) config["dimension-list"] = dimensionList;
+    sourceConfig[item.svc + "|" + item.subSvc + "|" + item.comp] = config;
+});
+return sourceConfig;]]>
+        </CodeText>
+      </Service>
+      <Service name="___createSvcServiceConfig" args="project,dimensionValues,metricList,serviceConfig,partition" private="true">
+        <CodeText>
+          <![CDATA[if (!partition || partition.length == 0) return;
+
+
+function generateSubserviceMap(subServiceMap) {
+    partition.forEach(function(item) {
+        if (!subServiceMap[item.subSvc]) {
+            subServiceMap[item.subSvc] = {
+                name: item.subSvc,
+                label: item.subSvcLabel,
+                comp: {}
+            };
+        }
+
+        var subService = subServiceMap[item.subSvc];
+        if (!subService.comp[item.comp]) {
+            subService.comp[item.comp] = {
+                name: item.comp,
+                label: item.compLabel
+            }
+        }
+    });
+}
+
+function getFilteredList(svc, subSvc, comp) {
+    var list = [];
+    var key = svc + "|" + subSvc + "|" + comp;
+    for (var i = 0, iN = metricList.length; i < iN; i++) {
+        var metric = metricList[i];
+        list.push(metric);
+    }
+    return list;
+}
+
+function getDimensionValues(svc, subSvc, comp) {
+    var values = [];
+    if (comp == null) {
+        var key = "subSvc:" + svc;
+        if (dimensionValues[key] != null && dimensionValues[key].length > 0) {
+            values = values.concat(dimensionValues["subSvc:" + svc]);
+        }
+        
+        key = "subSvc:" + svc + "|" + subSvc;
+        if (dimensionValues[key] != null  && dimensionValues[key].length > 0) {
+            values = values.concat(dimensionValues[key]);
+        }
+    } else {
+        var key = "comp:" + svc + "|" + subSvc;
+        if (dimensionValues[key] != null  && dimensionValues[key].length > 0) {
+            values = values.concat(dimensionValues[key]);
+        }
+        
+        key = "comp:" + svc + "|" + subSvc + "|" + comp;
+        if (dimensionValues[key] != null  && dimensionValues[key].length > 0) {
+            values = values.concat(dimensionValues[key]);
+        }
+    }
+    return values.length > 0 ? values : null;
+}
+
+function mergeDimensionValues(meta, dimensionValues) {
+    // HOW TO MERGE?
+    meta["dimension-values"] = dimensionValues;
+}
+
+
+var svcMetadata = {};
+
+var serviceName = partition[0].svc;
+var serviceLabel = partition[0].svcLabel;
+var subServiceMap = {};
+var metricIdMap = {};
+generateSubserviceMap(subServiceMap);
+
+var svc = {
+    name: serviceName,
+    label: serviceLabel,
+    "fa-label": serviceLabel || serviceName,
+    meta: svcMetadata,
+    groups: []
+};
+if (dimensionValues["svc:" + serviceName] != null) {
+    if (svc.meta == null) svc.meta = {};
+    mergeDimensionValues(svc.meta, dimensionValues["svc:" + serviceName]);
+}
+
+var self = this;
+for (var subSvcPro in subServiceMap) {
+    if (subSvcPro != "*") {
+        var subSvcItem = subServiceMap[subSvcPro];
+        var comp = {
+            name: subSvcItem.name,
+            label: subSvcItem.label || subSvcItem.name,
+            "fa-label": subSvcItem.label || subSvcItem.name,
+            groups: []
+        };
+
+        var compDimensionValues = getDimensionValues(serviceName, subSvcItem.name, null);
+        if (compDimensionValues != null) {
+            if (comp.meta == null) comp.meta = {};
+            mergeDimensionValues(comp.meta, compDimensionValues);
+        }
+        svc.groups.push(comp);
+
+        for (var compPro in subSvcItem.comp) {
+            if (compPro != "*") {
+                var compItem = subSvcItem.comp[compPro];
+                var app = {
+                    name: compItem.name,
+                    label: compItem.label || compItem.label
+                };
+                var appDimensionValues = getDimensionValues(serviceName, subSvcItem.name, compItem.name);
+                if (appDimensionValues != null) {
+                    if (app.meta == null) app.meta = {};
+                    mergeDimensionValues(app.meta, appDimensionValues);
+                }
+                comp.groups.push(app);
+                app.items = metricList;
+            } else {
+                comp.items = metricList;
+            }
+        }
+    } else {
+        svc.items = metricList;
+    }
+}
+
+serviceConfig.groups.push(svc);
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___createTrendQueryConfig" args="trendQueryConfig,queryKey,sparkTable,assocSubservice,dimensionList,sourceQueryKey" private="true">
+        <CodeText>
+          <![CDATA[if (trendQueryConfig == null) {
+    trendQueryConfig = {
+        "service-queries" : {},
+        "source-config-keys" : {}
+    };
+}
+trendQueryConfig["source-config-keys"][queryKey] = sourceQueryKey;
+
+var queryConfig = {
+    "params" : {
+        "metric-table": sparkTable,
+    },
+    "options" : {
+        "use-precomputed-baseline" : true,
+    }
+};
+
+if (assocSubservice != null && dimensionList != null) {
+    var metricDimensionList = [];
+    dimensionList.forEach(function(item) {
+        metricDimensionList.push({
+            "filter" : assocSubservice.toLowerCase() + "." + item.filter,
+            "column" : item.name,
+            "group"  : item.group,
+        });
+    });
+    queryConfig["params"]["metric-dimension-list"] = metricDimensionList;
+}
+
+trendQueryConfig["service-queries"][queryKey] = queryConfig;
+
+return trendQueryConfig;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___getServiceConfigDimensionValues" args="output,qdc" private="true">
+        <CodeText>
+          <![CDATA[var dimensionTypes = {};
+for (var i=0; i<output.length; i++) {
+    dimensionTypes[output[i]["name"]] = output[i]["type"];
+}
+var dimensionValues = {};
+return dimensionValues;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___getServiceConfigMetricList" args="metricList" private="true">
+        <CodeText>
+          <![CDATA[var serviceConfigMetricList = [];
+for (var i=0, n=metricList.length; i<n; i++) {
+    var metric = metricList[i];
+    serviceConfigMetricList.push({
+        name  : metric.name,
+        label : metric.label,
+        uom   : metric.uom,
+        aggr  : metric.aggr == "N/A" || metric.aggr == "" ? "sum" : metric.aggr
+    });
+}
+return serviceConfigMetricList;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___getSourceConfigDimensionList" args="namePrefix,output" private="true">
+        <CodeText>
+          <![CDATA[var sourceConfigDimensionList = [];
+
+function addSourceDimension(itemName, itemLabel)
+{
+    sourceConfigDimensionList.push({
+        name   : itemName,
+        label  : itemLabel,
+        filter : namePrefix.toLowerCase() + "." + itemName,
+        group  : false,
+    });
+}
+
+output.forEach(function(item) {
+    if (item.isDimension == true && item.__reserved__ != true) {
+        addSourceDimension(item.name, item.label || item.name);
+    }
+});
+
+return sourceConfigDimensionList;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="___getSourceConfigMetricList" args="metricList" private="true">
+        <CodeText>
+          <![CDATA[var sourceConfigMetricList = {};
+for (var i=0, n=metricList.length; i<n; i++) {
+    var metric = metricList[i];
+    sourceConfigMetricList[metric.name] = {
+        name : metric.value,
+        sourceName: metric.sourceName
+    };
+}
+return sourceConfigMetricList;
+]]>
+        </CodeText>
+      </Service>
+      <Service name="__generateSystemModel" args="project,metricModel,serviceInfo,schema,pivot,enrich,output" private="true">
+        <CodeText>
+          <![CDATA[var queryConfig = this.getQueryConfig();
+var defaultValues = this._getDefaultValues();
+var nameDefaults = this.getNameDefaults(project);
+
+var queryKey    = serviceInfo.service+"|"+serviceInfo.subService+"|"+serviceInfo.component;
+var namePrefix  = (project.safePrefix || nameDefaults.namePrefix);
+
+var sourceGroup = project.prjName;
+var targetGroup = metricModel.table_name;
+var sparkTable = metricModel.table_name;
+
+var metricList = this.___getMetricList(pivot);
+metricList = metricList.filter(function (metric) {
+    return metric.include !== false; 
+});
+
+var serviceConfigMetricList      = this.___getServiceConfigMetricList(metricList);
+var sourceConfigDimensionList    = this.___getSourceConfigDimensionList(namePrefix, output);
+var serviceConfigDimensionValues = this.___getServiceConfigDimensionValues(output);
+
+var serviceConfig = this.___createServiceConfig(project, serviceInfo, serviceConfigDimensionValues, serviceConfigMetricList);
+
+var sourceConfig  = this.___createSourceConfig(project, serviceInfo, sourceGroup, targetGroup, metricList, sourceConfigDimensionList);
+
+var trendQueryConfig = this.___createTrendQueryConfig(null, queryKey, sparkTable, null, null, queryKey);
+var dimensionQueryConfig = this.___createDimensionQueryConfig(null, queryKey, sparkTable, pivot, null, null, queryKey);
+
+var filterConfig = this.___createFilterConfig(project, serviceInfo, namePrefix, output, enrich);
+var optionsQueryConfig = this.___createOptionsQueryConfig(project, serviceInfo, sparkTable, output, enrich);
+var optionsDimKeyConfig = this.___createOptionsDimKeyConfig(project, serviceInfo, queryKey, namePrefix, sparkTable, output, enrich);
+
+return {
+    "service-config"         : serviceConfig,
+    "source-config"          : sourceConfig,
+    "trend-query-config"     : trendQueryConfig,
+    "dimension-query-config" : dimensionQueryConfig,
+    "filter-config"          : filterConfig,
+    "options-query-config"   : optionsQueryConfig,
+    "options-dimkey-config"  : optionsDimKeyConfig,
+};
+]]>
+        </CodeText>
+      </Service>
+      <Service name="getSEnrichJoinConditionsSchema" args="schema,enrich" private="false">
+        <CodeText>
+          <![CDATA[var parseSchema = [];
+for (var i=0, n=schema.length; i<n; i++) {
+    var field = schema[i];
+    if (field.ignore != true) {
+        var record = {
+            name        : "source1." + field.name,
+            label       : "source1." + field.name,
+            type        : field.data_type,
+            isArray     : false,
+            isOptional  : field.ignore == true || field.optional || field.attr_type == "measure",
+            initName    : field.name,
+            isDimension : field.attr_type == "dimension" || this._isDimension(field.data_type),
+            isMeasure   : field.attr_type == "measure" || this._isMeasure(field.data_type),
+            excluded    : field.ignore,
+        };
+        if (field.format != null) {
+            record.format = field.format;
+        }
+        if (field.attr_type == "timestamp") {
+            record.isOptional = false;
+        }
+        parseSchema.push(record);
+    }
+}
+
+var enrichSchema = [];
+if (enrich.joinClause) {
+    for (var j=0; j<enrich.joinClause.length; j++) {
+        var field = enrich.joinClause[j];
+        if (field.include != true) continue;
+        
+        enrichSchema.push({
+            name        : "source2." + field.rightField,
+            label       : "source2." + field.rightField,
+            type        : field.type,
+            isArray     : false,
+            isOptional  : false,
+            clazz       : "",
+            isDimension : true,
+            isMeasure   : false
+        });
+    }
+}
+
+var result = {};
+result.properties = JSON.parse(Context.getLocalResource("PARSER_MODEL_GLOBAL_PROPERTIES"));
+result.schema = parseSchema.concat(enrichSchema);
+return result;]]>
+        </CodeText>
+      </Service>
+      <Service name="getSystemModelJoinConditionsSchema" args="schema,enrich" private="false">
+        <CodeText>
+          <![CDATA[var schema = this.___getPivotOutputSchema(pivot);
+schema.forEach(function (item) {
+    item.name = "source1." + item.name;
+    item.label = "source1." + item.label;
+});
+
+var parseTableSchema = JSON.parse(Context.getLocalResource("PARSE_MODEL_TABLE_SCHEMA"));
+
+var result = {};
+result.properties = JSON.parse(Context.getLocalResource("PARSER_MODEL_GLOBAL_PROPERTIES"));
+result.schema = schema.concat(parseTableSchema);
+return result;]]>
+        </CodeText>
+      </Service>
+    </Services>
+    <Resources>
+      <Resource uuid="e50c0523-0f03-45a3-823d-c8505fa90325" name="PARSE_MODEL_TABLE_SCHEMA" type="application/json" size="1198" private="false">
+        <Description>
+          <![CDATA[]]>
+        </Description>
+      </Resource>
+    </Resources>
+    <Plugins>
+    </Plugins>
+  </ModelInfo>
+</DashboardPluginModel>

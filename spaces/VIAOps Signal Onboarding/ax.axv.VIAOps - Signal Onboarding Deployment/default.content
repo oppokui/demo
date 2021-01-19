@@ -1,0 +1,558 @@
+<AnalyticsExplorerView description="" name="VIAOps - Signal Onboarding Deployment" is_init="false">
+  <ModelInfo validated="false" nextPageId="2">
+    <GlobalDSRSetting enabled="false">
+    </GlobalDSRSetting>
+    <GlobalProperties>
+      <Property name='Property1' label='Property1' type='string' value='' constraints='' runtimeControl='true' stringType='constant' >
+</Property>
+
+    </GlobalProperties>
+    <GlobalThemeSetting>
+        <SelectedTheme theme="{&quot;id&quot;:null,&quot;name&quot;:&quot;Vitria Default Theme&quot;,&quot;label&quot;:&quot;Vitria Default Theme&quot;}"/>
+        <TileOpacity opacity="0.8"/>
+        <NoTileSpacing value="false"/>
+    </GlobalThemeSetting>
+    <I18NTab>
+        <name value="default"/>
+    </I18NTab>
+    <TabNavSetting visible="true"></TabNavSetting>
+    <DWRSetting disable="false"></DWRSetting>
+    <CustomCSSSetting ><![CDATA[@import '/vitria-oi/rest/app/dbp/user/via_common/dbpm/VIA - Common/VIA-CSS';
+
+.workbench .via-action-bar .contentContainer {
+    border-bottom: thin solid lightgray !important;
+    width:calc(100% - 3px) !important;
+    height:auto !important;
+}
+
+/*
+.workbench .via-action-bar.toolbar .contentContainer {
+    width:calc(100% - 6px) !important;
+}
+
+.workbench .via-action-bar.toolbar .contentContainer .via-action-bar-toolbar {
+    width: calc(100% - 6px) !important;
+}
+
+.workbench .via-action-bar.menubar .contentContainer {
+    width:calc(100% - 6px) !important;
+}
+*/]]></CustomCSSSetting>
+    <Page id="1" name="Default" title="Default" desc="" tabNavVisible="true" panelposition="right" panelstatus="closed" className="workbench">
+    <HelpContent><![CDATA[]]></HelpContent>
+    <PageFrameContent><![CDATA[<div style="width:calc(100%);height:100%;background-color:white;padding:0px; overflow-x: hidden;">
+    <div style="width:100%;height:32px;padding:2px 0px 0px 0px;border:none;">
+        <div class="soDeploymentActionBar" style="width:calc(100% - 40px);height:32px;border:none;display:inline-block;position:relative;" data-vitria-type="tile" data-vitria-tile-name="Action1"></div>
+        <div style="width:38px;min-height:32px;float:right;border:none;display:inline-block;right:-5px;" data-vitria-type="tile" data-vitria-tile-name="Menu1"></div>
+    </div>
+    <div style="calc(width:100%);height:calc(100% - 34px);" data-vitria-type="layout"></div> 
+</div>
+]]></PageFrameContent>
+      <PageProperties>
+      </PageProperties>
+      <Layout type="10" numRow="1" numCol="1" count="1" templateType ="1" screenHeight ="NaN" renderType ="null" positions="[{&quot;data_col&quot;:1,&quot;data_row&quot;:1,&quot;data_sizex&quot;:120,&quot;data_sizey&quot;:72,&quot;id&quot;:0,&quot;title&quot;:&quot;Main Tile&quot;}]" unitSize= "undefined" viewRows="72" viewCols="120"/>
+      <Tile name="Main Tile" title="Main Tile" desc="" hideEmptyTile="false" previewSize="15" type="Independent" style="small" sampleData="false" className="metric-workbench-container" parentSelect="false" advancedConfig="false" advancedDisable="true" allowFullscreen="false">
+        <DataSource category="#NONE" id="undefined" untyped="true" name="#NONE" label="(not configured)">
+</DataSource>
+          <LabelStyle><![CDATA[{"display":"none"}]]></LabelStyle>
+          <TileThemeSetting><![CDATA[{}]]></TileThemeSetting>
+        <DataViewer name="dbp.Renderer" label="Dashboard Module" optional="false" minimode="false">
+          <Property name="generalProperties" value="{&quot;_model&quot;:&quot;/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Deployment Service/WorkbenchDeployManagerWidget&quot;}"/>
+          <Ports>
+          </Ports>
+        </DataViewer>
+      </Tile>
+      <frame_tile name="Action1" title="Action1" desc="" hideEmptyTile="false" previewSize="15" type="Independent" style="small" sampleData="false" className="via-action-bar toolbar" parentSelect="false" advancedConfig="false" advancedDisable="true" allowFullscreen="false">
+        <DataSource category="#ClientSideResource" id="axflow:localstore:node:6" name="axflow:localstore:node:6" label="Action Data" type="#ScriptDataStore">
+  <Param name="where" label="Where Clause" value="" binding="" type="string"/>
+  <Param name="sort" label="Sort Order" value="" binding="" type="string"/>
+  <Field name="value" label="value" type="string" isDimension="false" isMeasure="false"/>
+  <Field name="disable" label="disable" type="boolean" isDimension="false" isMeasure="false"/>
+  <Field name="display" label="display" type="boolean" isDimension="false" isMeasure="false"/>
+</DataSource>
+          <LabelStyle><![CDATA[{"display":"none"}]]></LabelStyle>
+          <TileThemeSetting><![CDATA[{}]]></TileThemeSetting>
+        <DataViewer name="dbp.Renderer" label="Dashboard Module" optional="false" minimode="false">
+          <Property name="generalProperties" value="{&quot;_model&quot;:&quot;/app/dbp/space/VIA Common Library/dbpm/VIA - Common/Action Bar&quot;,&quot;model&quot;:&quot;{\n\t\&quot;toolbar\&quot;: [\n\t    {\n    \t\t\&quot;label\&quot;: \&quot;Deployments\&quot;,\n    \t\t\&quot;title\&quot;: \&quot;Metric Workbench Project Deployments\&quot;\n    \t},\n    \t{\n    \t    \&quot;label\&quot;: \&quot;&amp;lt;i class=&apos;fa fa-undo&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n    \t    \&quot;title\&quot;: \&quot;Revert Deployments Changes\&quot;,\n    \t    \&quot;value\&quot;: \&quot;project/revert\&quot;\n\n    \t},\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-save&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Save Deployments Setting\&quot;,\n            \&quot;value\&quot; : \&quot;project/save\&quot;\n        },\n\t\t{\n    \t\t\&quot;label\&quot;: \&quot;Editor\&quot;,\n    \t\t\&quot;title\&quot;: \&quot;\&quot;\n\t\t},\n\t\t{\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-list-alt&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Swtich To Editor\&quot;,\n            \&quot;value\&quot; : \&quot;switch/editor\&quot;\n\t\t}\n\t]\n}\n&quot;}"/>
+          <Ports>
+          </Ports>
+        </DataViewer>
+      </frame_tile>
+      <frame_tile name="Menu1" title="Menu1" desc="" hideEmptyTile="false" previewSize="15" type="Independent" style="small" sampleData="false" className="via-action-bar menubar" parentSelect="false" advancedConfig="false" advancedDisable="true" allowFullscreen="false">
+        <DataSource category="#ClientSideResource" id="axflow:localstore:node:14" name="axflow:localstore:node:14" label="Menu Data" type="#ScriptDataStore">
+  <Param name="where" label="Where Clause" value="" binding="" type="string"/>
+  <Param name="sort" label="Sort Order" value="" binding="" type="string"/>
+  <Field name="timestamp" label="Timestamp" type="number" isDimension="false" isMeasure="false"/>
+  <Field name="url" label="URL" type="string" isDimension="false" isMeasure="false"/>
+</DataSource>
+          <LabelStyle><![CDATA[{"display":"none"}]]></LabelStyle>
+          <TileThemeSetting><![CDATA[{}]]></TileThemeSetting>
+        <DataViewer name="dbp.Renderer" label="Dashboard Module" optional="false" minimode="false">
+          <Property name="generalProperties" value="{&quot;_model&quot;:&quot;/app/dbp/space/VIA Common Library/dbpm/VIA - Common/Action Bar&quot;,&quot;model&quot;:&quot;{\r\n\t\&quot;menubar\&quot;: [{\r\n\t\t\&quot;label\&quot;: \&quot;&amp;lt;i class=&apos;fas fa-link&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\r\n\t\t\&quot;value\&quot;: \&quot;menu\&quot;,\r\n\t\t\&quot;items\&quot;: [\r\n\t\t    {\r\n    \t\t\t\&quot;label\&quot;: \&quot;Ingestion Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;parserModel\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Anomaly Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;anomalyModel\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t    \&quot;value\&quot;: \&quot;separator2\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Trend Analysis\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;trendAnalysis\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Dimension Analysis\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;dimensionAnalysis\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Incident Analysis\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;incidentAnalysis\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Configuration Tool\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;configTool\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Server Logs\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;serverLogs\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Database Tool\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;databaseTool\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Baseline Score\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Open Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;baselineScoreOpen\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Start Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;baselineScoreStart\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Stop Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;baselineScoreStop\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Simple Threshold\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Open Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;simpleThresholdOpen\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Start Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;simpleThresholdStart\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Stop Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;simpleThresholdStop\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Declared Event\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Open Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;declaredEventOpen\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Start Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;declaredEventStart\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Stop Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;declaredEventStop\&quot;\r\n    \t\t}\r\n\t\t]\r\n\t}]\r\n}\r\n&quot;}"/>
+          <Ports>
+          </Ports>
+        </DataViewer>
+      </frame_tile>
+    </Page>
+    <DataFlow showFooter="true">
+      <Item id='node:1' type='Tile' label='Action1' _undefined_title='' _undefined_originHeight='' width='124' height='134' x='80' y='100' >
+</Item>
+
+      <Item id='node:2' type='UserScript' label='Script 0' _undefined_title='' originHeight='117' width='180' height='177' x='331' y='100' >
+<dynIn id='din:0' type='event[]' label='Actions' evaluate='always' _isArray='true' >
+</dynIn>
+<dynIn id='din:1' type='event[]' label='Content' evaluate='always' _isArray='true' >
+</dynIn>
+<dynIn id='din:2' type='event[]' label='Menus' evaluate='always' _isArray='true' >
+</dynIn>
+<dynIn id='din:3' type='any' label='Plugins' evaluate='always' _isArray='true' >
+</dynIn>
+<dynIn id='din:4' type='any[]' label='Updates' evaluate='always' _isArray='true' >
+</dynIn>
+<dynOut id='dout:0' type='any' label='Notify' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:1' type='event[]' label='Action Data' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:2' type='event[]' label='Menu Data' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:3' type='any' label='Switch To Editor' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:4' type='any' label='Notification' propagate='always' _isArray='true' >
+</dynOut>
+</Item>
+
+      <Item id='node:6' type='LocalStore' label='Action Data' _undefined_title='' _undefined_originHeight='' width='130' height='177' x='666' y='120' >
+</Item>
+
+      <Item id='node:14' type='LocalStore' label='Menu Data' _undefined_title='' _undefined_originHeight='' width='130' height='177' x='860' y='140' >
+</Item>
+
+      <Item id='node:16' type='Tile' label='Menu1' _undefined_title='' _undefined_originHeight='' width='124' height='130' x='80' y='260' >
+</Item>
+
+      <Item id='node:20' type='PortIn' label='Port IN 0' _undefined_title='' originHeight='117' width='130' height='177' x='89' y='540' >
+<dynOut id='dout:0' type='any' label='Plugins' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:1' type='any' label='Context' propagate='always' _isArray='true' >
+</dynOut>
+</Item>
+
+      <Item id='node:22' type='PortOut' label='Port OUT 0' _undefined_title='' _undefined_originHeight='' width='130' height='177' x='640' y='340' >
+<dynIn id='din:0' type='any' label='Action' evaluate='always' _isArray='true' >
+</dynIn>
+</Item>
+
+      <Item id='node:24' type='UserScript' label='Action Handler' _undefined_title='' originHeight='117' width='130' height='117' x='294' y='580' >
+<dynIn id='din:0' type='any' label='Context' evaluate='always' _isArray='true' >
+</dynIn>
+<dynIn id='din:1' type='any' label='Plugins' evaluate='always' _isArray='true' >
+</dynIn>
+<dynOut id='dout:0' type='any' label='Notify' propagate='always' _isArray='true' >
+</dynOut>
+</Item>
+
+      <Item id='node:26' type='Tile' label='Main Tile' _undefined_title='' _undefined_originHeight='' width='130' height='177' x='880' y='580' >
+</Item>
+
+      <Link srcId='node:20' srcPort='dout:0' tgtId='node:24' tgtPort='din:1' >
+</Link>
+
+      <Link srcId='node:24' srcPort='dout:0' tgtId='node:26' tgtPort='in:0' >
+</Link>
+
+      <Link srcId='node:20' srcPort='dout:1' tgtId='node:24' tgtPort='din:0' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:2' tgtId='node:14' tgtPort='in:0' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:3' tgtId='node:22' tgtPort='din:0' >
+</Link>
+
+      <Link srcId='node:20' srcPort='dout:0' tgtId='node:2' tgtPort='din:3' >
+</Link>
+
+      <Link srcId='node:16' srcPort='out:0' tgtId='node:2' tgtPort='din:2' >
+</Link>
+
+      <Link srcId='node:1' srcPort='out:0' tgtId='node:2' tgtPort='din:0' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:1' tgtId='node:6' tgtPort='in:0' >
+</Link>
+
+      <Link srcId='node:26' srcPort='out:0' tgtId='node:2' tgtPort='din:1' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:4' tgtId='node:26' tgtPort='in:0' >
+</Link>
+
+      <Input key='node:1/cfg:tile/default' value='[{&quot;id&quot;:&quot;ROOT#1#Action1&quot;,&quot;path&quot;:[&quot;Default&quot;],&quot;name&quot;:&quot;Action1&quot;}]' >
+</Input>
+
+      <Input key='node:2/cfg:inPorts/default' value='[{&quot;portId&quot;:&quot;din:0&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Actions&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;din:1&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Content&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;din:2&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Menus&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;din:3&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Plugins&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;din:4&quot;,&quot;portType&quot;:&quot;any[]&quot;,&quot;portLabel&quot;:&quot;Updates&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Input key='node:2/cfg:model/default' value='&quot;var plugins = getInput(\&quot;din:3\&quot;);\nif (plugins == null) return;\n\nvar ServicePlugin = plugins.NuovaStella;\nvar CommonPlugin = Plugin(\&quot;Common\&quot;);\n\nvar StatusService = Plugin(\&quot;StatusService\&quot;);\nvar self = this;\nvar axController = this.axflow.config.controller;\nif (!getLocal(\&quot;CollabMgrHandler\&quot;)) {\n    var handler = StatusService.addHandler(axController, function () {\n        var content = getLocal(\&quot;CURRENT-CONTENT\&quot;) || {};\n        var project = content.project;\n        if (project != null) {\n            StatusService.showNotification(axController, project, &apos;.soDeploymentActionBar&apos;);\n        }\n    });\n    setLocal(\&quot;CollabMgrHandler\&quot;, handler);\n    onExit(function() {\n        var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\n        if (project != null) {\n            StatusService.onEditClose(axController, project);\n        }\n        var handler = getLocal(\&quot;CollabMgrHandler\&quot;);\n        if (handler != null) {\n            StatusService.removeHandler(axController, handler);\n        }\n    });\n}\n\nif (port == \&quot;din:0\&quot;) {\n    var actions = getInput(\&quot;din:0\&quot;) || [];\n    if (actions.length == 1) {\n        var action = actions[0];\n        switch (action.value) {\n            case \&quot;switch/editor\&quot;:\n                setOutput(\&quot;dout:3\&quot;, {\n                    &apos;action&apos;: &apos;switch/editor&apos;\n                });\n                break;\n            case \&quot;project/save\&quot;:\n                var content = getLocal(\&quot;CURRENT-CONTENT\&quot;) || {};\n                if (!content.changed) {\n                    updateAction();\n                } else {\n                    CommonPlugin.pbShowProgressBar(\&quot;saveDeployments\&quot;, \&quot;Save deployments changes...\&quot;);\n                    //invoking service encodes arugments, whose value may get changed. Use clone to avoid this.\n                    ServicePlugin.saveProjectWithDeployments(content.project, clone(content.deployments), function (response) {\n                        if (response.status == \&quot;OK\&quot; &amp;&amp; response.value == true) {\n                            content.changed = false;\n                            updateAction();\n                            setOutput(\&quot;dout:4\&quot;, {\n                                action: &apos;clearDirty&apos;\n                            });\n                        }\n                        else {\n                            message(\&quot;error\&quot;, \&quot;Deployment\&quot;, response.error, null);\n                        }\n                        CommonPlugin.pbHideProgressBar(\&quot;saveDeployments\&quot;);\n                    });\n                }\n                break;\n            case \&quot;project/revert\&quot;:\n                var content = getLocal(\&quot;CURRENT-CONTENT\&quot;) || {};\n                if (content.changed) {\n                    require([\&quot;af/utils/I18N\&quot;, \&quot;af/controls/AppMessageBox\&quot;], function(I18N, AppMessageBox) {\n                        var alert = new AppMessageBox({\n                            buttons : 2,\n                            title : I18N.getString(\&quot;af.frame\&quot;, \&quot;app.dialog.confirm\&quot;),\n                            message  : I18N.getString(\&quot;af.frame\&quot;,\&quot;app.dirty.confirm.warning\&quot;, [I18N.getString(\&quot;af.frame\&quot;,\&quot;app.editor.op.closing\&quot;), content.project.prjName]),\n                            okHandler  : function() {\n                                setOutput(\&quot;dout:4\&quot;, {\n                                    action: &apos;load&apos;,\n                                    project: content.project\n                                });\n                                content.changed = false;\n                                updateAction();\n                            },\n                            cancelHandler : function() {\n                                // no... abort\n                            }\n                        });\n                        alert.show();\n                    });\n                } else {\n                    setOutput(\&quot;dout:4\&quot;, {\n                        action: &apos;load&apos;,\n                        project: content.project\n                    });\n                    updateAction();\n                }\n                break;\n        }\n    }\n} else if (port == \&quot;din:1\&quot;) {\n    var selection = getInput(\&quot;din:1\&quot;);\n    if (selection &amp;&amp; selection.length &gt; 0) {\n        setLocal(\&quot;CURRENT-CONTENT\&quot;, selection[0]);\n        updateAction();\n    }\n} else if (port == \&quot;din:2\&quot;) {\n    var content = getLocal(\&quot;CURRENT-CONTENT\&quot;);\n    if (!content) rturn;\n    \n    var actions = getInput(\&quot;din:2\&quot;) || [];\n    if (actions.length == 0) return;\n    var action = actions[0];\n    \n    var project = content.project;\n    var deployment = content.deployment;\n    if (!project || !deployment) return;\n    \n    switch (action.value) {\n        case \&quot;menu/parserModel\&quot;:\n            ServicePlugin.getParserModelURL(project, deployment,  function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value != null) {\n                        window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Parser model not found\&quot;, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n            });\n            break;\n        case \&quot;menu/anomalyModel\&quot;:\n            ServicePlugin.getAnomalyModelURL(project, deployment, function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value != null) {\n                        window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Anomaly model not found\&quot;, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n            });\n            break;\n        case \&quot;menu/baselineScoreOpen\&quot;:\n            ServicePlugin.getBaselineScoreModelURL(project, function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value != null) {\n                        window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Baseline Score model not found\&quot;, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n            });\n            break;\n        case \&quot;menu/baselineScoreStart\&quot;:\n            CommonPlugin.pbShowProgressBar(\&quot;startBaselineScoreModel\&quot;, \&quot;Starting baseline score model...\&quot;);\n            ServicePlugin.startBaselineScoreModel(project, function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value == \&quot;ACTIVE\&quot;) {\n                        message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Baseline Score model started.\&quot;, null);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n                CommonPlugin.pbHideProgressBar(\&quot;startBaselineScoreModel\&quot;);\n                updateAction();\n            });\n            break;\n        case \&quot;menu/baselineScoreStop\&quot;:\n            CommonPlugin.pbShowProgressBar(\&quot;stopBaselineScoreModel\&quot;, \&quot;Stopping baseline score model...\&quot;);\n            ServicePlugin.stopBaselineScoreModel(project, function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value == \&quot;NOT_ACTIVE\&quot;) {\n                        message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Baseline Score model stopped.\&quot;, null);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n                CommonPlugin.pbHideProgressBar(\&quot;stopBaselineScoreModel\&quot;);\n                updateAction();\n            });\n            break;\n        case \&quot;menu/simpleThresholdOpen\&quot;:\n            ServicePlugin.getSimpleThresholdModelURL(project, function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value != null) {\n                        window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Simple Threshold model not found\&quot;, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n            });\n            break;\n        case \&quot;menu/simpleThresholdStart\&quot;:\n            CommonPlugin.pbShowProgressBar(\&quot;startSimpleThresholdModel\&quot;, \&quot;Starting simple threshold model...\&quot;);\n            ServicePlugin.startSimpleThresholdModel(project, function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value == \&quot;ACTIVE\&quot;) {\n                        message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Simple Threshold model started.\&quot;, null);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n                CommonPlugin.pbHideProgressBar(\&quot;startSimpleThresholdModel\&quot;);\n                updateAction();\n            });\n            break;\n        case \&quot;menu/simpleThresholdStop\&quot;:\n            CommonPlugin.pbShowProgressBar(\&quot;stopSimpleThresholdModel\&quot;, \&quot;Stopping simple threshold model...\&quot;);\n            ServicePlugin.stopSimpleThresholdModel(project, function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value == \&quot;NOT_ACTIVE\&quot;) {\n                        message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Simple Threshold model stopped.\&quot;, null);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n                CommonPlugin.pbHideProgressBar(\&quot;stopSimpleThresholdModel\&quot;);\n                updateAction();\n            });\n            break;\n        case \&quot;menu/declaredEventOpen\&quot;:\n            ServicePlugin.getDeclaredEventModelURL(project, function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value != null) {\n                        window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Declared Event model not found\&quot;, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n            });\n            break;\n        case \&quot;menu/declaredEventStart\&quot;:\n            CommonPlugin.pbShowProgressBar(\&quot;startDeclaredEventModelModel\&quot;, \&quot;Starting declared event model...\&quot;);\n            ServicePlugin.startDeclaredEventModelModel(project, function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value == \&quot;ACTIVE\&quot;) {\n                        message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Declared Event model started.\&quot;, null);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n                CommonPlugin.pbHideProgressBar(\&quot;startDeclaredEventModelModel\&quot;);\n                updateAction();\n            });\n            break;\n        case \&quot;menu/declaredEventStop\&quot;:\n            CommonPlugin.pbShowProgressBar(\&quot;stopDeclaredEventModelModel\&quot;, \&quot;Stopping declared event model...\&quot;);\n            ServicePlugin.stopDeclaredEventModelModel(project, function(response) {\n                if (response.status == \&quot;OK\&quot;) {\n                    if (response.value == \&quot;NOT_ACTIVE\&quot;) {\n                        message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Declared Event model stopped.\&quot;, null);\n                    }\n                    else {\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\n                    }\n                }\n                else {\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\n                }\n                CommonPlugin.pbHideProgressBar(\&quot;stopDeclaredEventModelModel\&quot;);\n                updateAction();\n            });\n            break;\n        default:\n            ServicePlugin.getQuickLinks(function(response) {\n                if (response.status == \&quot;OK\&quot; &amp;&amp; response.value != null) {\n                    var url = response.value[action.value];\n                    if (url != null) {\n                        window.open(\&quot;/vitria-oi/app/#uri=\&quot;+url, \&quot;_blank\&quot;);\n                    }\n                }\n            });\n            break;\n    }\n} else if (port == \&quot;din:3\&quot;) {\n    updateAction();\n}\n\nfunction getRuntimeStatus(project, deployment, callback)\n{\n    ServicePlugin.getRuntimeStatus(project, deployment, function(response) {\n        var preprocessStatus = \&quot;NOT_FOUND\&quot;;\n        var rtParserStatus = \&quot;NOT_FOUND\&quot;;\n        var serviceParserStatus = \&quot;NOT_FOUND\&quot;;\n        var rtAnomalyStatus = \&quot;NOT_FOUND\&quot;;\n        var baselineScoreStatus = \&quot;NOT_FOUND\&quot;;\n        var simpleThresholdStatus = \&quot;NOT_FOUND\&quot;;\n        var declaredEventStatus = \&quot;NOT_FOUND\&quot;;\n        var hasIncidentConfig = false;\n        if (response.status == \&quot;OK\&quot;) {\n            preprocessStatus = response.value.preprocessStatus;\n            rtParserStatus = response.value.rtParserStatus;\n            serviceParserStatus = response.value.serviceParserStatus;\n            rtAnomalyStatus = response.value.rtAnomalyStatus;\n            baselineScoreStatus = response.value.baselineScoreStatus;\n            simpleThresholdStatus = response.value.simpleThresholdStatus;\n            declaredEventStatus = response.value.declaredEventStatus;\n            hasIncidentConfig = response.value.hasIncidentConfig == true;\n        }\n        else {\n            preprocessStatus = response.error;\n            rtParserStatus = response.error;\n            serviceParserStatus = response.error;\n            rtAnomalyStatus = response.error;\n            baselineScoreStatus = response.error;\n            simpleThresholdStatus = response.error;\n            declaredEventStatus = response.error;\n        }\n        callback(serviceParserStatus, rtParserStatus, rtAnomalyStatus, baselineScoreStatus, simpleThresholdStatus, declaredEventStatus, hasIncidentConfig);\n    });\n}\n\n\nfunction updateAction() {\n    var content = getLocal(\&quot;CURRENT-CONTENT\&quot;) || {};\n    var actions = [{\n        \&quot;value\&quot;   : \&quot;project/save\&quot;,\n        \&quot;disable\&quot; : !content.changed\n    }, {\n        \&quot;value\&quot;   : \&quot;project/revert\&quot;,\n        \&quot;disable\&quot; : !content.changed\n    }];\n    setOutput(\&quot;dout:1\&quot;, actions);\n    \n    var project = content.project;\n    var deployment = content.deployment;\n    getRuntimeStatus(project, deployment, function(serviceParserStatus, rtParserStatus, rtAnomalyStatus, baselineScoreStatus, simpleThresholdStatus, declaredEventStatus, hasIncidentConfig) {\n        var menu_data = [ {\n            \&quot;value\&quot;   : \&quot;menu/parserModel\&quot;,\n            \&quot;disable\&quot; : project == null || rtParserStatus == \&quot;NOT_FOUND\&quot;,\n        }, {\n            \&quot;value\&quot;   : \&quot;menu/anomalyModel\&quot;,\n            \&quot;disable\&quot; : project == null || rtAnomalyStatus == \&quot;NOT_FOUND\&quot;,\n        }, {\n            \&quot;value\&quot;   : \&quot;menu/baselineScoreOpen\&quot;,\n            \&quot;disable\&quot; : baselineScoreStatus == \&quot;NOT_FOUND\&quot;,\n        }, {\n            \&quot;value\&quot;   : \&quot;menu/baselineScoreStart\&quot;,\n            \&quot;disable\&quot; : baselineScoreStatus != \&quot;NOT_ACTIVE\&quot;,\n        }, {\n            \&quot;value\&quot;   : \&quot;menu/baselineScoreStop\&quot;,\n            \&quot;disable\&quot; : baselineScoreStatus != \&quot;ACTIVE\&quot;,\n        }, {\n            \&quot;value\&quot;   : \&quot;menu/simpleThresholdOpen\&quot;,\n            \&quot;disable\&quot; : simpleThresholdStatus == \&quot;NOT_FOUND\&quot;,\n        }, {\n            \&quot;value\&quot;   : \&quot;menu/simpleThresholdStart\&quot;,\n            \&quot;disable\&quot; : simpleThresholdStatus != \&quot;NOT_ACTIVE\&quot;,\n        }, {\n            \&quot;value\&quot;   : \&quot;menu/simpleThresholdStop\&quot;,\n            \&quot;disable\&quot; : simpleThresholdStatus != \&quot;ACTIVE\&quot;,\n        }, {\n            \&quot;value\&quot;   : \&quot;menu/declaredEventOpen\&quot;,\n            \&quot;disable\&quot; : declaredEventStatus == \&quot;NOT_FOUND\&quot;,\n        }, {\n            \&quot;value\&quot;   : \&quot;menu/declaredEventStart\&quot;,\n            \&quot;disable\&quot; : declaredEventStatus != \&quot;NOT_ACTIVE\&quot;,\n        }, {\n            \&quot;value\&quot;   : \&quot;menu/declaredEventStop\&quot;,\n            \&quot;disable\&quot; : declaredEventStatus != \&quot;ACTIVE\&quot;,\n        }];\n        setOutput(\&quot;dout:2\&quot;, menu_data);\n    });\n}\n\n\nfunction clone(object){\n    return JSON.parse(JSON.stringify(object));\n}&quot;' >
+</Input>
+
+      <Input key='node:2/cfg:outPorts/default' value='[{&quot;portId&quot;:&quot;dout:0&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Notify&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:1&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Action Data&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:2&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Menu Data&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:3&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Switch To Editor&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:4&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Notification&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Input key='node:2/cfg:schema/default' value='&quot;setOutputSchema(\&quot;dout:1\&quot;, [{\n    name  : \&quot;value\&quot;,\n    label : \&quot;value\&quot;,\n    type  : \&quot;string\&quot;,\n}, {\n    name  : \&quot;disable\&quot;,\n    label : \&quot;disable\&quot;,\n    type  : \&quot;boolean\&quot;,\n}, {\n    name  : \&quot;display\&quot;,\n    label : \&quot;display\&quot;,\n    type  : \&quot;boolean\&quot;,\n}]);\n\nsetOutputSchema(\&quot;dout:2\&quot;, [{\n    name  : \&quot;timestamp\&quot;,\n    label : \&quot;Timestamp\&quot;,\n    type  : \&quot;number\&quot;,\n}, {\n    name  : \&quot;url\&quot;,\n    label : \&quot;URL\&quot;,\n    type  : \&quot;string\&quot;,\n}]);\n\nsetOutputSchema(\&quot;dout:3\&quot;, [{\n    name  : \&quot;timestamp\&quot;,\n    label : \&quot;Timestamp\&quot;,\n    type  : \&quot;number\&quot;,\n}, {\n    name  : \&quot;url\&quot;,\n    label : \&quot;URL\&quot;,\n    type  : \&quot;string\&quot;,\n}]);\n\nsetOutputSchema(\&quot;dout:4\&quot;, [{\n    name  : \&quot;value\&quot;,\n    label : \&quot;value\&quot;,\n    type  : \&quot;string\&quot;,\n}, {\n    name  : \&quot;disable\&quot;,\n    label : \&quot;disable\&quot;,\n    type  : \&quot;boolean\&quot;,\n}, {\n    name  : \&quot;display\&quot;,\n    label : \&quot;display\&quot;,\n    type  : \&quot;boolean\&quot;,\n}]);\n\nsetOutputSchema(\&quot;dout:5\&quot;, [{\n    name  : \&quot;timestamp\&quot;,\n    label : \&quot;Timestamp\&quot;,\n    type  : \&quot;number\&quot;,\n}]);\n&quot;' >
+</Input>
+
+      <Input key='node:16/cfg:tile/default' value='[{&quot;id&quot;:&quot;ROOT#1#Menu1&quot;,&quot;path&quot;:[&quot;Default&quot;],&quot;name&quot;:&quot;Menu1&quot;}]' >
+</Input>
+
+      <Input key='node:20/cfg:outPorts/default' value='[{&quot;portId&quot;:&quot;dout:0&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Plugins&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:1&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Context&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Input key='node:22/cfg:inPorts/default' value='[{&quot;portId&quot;:&quot;din:0&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Action&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Input key='node:24/cfg:inPorts/default' value='[{&quot;portId&quot;:&quot;din:0&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Context&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;din:1&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Plugins&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Input key='node:24/cfg:model/default' value='&quot;if (!port) return;\n\nvar plugins = getInput(\&quot;din:1\&quot;);\nif (plugins == null) return;\n\nvar ServicePlugin = plugins.NuovaStella;\nvar CommonPlugin = Plugin(\&quot;Common\&quot;);\n\nvar context = getInput(\&quot;din:0\&quot;);\nif (!context) return;\n\nsetOutput(\&quot;dout:0\&quot;, {\n    action: &apos;load&apos;,\n    project: context.project,\n    NuovaStella : ServicePlugin,\n    CommonPlugin: CommonPlugin\n});&quot;' >
+</Input>
+
+      <Input key='node:26/cfg:tile/default' value='[{&quot;id&quot;:&quot;ROOT#1#Main Tile&quot;,&quot;path&quot;:[&quot;Default&quot;],&quot;name&quot;:&quot;Main Tile&quot;}]' >
+</Input>
+
+      <Input key='node:24/cfg:outPorts/default' value='[{&quot;portId&quot;:&quot;dout:0&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Notify&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Input key='node:26/in:0/evaluate' value='&quot;always&quot;' >
+</Input>
+
+      <Schema id="node:1/out:0">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:1/out:1">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:1/out:2">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:1/out:3">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/din:0">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/dout:1">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:6/in:0">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:6/out:0">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/dout:2">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/dout:3">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/dout:4">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:14/in:0">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:14/out:0">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:16/out:0">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:16/out:1">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:16/out:2">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:16/out:3">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/din:2">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/dout:5">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/din:4">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:22/din:0">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:26/in:0">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <DynInput id="node:2">
+        <Port id='din:0' type='event[]' label='Actions' evaluate='always' _isArray='true' >
+</Port>
+
+        <Port id='din:1' type='event[]' label='Content' evaluate='always' _isArray='true' >
+</Port>
+
+        <Port id='din:2' type='event[]' label='Menus' evaluate='always' _isArray='true' >
+</Port>
+
+        <Port id='din:3' type='any' label='Plugins' evaluate='always' _isArray='true' >
+</Port>
+
+        <Port id='din:4' type='any[]' label='Updates' evaluate='always' _isArray='true' >
+</Port>
+
+      </DynInput>
+      <DynInput id="node:22">
+        <Port id='din:0' type='any' label='Action' evaluate='always' _isArray='true' >
+</Port>
+
+      </DynInput>
+      <DynInput id="node:24">
+        <Port id='din:0' type='any' label='Context' evaluate='always' _isArray='true' >
+</Port>
+
+        <Port id='din:1' type='any' label='Plugins' evaluate='always' _isArray='true' >
+</Port>
+
+      </DynInput>
+      <DynOutput id="node:2">
+        <Port id='dout:0' type='any' label='Notify' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:1' type='event[]' label='Action Data' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:2' type='event[]' label='Menu Data' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:3' type='any' label='Switch To Editor' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:4' type='any' label='Notification' propagate='always' _isArray='true' >
+</Port>
+
+      </DynOutput>
+      <DynOutput id="node:20">
+        <Port id='dout:0' type='any' label='Plugins' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:1' type='any' label='Context' propagate='always' _isArray='true' >
+</Port>
+
+      </DynOutput>
+      <DynOutput id="node:24">
+        <Port id='dout:0' type='any' label='Notify' propagate='always' _isArray='true' >
+</Port>
+
+      </DynOutput>
+      <Version id="node:1" version="1"/>
+      <Version id="node:2" version="2"/>
+      <Version id="node:6" version="2"/>
+      <Version id="node:14" version="2"/>
+      <Version id="node:16" version="1"/>
+      <Version id="node:20" version="1"/>
+      <Version id="node:22" version="1"/>
+      <Version id="node:24" version="2"/>
+      <Version id="node:26" version="1"/>
+      <Version type="Aggregate" version="1"/>
+      <Version type="Columns" version="1"/>
+      <Version type="DynPivot" version="1"/>
+      <Version type="Filter" version="1"/>
+      <Version type="Footer" version="1"/>
+      <Version type="GeoJsonOverlay" version="1"/>
+      <Version type="RestQuery" version="1"/>
+      <Version type="Group" version="1"/>
+      <Version type="Header" version="1"/>
+      <Version type="GeoHeatMapOverlay" version="1"/>
+      <Version type="Join" version="1"/>
+      <Version type="LocalStore" version="2"/>
+      <Version type="MenuBar" version="1"/>
+      <Version type="ModelMeta" version="1"/>
+      <Version type="ToolbarOverlay" version="3"/>
+      <Version type="WidgetOverlay" version="1"/>
+      <Version type="Pivot" version="1"/>
+      <Version type="Widget" version="1"/>
+      <Version type="PortIn" version="1"/>
+      <Version type="PortOut" version="1"/>
+      <Version type="GlobalProperty" version="3"/>
+      <Version type="PutData" version="1"/>
+      <Version type="ResourceMeta" version="1"/>
+      <Version type="Rows" version="1"/>
+      <Version type="UserScript" version="2"/>
+      <Version type="Sort" version="1"/>
+      <Version type="SQL" version="2"/>
+      <Version type="SQLConnect" version="1"/>
+      <Version type="DwrMessage" version="1"/>
+      <Version type="GeoEditableOverlay" version="1"/>
+      <Version type="GeoOverlay" version="2"/>
+      <Version type="TextAnnotations" version="1"/>
+      <Version type="Tile" version="1"/>
+      <Version type="Union" version="1"/>
+      <Version type="ScriptVariable" version="1"/>
+    </DataFlow>
+    <DashboardPlugins>
+      <DashboardPlugin uri="/app/dbp/space/VIA Common Library/dbpm/VIA - Common" alias="Common"/>
+      <DashboardPlugin uri="/app/dbp/space/VIA Common Library/dbpm/VIA - HDFS Interface" alias="HDFS"/>
+      <DashboardPlugin uri="/app/dbp/space/VIA Common Library/dbpm/VIA - Data Source Plugin" alias="DataSource"/>
+      <DashboardPlugin uri="/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Service" alias=""/>
+      <DashboardPlugin uri="/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Deployment Service" alias=""/>
+      <DashboardPlugin uri="/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Status Service" alias="StatusService"/>
+    </DashboardPlugins>
+  </ModelInfo>
+</AnalyticsExplorerView>

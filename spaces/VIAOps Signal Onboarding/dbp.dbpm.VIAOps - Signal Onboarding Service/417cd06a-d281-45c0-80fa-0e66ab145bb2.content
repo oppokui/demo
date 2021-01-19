@@ -1,0 +1,2 @@
+DELETE FROM viaops_incident_table
+WHERE metric_id like ?

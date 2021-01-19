@@ -1,0 +1,21 @@
+########## The following properties are coming from UI configuration ###########
+spark.master=${spark.master}
+spark.cores.max=${spark.cores.max}
+spark.executor.instances=${spark.executor.instances}
+spark.executor.cores=${spark.executor.cores}
+spark.executor.memory=${spark.executor.memory}
+vitria.spark.driver.classpath=${vitria.spark.driver.classpath}
+vitria.app.class=${vitria.app.class}
+vitria.app.name=${vitria.app.name}
+spark.sql.hive.thriftServer.singleSession=true
+spark.serializer=org.apache.spark.serializer.KryoSerializer
+spark.scheduler.minRegisteredResourcesRatio=1.0
+#clean non durable app checkpoint when start
+vitria.spark.delete.checkpointdir=true
+spark.sql.shuffle.partitions=4
+spark.kryo.registrator=${spark.kryo.registrator}
+spark.hadoop.cloneConf=true
+spark.executor.extraJavaOptions=-Djboss.remoting.pooled-buffers=false
+########### Add your spark properties here ###########################
+vitria.sparkdriver.extraJavaOption=-Djboss.remoting.pooled-buffers=false
+spark.hadoop.textinputformat.record.delimiter=$$$$

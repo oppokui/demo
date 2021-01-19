@@ -1,0 +1,80 @@
+CREATE TABLE speedtest_devices (
+    mac_addr VARCHAR(32) NOT NULL,
+    device_type VARCHAR(32) NULL,
+    firmware_version VARCHAR(32) NULL,
+    manufacturer VARCHAR(32) NULL,
+    PRIMARY KEY (mac_addr)
+)
+
+INSERT INTO speedtest_devices
+(mac_addr, device_type, firmware_version, manufacturer) VALUES
+("5CEA1DD0E226", "iPhone", "13.1", "Apple"),
+("485F99E9738A", "iPhone", "12.4", "Apple"),
+("90324BD0995D", "Pixel", "3.1", "Google"),
+("485F99DCE078", "Note", "8.7", "Samsung")
+
+select * from speedtest_devices
+
+CREATE TABLE `viaops_signal_onboarding_project` (
+    `uuid` varchar(512) NOT NULL,
+    `svc` varchar(1024)  DEFAULT NULL,
+    `svc_label` varchar(1024)  DEFAULT NULL,
+    `comp` varchar(1024)  DEFAULT NULL,
+    `comp_label` varchar(1024)  DEFAULT NULL,
+    `app` varchar(1024)  DEFAULT NULL,
+    `app_label` varchar(1024)  DEFAULT NULL,
+    `package` varchar(1024)  DEFAULT NULL,
+    `owner_id` varchar(512)  DEFAULT NULL,
+    `modified_by` varchar(512)  DEFAULT NULL,
+    `created_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `modified_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `prj_name` varchar(1024)  DEFAULT NULL,
+    `ref_prj` varchar(1024)  DEFAULT NULL,
+    `anomaly_type` varchar(1024)  DEFAULT NULL,
+    `output_hash` varchar(1024)  DEFAULT NULL,
+    `date_key` bigint(20) DEFAULT NULL,
+    PRIMARY KEY (`uuid`)
+); 
+
+CREATE TABLE `viaops_signal_onboarding_project_items` (
+    `uuid` varchar(512)  NOT NULL,
+    `name` varchar(512)  NOT NULL,
+    `value` longtext ,
+    `created_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `modified_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_key` bigint(20) DEFAULT NULL,
+    PRIMARY KEY (`uuid`,`name`)
+);
+
+
+CREATE TABLE `viaops_signal_onboarding_project_deployment` (
+    `uuid` varchar(512)  NOT NULL,
+    `name` varchar(512)  NOT NULL,
+    `value` longtext ,
+    `created_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `modified_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_key` bigint(20) DEFAULT NULL,
+    PRIMARY KEY (`uuid`,`name`)
+);
+
+CREATE TABLE `viaops_signal_onboarding_model_info` (
+    `uuid` varchar(512)  NOT NULL,
+    `name` varchar(512)  NOT NULL,
+    `ingestion_model` varchar(1024) DEFAULT NULL,
+    `anomaly_model` varchar(1024) DEFAULT NULL,
+    `datasource_model` varchar(1024) DEFAULT NULL,
+    `system_model` varchar(1024) DEFAULT NULL,
+    `hdfs_server_url` varchar(1024) DEFAULT NULL,
+    `source_path` varchar(1024) DEFAULT NULL,
+    `spark_sql_table_path` varchar(1024) DEFAULT NULL,
+    `spark_sql_table` varchar(1024) DEFAULT NULL,
+    `anomaly_file_path` varchar(1024) DEFAULT NULL,    
+    `dropped_metric` varchar(1024) DEFAULT NULL,
+    `adm_name` varchar(512) DEFAULT NULL,    
+    `metric_id_list` text DEFAULT NULL,
+    `output_name_list` text DEFAULT NULL,
+    `created_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `modified_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_key` bigint(20) DEFAULT NULL,
+    PRIMARY KEY (`uuid`,`name`)
+);

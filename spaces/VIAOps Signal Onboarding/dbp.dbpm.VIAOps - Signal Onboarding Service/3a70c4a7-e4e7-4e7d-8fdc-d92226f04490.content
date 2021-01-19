@@ -1,0 +1,16 @@
+UPDATE viaops_signal_onboarding_project 
+SET
+    svc=?,
+    svc_label=?,
+    comp=?,
+    comp_label=?,
+    app=?,
+    app_label=?,
+    package=?,
+    modified_by=?,
+    anomaly_type=?,
+    output_hash=?,
+    prj_name=?,
+    ref_prj=?,
+    modified_ts=current_timestamp()
+WHERE uuid=?

@@ -1,0 +1,13 @@
+INSERT INTO viaops_signal_onboarding_project_v2 (
+    uuid,
+    prj_name,
+    prj_desc,
+    system_model_uuid,
+    target_metric_table,
+    owner_id,
+    modified_by,
+    created_ts,
+    modified_ts,
+    date_key
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, current_timestamp(), current_timestamp(), FROM_UNIXTIME( UNIX_TIMESTAMP(CURRENT_TIMESTAMP()), '%Y%m%d' ))

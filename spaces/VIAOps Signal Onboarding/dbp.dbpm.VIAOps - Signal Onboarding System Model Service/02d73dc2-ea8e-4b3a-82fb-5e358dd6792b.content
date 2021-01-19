@@ -1,0 +1,2 @@
+DELETE FROM viaops_metric_info
+WHERE metric_id like ?

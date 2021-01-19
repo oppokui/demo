@@ -1,0 +1,2 @@
+DELETE FROM viaops_parse_table
+WHERE metric_id=?

@@ -1,0 +1,33 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "registeredTypes"
+    },
+    {
+      "fileref": "ModelContentFile2",
+      "name": "usedTypes"
+    },
+    {
+      "fileref": "ModelContentFile3",
+      "name": "miniviewData"
+    }
+  ],
+  "lastDate": "1608021001555",
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "DO_Sprint12_20201216",
+    "_RESOURCE_Type": "sparkm",
+    "__references__": "adf.subflow:///viaops.ingestion/AuditLog@800",
+    "modelStatus": "valid",
+    "name": "VIAOps - Kafka Source Template",
+    "subflowReg": "{\"KafkaSource\":{\"revision\":\"6905\",\"registered\":true,\"subflowPath\":\"viaops.ingestion\"}}",
+    "typeDeps": "{\"dependencies\":[\"viaops.ingestion.AuditLog\",\"viaops.ingestion.DroppedEvents\"],\"contributes\":[]}",
+    "typeReg": "",
+    "vtui:flags": "31"
+  }
+}

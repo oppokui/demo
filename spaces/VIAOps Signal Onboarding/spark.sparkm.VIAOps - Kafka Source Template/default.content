@@ -1,0 +1,540 @@
+<DataPipeModel description="Kafka source template" name="VIAOps - Kafka Source Template" editBy="flow" is_init="false" useStreaming="auto" durableStreaming="false" streamingAutoStart="false" useHive="auto" batchDuration="P1M" checkpoint="" batchSampling="true" sparkMasterHost="">
+  <HiveConfig>
+    <Properties>
+      <Property name="hive.warehouse.hdfs.source" value=""/>
+      <Property name="hive.metastore.data.source" value=""/>
+      <Property name="hive.server2.thrift.port" value="55555"/>
+      <Property name="hive.db.schema" value=""/>
+    </Properties>
+  </HiveConfig>
+  <ModelInfo validated="true">
+    <Pipes>
+      <Pipe index="1000" uuid="" name="(main)">
+      </Pipe>
+    </Pipes>
+    <Flows>
+      <Flow index="1000" uuid="Main" isNested="false" revision="253" name="Main" showFooter="true">
+      <Codes>
+          <Spark><![CDATA[########## The following properties are coming from UI configuration ###########
+spark.master=${spark.master}
+spark.cores.max=${spark.cores.max}
+spark.executor.instances=${spark.executor.instances}
+spark.executor.cores=${spark.executor.cores}
+spark.executor.memory=${spark.executor.memory}
+vitria.spark.driver.classpath=${vitria.spark.driver.classpath}
+vitria.app.class=${vitria.app.class}
+vitria.app.name=${vitria.app.name}
+spark.sql.hive.thriftServer.singleSession=true
+spark.serializer=org.apache.spark.serializer.KryoSerializer
+spark.scheduler.minRegisteredResourcesRatio=1.0
+vitria.spark.delete.checkpointdir=false
+spark.sql.shuffle.partitions=4
+spark.kryo.registrator=${spark.kryo.registrator}
+spark.streaming.kafka.consumer.cache.enabled=false
+spark.vitria.exceptions.driver=java.lang.Exception
+########### Add your spark properties here ###########################
+#vitria.sparkdriver.extraJavaOption=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=6868]]></Spark>
+      </Codes>
+      <Libraries>
+      </Libraries>
+      <Resources>
+      </Resources>
+      <Properties>[{"editorType":"number","*":{"label":"label","desc":"desc"},"name":"agg_stopBatchCount","label":"Stop After n Microbatch","type":"integer","hidden":"false","disabled":false,"resolveProperty":false,"value":0,"runtimeControl":false,"constraints":{"min":"0","max":"999999","step":"1","places":"","maxLength":"","args":{}}},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"agg_source_group","label":"Source Group","type":"string","optional":false,"hidden":"false","disabled":false,"resolveProperty":false,"value":"group","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"atimezone","label":"Time Zone","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"Etc/GMT","defaultValueForExisted":"Europe/London","enumSource":"rest:/global/?op=get.timezones","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"agg_source","label":"Source Group Prefix","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"test","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"group","name":"kafka_url","label":"Kafka Broker URL","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"localhost:9092","enumSource":"","runtimeControl":false,"groupLabel":"Source"},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"group","name":"kafka_topics","label":"Kafka Topics","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"topic-retention","enumSource":"","runtimeControl":false,"groupLabel":"Source"},{"editorType":"boolean","*":{"label":"label","desc":"desc"},"name":"agg_doaudit","label":"Audit Log","type":"boolean","hidden":"false","disabled":false,"resolveProperty":false,"value":"true","runtimeControl":false,"group":"group2","groupLabel":"Audit"},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"agg_audit_table_folder","label":"Audit Log Table","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"viaops_audit_parser","enumSource":"","runtimeControl":false,"group":"group2","groupLabel":"Audit"},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"group2","groupLabel":"Audit","name":"agg_dropped_events","label":"Dropped Events Table","type":"string","optional":false,"hidden":"false","disabled":false,"resolveProperty":false,"value":"viaops_audit_parser_dropped","enumSource":"","runtimeControl":false}]</Properties>
+      </Flow>
+      <Flow index="2000" uuid="KafkaSource" isNested="true" revision="6905" acceptedSourceTypes="RDD,DStream,DataFrame" referenceURI="local://FileSource" registered="true" subflowPath="viaops.ingestion" name="KafkaSource" showFooter="true">
+        <Node index="2001" uuid="fb5a91c8-8f76-4ac7-88aa-0c999bfef858" type="Adhoc" label="Auto Stop" x="30" y="60" width="130" height="75">
+            <Output name="Out1" uid="0" outputType="DStream" dataType="String" referenceType="string">
+              <Field name="data" label="data" type="string" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model>
+              <Script><![CDATA[var cnt = 0
+val total = ${autostop_batch_count}
+val dummy = new org.apache.spark.streaming.dstream.VTDummyDStream(ssc)
+dummy.foreachRDD{(rdd, time) => 
+    if (total > 0 && cnt >= total) {
+        logger.warn("Stopping ADF model call started")
+        com.vitria.spark.api.scala.SparkAppExceptionHanlders.stopProject()
+        logger.warn("Stopping ADF model call finished")
+    } else {
+        cnt = cnt + 1
+    }
+}
+val retval: DStream[String] = null]]></Script>
+              <shellScript><![CDATA[{"custom_func":"    val retval = ssc.queueStream(scala.collection.mutable.Queue(sc.emptyRDD[String]))"}]]></shellScript>
+            </Model>
+        </Node>
+        <Node index="2002" uuid="bdae713f-1114-4152-8fd3-073854f8956a" type="Adhoc" label="KafkaSource" x="240" y="60" width="130" height="80">
+            <Source name="source1" uid="0" outputType="DStream" dataType="String">
+              <DataSource category="#OUTPUT" id="undefined" name="Out1" nodeId="fb5a91c8-8f76-4ac7-88aa-0c999bfef858">
+                <Field name="data" label="data" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="out" uid="0" outputType="DStream" dataType="(String,Int,Long,Long,String)" referenceType="KafkaMessage">
+              <Field name="topic" label="topic" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="partition" label="partition" type="integer" clazz="" isArray="false" isOptional="false"/>
+              <Field name="offset" label="offset" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="timestamp" label="timestamp" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="value" label="value" type="string" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model isDynamicSchema="false">
+              <Script><![CDATA[//upload security setting files
+val uploads = Seq();
+uploads.foreach(sc.addFile(_))
+com.vitria.spark.util.VtFileUtil.cp2driver(uploads)
+
+//kafka properties
+val kafkaParams = {
+  val p = new java.util.Properties()
+  p.load(new java.io.StringReader("${kafka_consumer_configs}"))
+  p.setProperty("bootstrap.servers", "${kafka_urls}")
+  p.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
+  p.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
+  p
+}
+//source settings
+val settings = {
+  val sdf = new java.text.SimpleDateFormat("yyyy-MM-dd")
+  val startTime = if ("${start_date}" == "" || "${start_date}".contains("start_date")) {
+      System.currentTimeMillis
+  } else if("${start_date}".contains("now")) {
+      System.currentTimeMillis
+  } else {
+      sdf.parse("${start_date}").getTime
+  }
+  val endTime = if ("${end_date}" == "" || "${end_date}".contains("end_date")) {
+      -1L
+  } else if("${end_date}".contains("now")) {
+      System.currentTimeMillis
+  } else {
+      sdf.parse("${end_date}").getTime
+  }                
+  val m = new java.util.HashMap[String, String]()
+  m.put("initialOffset", "time")
+  m.put("startTime", startTime.toString)
+  m.put("endTime", endTime.toString)
+  m.put("maxNumberPerBatch", "${max_batch_size}")
+  if (${autostop_batch_count} <= 0) {
+    m.put("enableState", "true")
+    m.put("stateFolder", "${__flowIndex__}")
+    m.put("stateOffset", (${start_offset} * 60L * 1000).toLong.toString)
+  }
+  m
+}
+
+val topics = "${kafka_topics}".split(",").map(_.trim()).distinct
+
+import com.vitria.spark.kafka.api.scala._
+import java.util
+import java.util.{Properties, UUID}
+import java.util.regex.Pattern
+import org.apache.commons.logging.LogFactory
+import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
+import org.apache.kafka.clients.consumer.internals.NoOpConsumerRebalanceListener
+import org.apache.kafka.common.TopicPartition
+import org.apache.spark.SparkContext
+import org.apache.spark.rdd.RDD
+import org.apache.spark.streaming.StreamingContext
+import org.apache.spark.streaming.kafka010._
+
+import scala.collection.JavaConverters._
+val originalGroupId = kafkaParams.get(ConsumerConfig.GROUP_ID_CONFIG)
+if (originalGroupId == null || originalGroupId == "") {
+  val groupId = UUID.randomUUID().toString()
+  kafkaParams.put(ConsumerConfig.GROUP_ID_CONFIG, groupId)
+}
+val configs = new java.util.HashMap[String, Object]()
+configs.putAll(kafkaParams.asScala.asJava)
+val retval = new VitriaKafkaInputDStream[String, String](ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.SubscribePattern[String, String](Pattern.compile(topics.mkString("||")), configs), settings).map{ r=>
+    (r.topic, r.partition, r.offset, r.timestamp, r.value)
+}]]></Script>
+              <shellScript><![CDATA[{"global":"","custom_func":"    val endMarker__2001:String = \"_VTEND_\"\n    val endMakerRDD__2001 = sc.makeRDD(Array((\"topic\", 0, 0L, 0L, endMarker__2001)), 1)\n    def _endMarkerFilter__2001(source1 : DStream[(String,Int,Long,Long,String)]) : DStream[(String,Int,Long,Long,String)] = {\n        val retval = source1.filter { case(topic, partition, offset, timestamp, line) => \n            line.contains(\"_VTEND_\")==false\n        }\n        retval\n    }\n    val uploads = Seq();\n    uploads.foreach(SparkFileUtil.addOrUpdate(sc, _))\n    com.vitria.spark.util.VtFileUtil.cp2driver(uploads)\n    \n    val kafkaParams = {\n      val p = new java.util.Properties()\n      p.load(new java.io.StringReader(\"${kafka_consumer_configs}\"))\n      p.setProperty(\"bootstrap.servers\", \"${kafka_urls}\")\n      p.setProperty(\"auto.offset.reset\", \"earliest\")\n      p.setProperty(\"key.deserializer\", \"org.apache.kafka.common.serialization.StringDeserializer\")\n      p.setProperty(\"value.deserializer\", \"org.apache.kafka.common.serialization.StringDeserializer\")\n      p\n    }\n    \n    val topics = \"${kafka_topics}\".split(\",\").map(_.trim()).distinct\n\n    import com.vitria.spark.kafka.api.scala._\n    var data: Array[(String,Int,Long,Long,String)] = Array()\n    \n    try {\n        val rdd = VitriaKafkaSubscriber.sub(sc, topics, kafkaParams).asInstanceOf[RDD[String]].map { value =>\n            (\"N/A\", 0, 0L, 0L, value)\n        }\n        val max = if (${max_batch_size} > 0 && ${max_batch_size} < 10) {\n          ${max_batch_size}\n        } else {\n          10\n        }\n        data = rdd.take(max)\n    } catch {\n        case e : Throwable => {\n          if (logger.isWarnEnabled()) {\n            logger.warn(\"Use sample data to model Kafka Source block\")\n            if (logger.isDebugEnabled())\n              logger.debug(\"Detailed exception: \", e)\n          }\n        }\n    }\n    \n    //enrich with sample\n    if (data.length == 0) {\n        data = \"${sample}\".split(\"\\\\n\").map(_.trim).filter(_ == \"\").map { line =>\n            (\"N/A\", 0, 0L, 0L, line)\n        }\n    }\n    \n    val queue = scala.collection.mutable.Queue(sc.makeRDD(data, 1))\n    val kafkaSource = QueueStreamBuild.queueStream(ssc, queue, true, endMakerRDD__2001)\n    kafkaSource.foreachRDD { rdd => \n        rdd.foreach { case(topic, partition, offset, timestamp, item) => \n            if (item == \"_VTEND_\") {\n                accum += 1\n            }\n        }\n    }\n    val retval = _endMarkerFilter__2001(kafkaSource)    \n    "}]]></shellScript>
+            </Model>
+        </Node>
+        <Node index="2003" uuid="b96824c2-bd8e-4a56-8ca2-3570a1344540" type="outPort" label="Out" x="700" y="80" width="70" height="40">
+            <Source name="source" uid="0" outputType="DStream" dataType="String">
+              <DataSource category="#OUTPUT" id="undefined" name="Out" nodeId="0689fe27-6160-43f6-8d6a-9f353f8fdb47">
+                <Field name="data" label="data" type="string" isDimension="false" isMeasure="false" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Model>
+<Properties>
+{}
+</Properties>
+            </Model>
+        </Node>
+        <Node index="2004" uuid="0689fe27-6160-43f6-8d6a-9f353f8fdb47" type="Adhoc" label="Transform" x="466" y="60" width="130" height="75">
+            <Source name="source1" uid="0" outputType="DStream" dataType="(String,Int,Long,Long,String)">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="bdae713f-1114-4152-8fd3-073854f8956a">
+                <Field name="topic" label="topic" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="partition" label="partition" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="offset" label="offset" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="timestamp" label="timestamp" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="value" label="value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="Out" uid="0" outputType="DStream" dataType="String" referenceType="string">
+              <Field name="data" label="data" type="string" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model>
+              <Script><![CDATA[val retval = source1.map { case (topic, partition, offset, timestamp, value) =>
+    value
+}]]></Script>
+            </Model>
+        </Node>
+        <Node index="2005" uuid="d03179b9-ec6a-45a2-8236-935cc956536e" type="Adhoc" label="Metrics" x="465" y="180" width="130" height="75">
+            <Source name="source1" uid="0" outputType="DStream" dataType="(String,Int,Long,Long,String)">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="bdae713f-1114-4152-8fd3-073854f8956a">
+                <Field name="topic" label="topic" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="partition" label="partition" type="integer" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="offset" label="offset" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="timestamp" label="timestamp" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="value" label="value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="Out1" uid="0" outputType="DStream" dataType="(String,String,String,String)" referenceType="Metric">
+              <Field name="metricName" label="metricName" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metricValue" label="metricValue" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metricUom" label="metricUom" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="uomLabel" label="uomLabel" type="string" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model>
+              <Script><![CDATA[import scala.collection.immutable.HashSet
+val retval = source1.transform { rdd =>
+    val seq = if (${enable_audit}) {
+        val (set, cnt) = rdd.map { case(topic, partition, _, _, data) =>
+            (HashSet(topic + "-" + partition), 1L)
+        }.fold((HashSet(), 0L)) { (a, b) =>
+            (a._1 ++ b._1, a._2 + b._2)
+        }
+        if(cnt > 0) {
+            Seq(
+                ("Total Message Count", cnt.toString, "sum", "Count"),
+                ("Total Partition Count", set.size.toString, "sum", "Count")
+            )
+        } else {
+            Seq()
+        }
+    } else {
+        Seq()
+    }
+    rdd.sparkContext.parallelize(seq, 1)
+}]]></Script>
+            </Model>
+        </Node>
+        <Node index="2007" uuid="d357c361-0cfc-46ea-8cc7-efa66ed7eadd" type="Compute" label="Normalize" x="680" y="180" width="130" height="75">
+            <Source name="source" uid="0" outputType="DStream" dataType="(String,String,String,String)">
+              <DataSource category="#OUTPUT" id="undefined" name="Out1" nodeId="d03179b9-ec6a-45a2-8236-935cc956536e">
+                <Field name="metricName" label="metricName" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="metricValue" label="metricValue" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="metricUom" label="metricUom" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="uomLabel" label="uomLabel" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="out" uid="0" outputType="DStream" dataType="class:viaops.ingestion.AuditLog">
+              <Field name="date_key" label="date_key" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_start_tm" label="aggr_start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_end_tm" label="aggr_end_tm" type="long" clazz="" isArray="false" isOptional="true"/>
+              <Field name="metric_name" label="metric_name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_value" label="metric_value" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_uom" label="metric_uom" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="uom_label" label="uom_label" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_group" label="source_group" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="system_tm" label="system_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="process_type" label="process_type" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_type" label="aggr_type" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_fmt" label="source_fmt" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_tz" label="source_tz" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="ts_key" label="ts_key" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="ts_value" label="ts_value" type="string" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model _caseClass="viaops.ingestion.AuditLog" isClassRef="true" udfs="generate_datekey">
+              <Computes>
+                <Compute op="sleText" field="*" arg="" value="generate_datekey(microbatch_time(), &quot;${timezone}&quot;)" outputType="long" alias="date_key" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="unix_timestamp_millisec(microbatch_time()) / 1000" outputType="long" alias="aggr_start_tm" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="to_option(-1)" outputType="long" alias="aggr_end_tm" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="metricName" outputType="string" alias="metric_name" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="metricValue" outputType="string" alias="metric_value" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="metricUom" outputType="string" alias="metric_uom" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="uomLabel" outputType="string" alias="uom_label" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="&quot;${source_group}&quot;" outputType="string" alias="source_group" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="unix_timestamp_millisec(now()) / 1000" outputType="long" alias="system_tm" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="if(${autostop_batch_count} &gt; 0, &quot;Ad-Hoc&quot;, &quot;Realtime&quot;)" outputType="string" alias="process_type" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="&quot;source&quot;" outputType="string" alias="aggr_type" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="&quot;others&quot;" outputType="string" alias="source_fmt" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="&quot;${timezone}&quot;" outputType="string" alias="source_tz" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="&quot;source_group&quot;" outputType="string" alias="ts_key" wordWarp="true"/>
+                <Compute op="sleText" field="*" arg="" value="&quot;${source_group}&quot;" outputType="string" alias="ts_value" wordWarp="true"/>
+              </Computes>
+              <CheckboxStatus isChecked="false"/>
+            </Model>
+        </Node>
+        <Node index="2006" uuid="b40d654d-e0fc-43c1-85f5-08a274243722" type="subflow" label="AuditLog" x="900" y="180" width="130" height="75">
+            <Source name="In" uid="0" outputType="DStream" dataType="class:viaops.ingestion.AuditLog">
+              <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="d357c361-0cfc-46ea-8cc7-efa66ed7eadd">
+                <Field name="date_key" label="date_key" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="aggr_start_tm" label="aggr_start_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="aggr_end_tm" label="aggr_end_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+                <Field name="metric_name" label="metric_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="metric_value" label="metric_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="metric_uom" label="metric_uom" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="uom_label" label="uom_label" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="source_group" label="source_group" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="system_tm" label="system_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="process_type" label="process_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="aggr_type" label="aggr_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="source_fmt" label="source_fmt" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="source_tz" label="source_tz" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="ts_key" label="ts_key" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                <Field name="ts_value" label="ts_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+              </DataSource>
+            </Source>
+            <Output name="Out" uid="0" outputType="DStream" dataType="class:viaops.ingestion.AuditLog">
+              <Field name="date_key" label="date_key" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_start_tm" label="aggr_start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_end_tm" label="aggr_end_tm" type="long" clazz="" isArray="false" isOptional="true"/>
+              <Field name="metric_name" label="metric_name" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_value" label="metric_value" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="metric_uom" label="metric_uom" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="uom_label" label="uom_label" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_group" label="source_group" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="system_tm" label="system_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+              <Field name="process_type" label="process_type" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="aggr_type" label="aggr_type" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_fmt" label="source_fmt" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="source_tz" label="source_tz" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="ts_key" label="ts_key" type="string" clazz="" isArray="false" isOptional="false"/>
+              <Field name="ts_value" label="ts_value" type="string" clazz="" isArray="false" isOptional="false"/>
+                <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+            </Output>
+            <Model>
+<Properties>
+{"subFlow":"remote:///viaops.ingestion/AuditLog","audit_parquetfolder":"viaops_ingestion_auditlog","source":""}
+</Properties>
+              <__subflow__>
+              <Flow index="2006" uuid="AuditLog" isNested="true" revision="800" acceptedSourceTypes="RDD,DStream,DataFrame" referenceURI="remote:///viaops.ingestion/AuditLog" name="AuditLog" showFooter="true">
+                <Node index="2006_1" uuid="224f8fb5-0fe9-4c00-8c04-2395c68c02d3" type="inPort" label="In" x="20" y="34" width="70" height="40">
+                    <Output name="Out" uid="0" outputType="DStream" dataType="class:viaops.ingestion.AuditLog" referenceType="viaops.ingestion.AuditLog">
+                      <Field name="date_key" label="date_key" type="long" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="aggr_start_tm" label="aggr_start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="aggr_end_tm" label="aggr_end_tm" type="long" clazz="" isArray="false" isOptional="true"/>
+                      <Field name="metric_name" label="metric_name" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="metric_value" label="metric_value" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="metric_uom" label="metric_uom" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="uom_label" label="uom_label" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_group" label="source_group" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="system_tm" label="system_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="process_type" label="process_type" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="aggr_type" label="aggr_type" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_fmt" label="source_fmt" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_tz" label="source_tz" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="ts_key" label="ts_key" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="ts_value" label="ts_value" type="string" clazz="" isArray="false" isOptional="false"/>
+                        <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+                    </Output>
+                    <Model>
+<Properties>
+{"portType":"DStream","type":{"name":"viaops.ingestion.AuditLog","kind":"caseclass"}}
+</Properties>
+                    </Model>
+                </Node>
+                <Node index="2006_2" uuid="2a748b73-8ff7-4d04-8666-9123dfba32f3" type="outPort" label="Out" x="440" y="34" width="70" height="40">
+                    <Source name="source" uid="0" outputType="DStream" dataType="class:viaops.ingestion.AuditLog">
+                      <DataSource category="#OUTPUT" id="undefined" name="Out" nodeId="224f8fb5-0fe9-4c00-8c04-2395c68c02d3">
+                        <Field name="date_key" label="date_key" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="aggr_start_tm" label="aggr_start_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="aggr_end_tm" label="aggr_end_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+                        <Field name="metric_name" label="metric_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="metric_value" label="metric_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="metric_uom" label="metric_uom" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="uom_label" label="uom_label" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="source_group" label="source_group" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="system_tm" label="system_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="process_type" label="process_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="aggr_type" label="aggr_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="source_fmt" label="source_fmt" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="source_tz" label="source_tz" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="ts_key" label="ts_key" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="ts_value" label="ts_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                      </DataSource>
+                    </Source>
+                    <Model>
+<Properties>
+{"type":{"name":"viaops.ingestion.AuditLog","kind":"caseclass"}}
+</Properties>
+                    </Model>
+                </Node>
+                <Node index="2006_3" uuid="322e4e59-dd18-4247-8532-ecf44de32e0b" type="Compute" label="Normalize" x="140" y="110" width="130" height="75">
+                    <Source name="source" uid="0" outputType="DStream" dataType="class:viaops.ingestion.AuditLog">
+                      <DataSource category="#OUTPUT" id="undefined" name="Out" nodeId="224f8fb5-0fe9-4c00-8c04-2395c68c02d3">
+                        <Field name="date_key" label="date_key" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="aggr_start_tm" label="aggr_start_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="aggr_end_tm" label="aggr_end_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+                        <Field name="metric_name" label="metric_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="metric_value" label="metric_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="metric_uom" label="metric_uom" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="uom_label" label="uom_label" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="source_group" label="source_group" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="system_tm" label="system_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="process_type" label="process_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="aggr_type" label="aggr_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="source_fmt" label="source_fmt" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="source_tz" label="source_tz" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="ts_key" label="ts_key" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="ts_value" label="ts_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                      </DataSource>
+                    </Source>
+                    <Output name="out" uid="0" outputType="DStream" dataType="class:AuditLogTable">
+                      <Field name="date_key" label="date_key" type="long" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="aggr_start_tm" label="aggr_start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="aggr_end_tm" label="aggr_end_tm" type="long" clazz="" isArray="false" isOptional="true"/>
+                      <Field name="metric_name" label="metric_name" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="metric_value" label="metric_value" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="metric_uom" label="metric_uom" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="uom_label" label="uom_label" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_group" label="source_group" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="system_tm" label="system_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="process_type" label="process_type" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="aggr_type" label="aggr_type" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_fmt" label="source_fmt" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_tz" label="source_tz" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_group_prefix" label="source_group_prefix" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="ts_key" label="ts_key" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="ts_value" label="ts_value" type="string" clazz="" isArray="false" isOptional="false"/>
+                        <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+                    </Output>
+                    <Model _caseClass="AuditLogTable" isClassRef="true">
+                      <Computes>
+                        <Compute op="sleText" field="*" arg="" value="date_key" outputType="long" alias="date_key" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="aggr_start_tm" outputType="long" alias="aggr_start_tm" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="aggr_end_tm" outputType="long" alias="aggr_end_tm" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="metric_name" outputType="string" alias="metric_name" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="metric_value" outputType="string" alias="metric_value" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="metric_uom" outputType="string" alias="metric_uom" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="uom_label" outputType="string" alias="uom_label" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="source_group" outputType="string" alias="source_group" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="system_tm" outputType="long" alias="system_tm" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="process_type" outputType="string" alias="process_type" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="aggr_type" outputType="string" alias="aggr_type" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="source_fmt" outputType="string" alias="source_fmt" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="source_tz" outputType="string" alias="source_tz" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="&quot;${source}&quot;" outputType="string" alias="source_group_prefix" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="ts_key" outputType="string" alias="ts_key" wordWarp="true"/>
+                        <Compute op="sleText" field="*" arg="" value="ts_value" outputType="string" alias="ts_value" wordWarp="true"/>
+                      </Computes>
+                      <CheckboxStatus isChecked="false"/>
+                    </Model>
+                </Node>
+                <Node index="2006_4" uuid="15ea36d5-561f-4969-8443-62afe82d4154" type="StreamTarget" label="Step 1" x="340" y="110" width="130" height="75">
+                    <Source name="source" uid="0" outputType="DStream" dataType="class:AuditLogTable">
+                      <DataSource category="#OUTPUT" id="undefined" name="out" nodeId="322e4e59-dd18-4247-8532-ecf44de32e0b">
+                        <Field name="date_key" label="date_key" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="aggr_start_tm" label="aggr_start_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="aggr_end_tm" label="aggr_end_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="true"/>
+                        <Field name="metric_name" label="metric_name" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="metric_value" label="metric_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="metric_uom" label="metric_uom" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="uom_label" label="uom_label" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="source_group" label="source_group" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="system_tm" label="system_tm" type="long" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="process_type" label="process_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="aggr_type" label="aggr_type" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="source_fmt" label="source_fmt" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="source_tz" label="source_tz" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="source_group_prefix" label="source_group_prefix" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="ts_key" label="ts_key" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                        <Field name="ts_value" label="ts_value" type="string" isDimension="false" isMeasure="false" clazz="" isArray="false" isOptional="false"/>
+                      </DataSource>
+                    </Source>
+                    <Output name="out" uid="0" outputType="DStream" dataType="class:AuditLogTable">
+                      <Field name="date_key" label="date_key" type="long" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="aggr_start_tm" label="aggr_start_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="aggr_end_tm" label="aggr_end_tm" type="long" clazz="" isArray="false" isOptional="true"/>
+                      <Field name="metric_name" label="metric_name" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="metric_value" label="metric_value" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="metric_uom" label="metric_uom" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="uom_label" label="uom_label" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_group" label="source_group" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="system_tm" label="system_tm" type="long" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="process_type" label="process_type" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="aggr_type" label="aggr_type" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_fmt" label="source_fmt" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_tz" label="source_tz" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="source_group_prefix" label="source_group_prefix" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="ts_key" label="ts_key" type="string" clazz="" isArray="false" isOptional="false"/>
+                      <Field name="ts_value" label="ts_value" type="string" clazz="" isArray="false" isOptional="false"/>
+                        <ExploreConfig>{&quot;_index&quot;:&quot;Default&quot;,&quot;items&quot;:[{&quot;name&quot;:&quot;Default&quot;}]}</ExploreConfig>
+                    </Output>
+                    <Model type="hiveTable" tableName="${audit_parquetfolder}" partitionType="eventField" partitionSize="" partitionColumn="date_key,source_group" partitionIndex="0,7" timeColumn="" overwrite="false" partitionNum="1" dataSpeed="" dataVolume="">
+                      <__binding__><![CDATA[{"snapshotTableName":""}]]></__binding__>
+                    </Model>
+                </Node>
+                <Link srcId="224f8fb5-0fe9-4c00-8c04-2395c68c02d3" srcPort="out:0" tgtId="322e4e59-dd18-4247-8532-ecf44de32e0b" tgtPort="in:0"/>
+                <Link srcId="224f8fb5-0fe9-4c00-8c04-2395c68c02d3" srcPort="out:0" tgtId="2a748b73-8ff7-4d04-8666-9123dfba32f3" tgtPort="in:0"/>
+                <Link srcId="322e4e59-dd18-4247-8532-ecf44de32e0b" srcPort="out:0" tgtId="15ea36d5-561f-4969-8443-62afe82d4154" tgtPort="in:0"/>
+      <Codes>
+      </Codes>
+      <Libraries>
+      </Libraries>
+      <Resources>
+      </Resources>
+      <Properties>[{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"audit_parquetfolder","label":"Audit Log Table","type":"string","optional":false,"hidden":"false","disabled":false,"resolveProperty":false,"value":"viaops_ingestion_auditlog","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"group":"common","name":"source","label":"Source Group Prefix","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"","enumSource":"","runtimeControl":false}]</Properties>
+      <Types>[{"name":"AuditLogTable","schema":[{"name":"date_key","type":"long","_isOptional":false,"_isArray":false},{"name":"aggr_start_tm","type":"long","_isOptional":false,"_isArray":false},{"name":"aggr_end_tm","type":"long","_isOptional":true,"_isArray":false},{"name":"metric_name","type":"string","_isOptional":false,"_isArray":false},{"name":"metric_value","type":"string","_isOptional":false,"_isArray":false},{"name":"metric_uom","type":"string","_isOptional":false,"_isArray":false},{"name":"uom_label","type":"string","_isOptional":false,"_isArray":false},{"name":"source_group","type":"string","_isOptional":false,"_isArray":false},{"name":"system_tm","type":"long","_isOptional":false,"_isArray":false},{"name":"process_type","type":"string","_isOptional":false,"_isArray":false},{"name":"aggr_type","type":"string","_isOptional":false,"_isArray":false},{"name":"source_fmt","type":"string","_isOptional":false,"_isArray":false},{"name":"source_tz","type":"string","_isOptional":false,"_isArray":false},{"name":"source_group_prefix","type":"string","_isOptional":false,"_isArray":false},{"name":"ts_key","type":"string","_isOptional":false,"_isArray":false},{"name":"ts_value","type":"string","_isOptional":false,"_isArray":false}]}]</Types>
+              </Flow>
+</__subflow__>
+              <__binding__><![CDATA[{"audit_parquetfolder":"audit_table","source":"source_group_prefix"}]]></__binding__>
+            </Model>
+        </Node>
+        <Link srcId="fb5a91c8-8f76-4ac7-88aa-0c999bfef858" srcPort="dout:0" tgtId="bdae713f-1114-4152-8fd3-073854f8956a" tgtPort="din:0"/>
+        <Link srcId="bdae713f-1114-4152-8fd3-073854f8956a" srcPort="dout:0" tgtId="0689fe27-6160-43f6-8d6a-9f353f8fdb47" tgtPort="din:0"/>
+        <Link srcId="0689fe27-6160-43f6-8d6a-9f353f8fdb47" srcPort="dout:0" tgtId="b96824c2-bd8e-4a56-8ca2-3570a1344540" tgtPort="in:0"/>
+        <Link srcId="bdae713f-1114-4152-8fd3-073854f8956a" srcPort="dout:0" tgtId="d03179b9-ec6a-45a2-8236-935cc956536e" tgtPort="din:0">
+            <Properties>{"label":"","isControlFlow":"data","type":"If","expr":{"script":"return properties.enable_audit != \"false\""},"codeGenPolicy":"conditional"}</Properties>
+        </Link>
+        <Link srcId="d03179b9-ec6a-45a2-8236-935cc956536e" srcPort="dout:0" tgtId="d357c361-0cfc-46ea-8cc7-efa66ed7eadd" tgtPort="in:0"/>
+        <Link srcId="d357c361-0cfc-46ea-8cc7-efa66ed7eadd" srcPort="out:0" tgtId="b40d654d-e0fc-43c1-85f5-08a274243722" tgtPort="din:0"/>
+      <Codes>
+      </Codes>
+      <Libraries>
+          <Lib scope="compile" groupId="org.apache.kafka" artifactId="kafka_2.11" version="0.10.2.0">
+              <Excludes>
+                  <Exclude groupId="org.slf4j" artifactId="slf4j-api"/>
+                  <Exclude groupId="log4j" artifactId="log4j"/>
+                  <Exclude groupId="org.slf4j" artifactId="slf4j-log4j12"/>
+                  <Exclude groupId="org.scala-lang" artifactId="scala-library"/>
+                  <Exclude groupId="org.scala-lang.modules" artifactId="scala-parser-combinators_2.11"/>
+                  <Exclude groupId="net.jpountz.lz4" artifactId="lz4"/>
+                  <Exclude groupId="org.xerial.snappy" artifactId="snappy-java"/>
+                  <Exclude groupId="com.yammer.metrics" artifactId="metrics-core"/>
+                  <Exclude groupId="org.apache.zookeeper" artifactId="zookeeper"/>
+              </Excludes>
+          </Lib>
+          <Lib scope="compile" groupId="org.apache.spark" artifactId="spark-streaming-kafka-0-10_2.11" version="2.3.1">
+              <Excludes>
+                  <Exclude groupId="org.apache.kafka" artifactId="kafka_2.11"/>
+                  <Exclude groupId="org.apache.kafka" artifactId="kafka-clients"/>
+                  <Exclude groupId="org.slf4j" artifactId="slf4j-api"/>
+                  <Exclude groupId="log4j" artifactId="log4j"/>
+                  <Exclude groupId="org.slf4j" artifactId="slf4j-log4j12"/>
+                  <Exclude groupId="org.scala-lang" artifactId="scala-library"/>
+                  <Exclude groupId="org.scala-lang.modules" artifactId="scala-parser-combinators_2.11"/>
+                  <Exclude groupId="net.jpountz.lz4" artifactId="lz4"/>
+                  <Exclude groupId="org.xerial.snappy" artifactId="snappy-java"/>
+                  <Exclude groupId="org.apache.spark" artifactId="spark-tags_2.11"/>
+                  <Exclude groupId="com.yammer.metrics" artifactId="metrics-core"/>
+                  <Exclude groupId="com.101tec" artifactId="zkclient"/>
+              </Excludes>
+          </Lib>
+      </Libraries>
+      <Resources>
+      </Resources>
+      <Properties>[{"editorType":"number","*":{"label":"label","desc":"desc"},"name":"autostop_batch_count","label":"Stop After n Microbatch","type":"integer","hidden":"false","disabled":false,"resolveProperty":false,"value":0,"constraints":{"min":"0","max":"999999","step":"1","places":"","maxLength":""},"runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"source_group","label":"Source Group","desc":"Source Group of Metrics","type":"string","optional":false,"hidden":"false","disabled":false,"resolveProperty":false,"value":"","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"source_group_prefix","label":"Source Group Prefix","desc":"The source name","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"","enumSource":"","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"timezone","label":"Time Zone","desc":"The timezone to calculate date","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"Etc/GMT","defaultValueForExisted":"Europe/London","enumSource":"rest:/global/?op=get.timezones","runtimeControl":false},{"*":{"label":"label","desc":"desc"},"name":"kafka_urls","label":"Kafka Bootstrap Servers","desc":"The kafka broker URLs and It can be broker list delimited by comma","type":"string","optional":false,"hidden":"false","disabled":false,"resolveProperty":false,"value":"","enumSource":"","runtimeControl":false,"group":"group","groupLabel":"Source"},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"kafka_topics","label":"Kafka Topics","desc":"The kafka topic name and it can be topic list delimited by comma","type":"string","hidden":"false","disabled":false,"resolveProperty":false,"value":"","enumSource":"","runtimeControl":false,"group":"group","groupLabel":"Source"},{"editorType":"textArea","*":{"label":"label","desc":"desc"},"name":"kafka_consumer_configs","label":"Kafka Consumer Properties","desc":"The kafka consumer properties defined in property file format","type":"string","optional":true,"hidden":"false","disabled":false,"resolveProperty":false,"value":"","constraints":{"type":"textArea","args":{"rows":"4","itemStyle":"height: auto;"}},"runtimeControl":false,"group":"group","groupLabel":"Source"},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"max_batch_size","label":"Max Batch Size (Number)","desc":"The max number messages to process in one batch","type":"string","optional":true,"hidden":"false","disabled":false,"resolveProperty":false,"value":"0","enumSource":"","runtimeControl":false,"group":"group","groupLabel":"Source"},{"editorType":"date","*":{"label":"label","desc":"desc"},"name":"start_date","label":"Start Date","desc":"The start date constraint and empty means starting from oldest","type":"date","optional":true,"hidden":"false","disabled":false,"resolveProperty":false,"constraints":{"itemStyle":"width: 200px;","supportNow":true,"supportClear":"true","fixNow":true},"runtimeControl":false,"group":"group","groupLabel":"Source"},{"editorType":"date","*":{"label":"label","desc":"desc"},"name":"end_date","label":"End Date","desc":"End date constraint and empty means always process to latest time","type":"date","optional":true,"hidden":"false","disabled":false,"resolveProperty":false,"constraints":{"itemStyle":"width: 200px;","supportNow":true,"supportClear":"true","fixNow":true},"runtimeControl":false,"group":"group","groupLabel":"Source"},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"start_offset","label":"Start Offset (Minutes)","type":"long","hidden":"false","disabled":false,"resolveProperty":false,"value":-10,"enumSource":"","runtimeControl":false,"group":"group","groupLabel":"Source"},{"editorType":"sourceSample","*":{"label":"label","desc":"desc"},"name":"sample","label":"Sample Data","type":"string","optional":true,"hidden":"false","disabled":false,"resolveProperty":false,"value":"","constraints":{"type":"sourceSample","args":{"rows":"4","itemStyle":"height: auto;width: calc(100% - 54px);"},"impactSchema":true},"excluded":true,"runtimeControl":false,"group":"group","groupLabel":"Source"},{"editorType":"boolean","*":{"label":"label","desc":"desc"},"group":"group1","groupLabel":"Audit","name":"enable_audit","label":"Audit Log","desc":"A flag to control whether enable audit log","type":"boolean","optional":false,"hidden":"false","disabled":false,"resolveProperty":false,"value":"true","runtimeControl":false},{"editorType":"textInput","*":{"label":"label","desc":"desc"},"name":"audit_table","label":"Audit Log Table","desc":"The audit table name","type":"string","optional":true,"hidden":"false","disabled":false,"resolveProperty":false,"value":"viaops_audit_parser","enumSource":"","group":"group1","groupLabel":"Audit","runtimeControl":false}]</Properties>
+      <Types>[{"name":"KafkaMessage","namespace":"","schema":[{"name":"topic","type":"string","_isOptional":false,"_isArray":false},{"name":"partition","type":"integer","_isOptional":false,"_isArray":false},{"name":"offset","type":"long","_isOptional":false,"_isArray":false},{"name":"timestamp","type":"long","_isOptional":false,"_isArray":false},{"name":"value","type":"string","_isOptional":false,"_isArray":false}]},{"name":"Metric","namespace":"","schema":[{"name":"metricName","type":"string","_isOptional":false,"_isArray":false},{"name":"metricValue","type":"string","_isOptional":false,"_isArray":false},{"name":"metricUom","type":"string","_isOptional":false,"_isArray":false},{"name":"uomLabel","type":"string","_isOptional":false,"_isArray":false}]}]</Types>
+      </Flow>
+    </Flows>
+  </ModelInfo>
+</DataPipeModel>

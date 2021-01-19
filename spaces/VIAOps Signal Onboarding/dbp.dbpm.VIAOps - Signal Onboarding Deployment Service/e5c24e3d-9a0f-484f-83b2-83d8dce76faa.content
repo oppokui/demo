@@ -1,0 +1,13 @@
+UPDATE viaops_signal_onboarding_model_info 
+SET 
+    hdfs_server_url=null,
+    source_path=null,
+    spark_sql_table_path=null,
+    spark_sql_table=null,
+    anomaly_file_path=null,    
+    dropped_metric=null,
+    adm_name=null,
+    metric_id_list=null,
+    output_name_list=null,
+    modified_ts=current_timestamp()
+WHERE uuid=? and name=?

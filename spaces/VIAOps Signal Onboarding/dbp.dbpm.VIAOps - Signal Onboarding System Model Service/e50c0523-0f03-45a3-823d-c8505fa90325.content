@@ -1,0 +1,52 @@
+[
+  {
+    "name": "source2.aggr_func",
+    "label": "source2.aggr_func",
+    "type": "string",
+    "_isDimension": false,
+    "_isMeasure": false,
+    "clazz": "",
+    "_isArray": false,
+    "_isOptional": false
+  },
+  {
+    "name": "source2.parse_source_group",
+    "label": "source2.parse_source_group",
+    "type": "string",
+    "_isDimension": false,
+    "_isMeasure": false,
+    "clazz": "",
+    "_isArray": false,
+    "_isOptional": false
+  },
+  {
+    "name": "source2.parse_source_name",
+    "label": "source2.parse_source_name",
+    "type": "string",
+    "_isDimension": false,
+    "_isMeasure": false,
+    "clazz": "",
+    "_isArray": false,
+    "_isOptional": false
+  },
+  {
+    "name": "source2.parse_target_app",
+    "label": "source2.parse_target_app",
+    "type": "string",
+    "_isDimension": false,
+    "_isMeasure": false,
+    "clazz": "",
+    "_isArray": false,
+    "_isOptional": false
+  },
+  {
+    "name": "source2.parse_target_metric",
+    "label": "source2.parse_target_metric",
+    "type": "string",
+    "_isDimension": false,
+    "_isMeasure": false,
+    "clazz": "",
+    "_isArray": false,
+    "_isOptional": false
+  }
+]

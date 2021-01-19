@@ -1,0 +1,10 @@
+INSERT INTO viaops_parse_table (
+    metric_id,
+    aggr_func,
+    parse_source_group,
+    parse_source_name,
+    parse_target_group,
+    parse_target_app,
+    parse_target_metric
+)
+VALUES (?, ?, ?, ?, ?, ?, ?)

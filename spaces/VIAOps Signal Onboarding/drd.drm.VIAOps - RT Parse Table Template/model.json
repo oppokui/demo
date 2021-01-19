@@ -1,0 +1,19 @@
+{
+  "contents": [{
+    "fileref": "ModelContentFile0",
+    "name": "default"
+  }],
+  "lastDate": "1608021001559",
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "DO_Sprint12_20201216",
+    "_RESOURCE_Type": "drm",
+    "drd.dimension": "",
+    "drd.key": "",
+    "drd.measure": "",
+    "drd.timestamp": "",
+    "drd.type": "resource.table",
+    "modelStatus": "update",
+    "name": "VIAOps - RT Parse Table Template"
+  }
+}

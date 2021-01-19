@@ -1,0 +1,797 @@
+<AnalyticsExplorerView description="" name="VIAOps - Signal Onboarding Editor" is_init="false">
+  <ModelInfo validated="true" nextPageId="2">
+    <GlobalDSRSetting enabled="false">
+    </GlobalDSRSetting>
+    <GlobalProperties>
+    </GlobalProperties>
+    <GlobalThemeSetting>
+        <SelectedTheme theme="{&quot;id&quot;:null,&quot;name&quot;:&quot;Vitria Default Theme&quot;,&quot;label&quot;:&quot;Vitria Default Theme&quot;}"/>
+        <TileOpacity opacity="0.8"/>
+        <NoTileSpacing value="false"/>
+    </GlobalThemeSetting>
+    <I18NTab>
+        <name value="default"/>
+    </I18NTab>
+    <TabNavSetting visible="true"></TabNavSetting>
+    <DWRSetting disable="false"></DWRSetting>
+    <CustomCSSSetting ><![CDATA[@import '/vitria-oi/rest/app/dbp/user/via_common/dbpm/VIA - Common/VIA-CSS';
+
+.workbench .via-action-bar .contentContainer {
+    border-bottom: thin solid lightgray !important;
+    width:calc(100% - 3px) !important;
+    height:auto !important;
+}
+
+.workbench .via-action-bar.toolbar .contentContainer {
+    width:calc(100% + 6px) !important;
+}
+
+/*
+.workbench .via-action-bar.toolbar .contentContainer {
+    width:calc(100% - 6px) !important;
+}
+
+.workbench .via-action-bar.toolbar .contentContainer .via-action-bar-toolbar {
+    width: calc(100% - 6px) !important;
+}
+
+.workbench .via-action-bar.menubar .contentContainer {
+    width:calc(100% - 6px) !important;
+}
+*/]]></CustomCSSSetting>
+    <Page id="1" name="Default" title="Default" desc="" tabNavVisible="true" panelposition="right" panelstatus="closed" className="workbench">
+    <HelpContent><![CDATA[]]></HelpContent>
+    <PageFrameContent><![CDATA[<div style="width:calc(100%);height:100%;background-color:white;padding:0px;overflow-x: hidden;">
+    <div style="width:100%;height:32px;padding:2px 0px 0px 0px;border:none;">
+        <div class="soEitorActionBar" style="width:calc(100% - 40px);height:32px;border:none;display:inline-block;position: relative;" data-vitria-type="tile" data-vitria-tile-name="Action1"></div>
+        <div style="width:38px;min-height:32px;float:right;border:none;display:inline-block;right:-5px;" data-vitria-type="tile" data-vitria-tile-name="Menu1"></div>
+    </div>
+    <div style="calc(width:100%);height:calc(100% - 34px);" data-vitria-type="layout"></div> 
+</div>
+]]></PageFrameContent>
+      <PageProperties>
+      </PageProperties>
+      <Layout type="10" numRow="1" numCol="1" count="1" templateType ="1" screenHeight ="NaN" renderType ="null" positions="[{&quot;data_col&quot;:1,&quot;data_row&quot;:1,&quot;data_sizex&quot;:120,&quot;data_sizey&quot;:72,&quot;id&quot;:0,&quot;title&quot;:&quot;Main Tile&quot;}]" unitSize= "undefined" viewRows="72" viewCols="120"/>
+      <Tile name="Main Tile" title="Main Tile" desc="" hideEmptyTile="false" previewSize="15" type="Independent" style="small" sampleData="false" className="metric-workbench-container" parentSelect="false" advancedConfig="false" advancedDisable="true" allowFullscreen="false">
+        <DataSource category="#NONE" id="undefined" untyped="true" name="#NONE" label="(not configured)">
+</DataSource>
+          <LabelStyle><![CDATA[{"display":"none"}]]></LabelStyle>
+          <TileThemeSetting><![CDATA[{}]]></TileThemeSetting>
+        <DataViewer name="dbp.Renderer" label="Dashboard Module" optional="false" minimode="false">
+          <Property name="generalProperties" value="{&quot;_model&quot;:&quot;/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Service/WorkbenchWidget&quot;}"/>
+          <Ports>
+          </Ports>
+        </DataViewer>
+      </Tile>
+      <frame_tile name="Action1" title="Action1" desc="" hideEmptyTile="false" previewSize="15" type="Independent" style="small" sampleData="false" className="via-action-bar toolbar" parentSelect="false" advancedConfig="false" advancedDisable="true" allowFullscreen="false">
+        <DataSource category="#ClientSideResource" id="axflow:localstore:node:6" name="axflow:localstore:node:6" label="Action Data" type="#ScriptDataStore">
+  <Param name="where" label="Where Clause" value="" binding="" type="string"/>
+  <Param name="sort" label="Sort Order" value="" binding="" type="string"/>
+  <Field name="value" label="value" type="string" isDimension="false" isMeasure="false"/>
+  <Field name="disable" label="disable" type="boolean" isDimension="false" isMeasure="false"/>
+  <Field name="display" label="display" type="boolean" isDimension="false" isMeasure="false"/>
+</DataSource>
+          <LabelStyle><![CDATA[{"display":"none"}]]></LabelStyle>
+          <TileThemeSetting><![CDATA[{}]]></TileThemeSetting>
+        <DataViewer name="dbp.Renderer" label="Dashboard Module" optional="false" minimode="false">
+          <Property name="generalProperties" value="{&quot;_model&quot;:&quot;/app/dbp/space/VIA Common Library/dbpm/VIA - Common/Action Bar&quot;,&quot;model&quot;:&quot;{\n\t\&quot;toolbar\&quot;: [\n        {\n    \t\t\&quot;label\&quot;: \&quot;Projects\&quot;,\n    \t\t\&quot;title\&quot;: \&quot;VIA Digital Operations Projects\&quot;\n    \t},\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-plus-square&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Create new project\&quot;,\n            \&quot;value\&quot; : \&quot;project/add\&quot;\n        },\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-edit&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Edit existing project\&quot;,\n            \&quot;value\&quot; : \&quot;project/edit\&quot;\n        },\n        {\n    \t    \&quot;label\&quot;: \&quot;&amp;lt;i class=&apos;fa fa-undo&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n    \t    \&quot;title\&quot;: \&quot;Revert project Changes\&quot;,\n    \t    \&quot;value\&quot;: \&quot;project/revert\&quot;\n\n    \t},\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-save&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Save project\&quot;,\n            \&quot;value\&quot; : \&quot;project/save\&quot;\n        },\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-trash-alt&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Delete project\&quot;,\n            \&quot;value\&quot; : \&quot;project/delete\&quot;\n        },\n        {\n    \t\t\&quot;label\&quot;: \&quot;Build\&quot;,\n    \t\t\&quot;title\&quot;: \&quot;Commands for creating, updating and managing solution models.\&quot;\n\t\t},\n\t\t{\n\t\t\t\&quot;label\&quot;: \&quot;&amp;lt;i class=&apos;fas fa-cloud-upload-alt&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n\t\t\t\&quot;title\&quot;: \&quot;Upload sample data file\&quot;,\n\t\t\t\&quot;value\&quot;: \&quot;update/sample/data\&quot;,\n\t\t\t\&quot;config\&quot; : {\n\t\t\t    \&quot;action\&quot;    : \&quot;#doUploadFile\&quot;,\n\t\t\t    \&quot;content\&quot;   : false,\n\t\t\t    \&quot;#mimeTypes\&quot; : [\n\t\t\t        \&quot;text/csv\&quot;,\n\t\t\t        \&quot;application/csv\&quot;,\n\t\t\t        \&quot;application/vnd.ms-excel\&quot;\n\t\t\t    ]\n\t\t\t}\n    \t},\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-magic&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Create/Update resource and parser model\&quot;,\n            \&quot;value\&quot; : \&quot;tools/create/update\&quot;\n        },\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-cogs&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Create/Update incident detection configurations\&quot;,\n            \&quot;value\&quot; : \&quot;tools/config/incident\&quot;\n        },\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-cubes&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Prepare env for incident detection\&quot;,\n            \&quot;value\&quot; : \&quot;tools/prep/incident\&quot;\n        },\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-sitemap&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Create/Update system models\&quot;,\n            \&quot;value\&quot; : \&quot;tools/system/model\&quot;\n        },\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-broom&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Reset generated models and artifacts\&quot;,\n            \&quot;value\&quot; : \&quot;tools/reset\&quot;\n        },\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-server&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Open HDFS Browser\&quot;,\n            \&quot;value\&quot; : \&quot;tools/hdfs/browser\&quot;\n        },\n        {\n    \t\t\&quot;label\&quot;: \&quot;Import/Export\&quot;,\n    \t\t\&quot;title\&quot;: \&quot;Import/Export projects\&quot;\n\t\t},\n        {\n\t\t\t\&quot;label\&quot;: \&quot;&amp;lt;i class=&apos;fas fa-cloud-upload-alt&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Import project\&quot;,\n            \&quot;value\&quot; : \&quot;import/project\&quot;,\n\t\t\t\&quot;config\&quot; : {\n\t\t\t    \&quot;action\&quot;    : \&quot;#doUploadFile\&quot;,\n\t\t\t    \&quot;content\&quot;   : false,\n\t\t\t    \&quot;mimeTypes\&quot; : [\n\t\t\t        \&quot;application/x-zip-compressed\&quot;,\n\t\t\t        \&quot;application/zip\&quot;,\n\t\t\t        \&quot;application/octet-stream\&quot;\n\t\t\t    ]\n\t\t\t}\n    \t},\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-cloud-download-alt&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Export project\&quot;,\n            \&quot;value\&quot; : \&quot;export/project\&quot;\n    \t},\n        {\n    \t\t\&quot;label\&quot;: \&quot;Custom Ingestion\&quot;,\n    \t\t\&quot;title\&quot;: \&quot;Commands for Custom Ingestion runtime.\&quot;\n\t\t},\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-play&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Start Custom Ingestion model\&quot;,\n            \&quot;value\&quot; : \&quot;service-parser/start\&quot;\n        },\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-stop&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Stop Custom Ingestion model\&quot;,\n            \&quot;value\&quot; : \&quot;service-parser/stop\&quot;\n        },\n        {\n            \&quot;label\&quot;: \&quot;&amp;lt;i class=&apos;fas fa-times&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot;: \&quot;Purge Custom Ingestion model\&quot;,\n            \&quot;value\&quot;: \&quot;service-parser/purge\&quot;\n        },\n        {\n    \t\t\&quot;label\&quot;: \&quot;Continuous Ingestion\&quot;,\n    \t\t\&quot;title\&quot;: \&quot;Commands for Continuous Ingestion runtime.\&quot;\n\t\t},\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-play&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Start Continuous Ingestion model\&quot;,\n            \&quot;value\&quot; : \&quot;rt-parser/start\&quot;\n        },\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-stop&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Stop Continuous Ingestion model\&quot;,\n            \&quot;value\&quot; : \&quot;rt-parser/stop\&quot;\n        },\n        {\n            \&quot;label\&quot;: \&quot;&amp;lt;i class=&apos;fas fa-times&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot;: \&quot;Purge Continuous Ingestion model\&quot;,\n            \&quot;value\&quot;: \&quot;rt-parser/purge\&quot;\n        },\n        {\n    \t\t\&quot;label\&quot;: \&quot;Anomaly\&quot;,\n    \t\t\&quot;title\&quot;: \&quot;Commands for anomaly runtime.\&quot;\n\t\t},\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-play&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Start anomaly model\&quot;,\n            \&quot;value\&quot; : \&quot;anomaly/start\&quot;\n        },\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-stop&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Stop anomaly model\&quot;,\n            \&quot;value\&quot; : \&quot;anomaly/stop\&quot;\n        },\n        {\n            \&quot;label\&quot;: \&quot;&amp;lt;i class=&apos;fas fa-times&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot;: \&quot;Purge anomaly model\&quot;,\n            \&quot;value\&quot;: \&quot;anomaly/purge\&quot;\n        },\n        {\n            \&quot;label\&quot;: \&quot;&amp;lt;i class=&apos;fas fa-circle&apos;&amp;gt;\&quot;,\n            \&quot;title\&quot;: \&quot;Reference anomaly model status\&quot;,\n            \&quot;value\&quot;: \&quot;reference-anomaly/status\&quot;\n        },\n        {\n    \t\t\&quot;label\&quot;: \&quot;Tests\&quot;,\n    \t\t\&quot;title\&quot;: \&quot;Commands for generating test data.\&quot;\n\t\t},\n        {\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-vial&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Open Test Console\&quot;,\n            \&quot;value\&quot; : \&quot;tests/console\&quot;\n\t\t},\n\t\t{\n    \t\t\&quot;label\&quot;: \&quot;Deployment\&quot;,\n    \t\t\&quot;title\&quot;: \&quot;\&quot;\n\t\t},\n\t\t{\n            \&quot;label\&quot; : \&quot;&amp;lt;i class=&apos;fas fa-desktop&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\n            \&quot;title\&quot; : \&quot;Swtich To Deployment Manager UI\&quot;,\n            \&quot;value\&quot; : \&quot;switch/deployment\&quot;\n\t\t}\n\t]\n}\n&quot;}"/>
+          <Ports>
+          </Ports>
+        </DataViewer>
+      </frame_tile>
+      <frame_tile name="Menu1" title="Menu1" desc="" hideEmptyTile="false" previewSize="15" type="Independent" style="small" sampleData="false" className="via-action-bar menubar" parentSelect="false" advancedConfig="false" advancedDisable="true" allowFullscreen="false">
+        <DataSource category="#ClientSideResource" id="axflow:localstore:node:14" name="axflow:localstore:node:14" label="Menu Data" type="#ScriptDataStore">
+  <Param name="where" label="Where Clause" value="" binding="" type="string"/>
+  <Param name="sort" label="Sort Order" value="" binding="" type="string"/>
+  <Field name="value" label="value" type="string" isDimension="false" isMeasure="false"/>
+  <Field name="disable" label="disable" type="boolean" isDimension="false" isMeasure="false"/>
+  <Field name="display" label="display" type="boolean" isDimension="false" isMeasure="false"/>
+</DataSource>
+          <LabelStyle><![CDATA[{"display":"none"}]]></LabelStyle>
+          <TileThemeSetting><![CDATA[{}]]></TileThemeSetting>
+        <DataViewer name="dbp.Renderer" label="Dashboard Module" optional="false" minimode="false">
+          <Property name="generalProperties" value="{&quot;_model&quot;:&quot;/app/dbp/space/VIA Common Library/dbpm/VIA - Common/Action Bar&quot;,&quot;model&quot;:&quot;{\r\n\t\&quot;menubar\&quot;: [{\r\n\t\t\&quot;label\&quot;: \&quot;&amp;lt;i class=&apos;fas fa-link&apos;&amp;gt;&amp;lt;/i&amp;gt;\&quot;,\r\n\t\t\&quot;value\&quot;: \&quot;menu\&quot;,\r\n\t\t\&quot;items\&quot;: [\r\n\t\t    {\r\n    \t\t\t\&quot;label\&quot;: \&quot;Ingestion Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;parserModel\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Anomaly Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;anomalyModel\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t    \&quot;value\&quot;: \&quot;separator2\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Trend Analysis\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;trendAnalysis\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Dimension Analysis\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;dimensionAnalysis\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Incident Analysis\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;incidentAnalysis\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Configuration Tool\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;configTool\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Server Logs\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;serverLogs\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Database Tool\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;databaseTool\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Baseline Score\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Open Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;baselineScoreOpen\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Start Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;baselineScoreStart\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Stop Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;baselineScoreStop\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Simple Threshold\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Open Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;simpleThresholdOpen\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Start Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;simpleThresholdStart\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Stop Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;simpleThresholdStop\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Simple Deviation\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Open Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;simpleDeviationOpen\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Start Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;simpleDeviationStart\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Stop Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;simpleDeviationStop\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Declared Event\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Open Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;declaredEventOpen\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Start Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;declaredEventStart\&quot;\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\&quot;label\&quot;: \&quot;Stop Model\&quot;,\r\n    \t\t\t\&quot;value\&quot;: \&quot;declaredEventStop\&quot;\r\n    \t\t}\r\n\t\t]\r\n\t}]\r\n}\r\n&quot;}"/>
+          <Ports>
+          </Ports>
+        </DataViewer>
+      </frame_tile>
+    </Page>
+    <Script>
+      <Stores>
+      </Stores>
+    </Script>
+    <DataFlow showFooter="true">
+      <Item id='node:1' type='Tile' label='Action1' _undefined_title='' _undefined_originHeight='' width='124' height='134' x='80' y='100' >
+</Item>
+
+      <Item id='node:2' type='UserScript' label='Script 0' _undefined_title='' originHeight='117' width='180' height='217' x='331' y='100' >
+<dynIn id='din:0' type='event[]' label='Actions' evaluate='always' _isArray='true' >
+</dynIn>
+<dynIn id='din:1' type='event[]' label='Content' evaluate='always' _isArray='true' >
+</dynIn>
+<dynIn id='din:2' type='event[]' label='Menus' evaluate='always' _isArray='true' >
+</dynIn>
+<dynIn id='din:3' type='any' label='Plugins' evaluate='always' _isArray='true' >
+</dynIn>
+<dynIn id='din:4' type='any[]' label='Updates' evaluate='always' _isArray='true' >
+</dynIn>
+<dynOut id='dout:0' type='any' label='Notify' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:1' type='event[]' label='Action Data' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:2' type='event[]' label='Browser HDFS Info' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:3' type='event[]' label='Test Console' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:4' type='event[]' label='Menu Data' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:5' type='event[]' label='Runtime Console' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:6' type='any' label='Action' propagate='always' _isArray='true' >
+</dynOut>
+</Item>
+
+      <Item id='node:4' type='Tile' label='Main Tile' _undefined_title='' _undefined_originHeight='' width='124' height='130' x='350' y='560' >
+</Item>
+
+      <Item id='node:6' type='LocalStore' label='Action Data' _undefined_title='' _undefined_originHeight='' width='130' height='177' x='666' y='120' >
+</Item>
+
+      <Item id='node:8' type='UserScript' label='Script 1' _undefined_title='' originHeight='117' width='130' height='117' x='580' y='620' >
+<dynIn id='din:0' type='any[]' label='UI Event' evaluate='always' _isArray='true' >
+</dynIn>
+</Item>
+
+      <Item id='node:10' type='Widget' label='HDFS Widget' title='Browse connected HDFS server' _undefined_originHeight='' width='118' height='110' x='840' y='291' >
+</Item>
+
+      <Item id='node:12' type='Widget' label='Test Widget' title='Monitor Test Data and Manage Test Model' _undefined_originHeight='' width='118' height='110' x='840' y='420' >
+</Item>
+
+      <Item id='node:14' type='LocalStore' label='Menu Data' _undefined_title='' _undefined_originHeight='' width='130' height='177' x='840' y='60' >
+</Item>
+
+      <Item id='node:16' type='Tile' label='Menu1' _undefined_title='' _undefined_originHeight='' width='124' height='130' x='80' y='260' >
+</Item>
+
+      <Item id='node:18' type='Widget' label='Runtime Widget' _undefined_title='' _undefined_originHeight='' width='124' height='110' x='840' y='540' >
+</Item>
+
+      <Item id='node:20' type='PortIn' label='Port IN 0' _undefined_title='' originHeight='117' width='130' height='177' x='89' y='540' >
+<dynOut id='dout:0' type='any' label='Plugins' propagate='always' _isArray='true' >
+</dynOut>
+<dynOut id='dout:1' type='any' label='Context' propagate='always' _isArray='true' >
+</dynOut>
+</Item>
+
+      <Item id='node:22' type='PortOut' label='Port OUT 0' _undefined_title='' _undefined_originHeight='' width='130' height='177' x='1062' y='558' >
+<dynIn id='din:0' type='any' label='Action' evaluate='always' _isArray='true' >
+</dynIn>
+</Item>
+
+      <Link srcId='node:18' srcPort='out:1' tgtId='node:2' tgtPort='din:4' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:3' tgtId='node:12' tgtPort='in:0' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:2' tgtId='node:10' tgtPort='in:0' >
+</Link>
+
+      <Link srcId='node:4' srcPort='out:3' tgtId='node:8' tgtPort='din:0' >
+</Link>
+
+      <Link srcId='node:4' srcPort='out:0' tgtId='node:2' tgtPort='din:1' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:1' tgtId='node:6' tgtPort='in:0' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:0' tgtId='node:4' tgtPort='in:0' >
+</Link>
+
+      <Link srcId='node:1' srcPort='out:0' tgtId='node:2' tgtPort='din:0' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:4' tgtId='node:14' tgtPort='in:0' >
+</Link>
+
+      <Link srcId='node:16' srcPort='out:0' tgtId='node:2' tgtPort='din:2' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:5' tgtId='node:18' tgtPort='in:0' >
+</Link>
+
+      <Link srcId='node:20' srcPort='dout:0' tgtId='node:2' tgtPort='din:3' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:6' tgtId='node:22' tgtPort='din:0' >
+</Link>
+
+      <Link srcId='node:2' srcPort='dout:0' tgtId='node:22' tgtPort='din:0' >
+</Link>
+
+      <Link srcId='node:20' srcPort='dout:0' tgtId='node:4' tgtPort='in:0' >
+</Link>
+
+      <Input key='node:1/cfg:tile/default' value='[{&quot;id&quot;:&quot;ROOT#1#Action1&quot;,&quot;path&quot;:[&quot;Default&quot;],&quot;name&quot;:&quot;Action1&quot;}]' >
+</Input>
+
+      <Input key='node:2/cfg:inPorts/default' value='[{&quot;portId&quot;:&quot;din:0&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Actions&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;din:1&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Content&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;din:2&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Menus&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;din:3&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Plugins&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;din:4&quot;,&quot;portType&quot;:&quot;any[]&quot;,&quot;portLabel&quot;:&quot;Updates&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Input key='node:2/cfg:model/default' value='&quot;var plugins = getInput(\&quot;din:3\&quot;);\r\nif (plugins == null) return;\r\n\r\nvar ServicePlugin = plugins.NuovaStella;\r\nvar CommonPlugin = Plugin(\&quot;Common\&quot;);\r\nvar StatusService = Plugin(\&quot;StatusService\&quot;);\r\n\r\nvar self = this;\r\nvar axController = this.axflow.config.controller;\r\nif (!getLocal(\&quot;CollabMgrHandler\&quot;)) {\r\n    var handler = StatusService.addHandler(axController, function () {\r\n        var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n        if (project != null) {\r\n            StatusService.showNotification(axController, project, &apos;.soEitorActionBar&apos;);\r\n        }\r\n    });\r\n    setLocal(\&quot;CollabMgrHandler\&quot;, handler);\r\n    onExit(function() {\r\n        var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n        if (project != null) {\r\n            StatusService.onEditClose(axController, project);\r\n        }\r\n        var handler = getLocal(\&quot;CollabMgrHandler\&quot;);\r\n        if (handler != null) {\r\n            StatusService.removeHandler(axController, handler);\r\n        }\r\n    });\r\n}\r\n\r\n\r\nif (!getLocal(\&quot;ActionDataHandler\&quot;)) {\r\n    setLocal(\&quot;ActionDataUpdating\&quot;, false);\r\n    var actionDataHandler = window.setInterval(function () {\r\n        var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n        if (!project || getLocal(\&quot;ActionDataUpdating\&quot;) == true) return;\r\n        \r\n        setLocal(\&quot;ActionDataUpdating\&quot;, true);\r\n        updateActionData(function() {\r\n            setLocal(\&quot;ActionDataUpdating\&quot;, false);\r\n        });\r\n    }, 120 * 1000);\r\n    setLocal(\&quot;ActionDataHandler\&quot;, actionDataHandler);\r\n    \r\n    onExit(function () {\r\n        var actionDataHandler = getLocal(\&quot;ActionDataHandler\&quot;);\r\n        if (actionDataHandler != null) {\r\n            window.clearInterval(actionDataHandler);\r\n        }\r\n    });\r\n}\r\n\r\nfunction updateCollabMgr(action, project) {\r\n    if (!project) return;\r\n\r\n    switch(action) {\r\n        case \&quot;open\&quot;:\r\n            StatusService.onEditOpen(axController, project);\r\n            break;\r\n        case \&quot;save\&quot;:\r\n            StatusService.onEditSave(axController, project);\r\n            break;\r\n        case \&quot;close\&quot;:\r\n            StatusService.onEditClose(axController, project);\r\n            break;\r\n        default:\r\n            break;\r\n    }\r\n}\r\n\r\nfunction getRuntimeStatus(project, deployment, callback)\r\n{\r\n    ServicePlugin.getRuntimeStatus(project, deployment, function(response) {\r\n        var preprocessStatus = \&quot;NOT_FOUND\&quot;;\r\n        var rtParserStatus = \&quot;NOT_FOUND\&quot;;\r\n        var serviceParserStatus = \&quot;NOT_FOUND\&quot;;\r\n        var rtAnomalyStatus = \&quot;NOT_FOUND\&quot;;\r\n        var baselineScoreStatus = \&quot;NOT_FOUND\&quot;;\r\n        var simpleThresholdStatus = \&quot;NOT_FOUND\&quot;;\r\n        var simpleDeviationStatus = \&quot;NOT_FOUND\&quot;;\r\n        var declaredEventStatus = \&quot;NOT_FOUND\&quot;;\r\n        var hasIncidentConfig = false;\r\n        if (response.status == \&quot;OK\&quot;) {\r\n            preprocessStatus = response.value.preprocessStatus;\r\n            rtParserStatus = response.value.rtParserStatus;\r\n            serviceParserStatus = response.value.serviceParserStatus;\r\n            rtAnomalyStatus = response.value.rtAnomalyStatus;\r\n            baselineScoreStatus = response.value.baselineScoreStatus;\r\n            simpleThresholdStatus = response.value.simpleThresholdStatus;\r\n            simpleDeviationStatus = response.value.simpleDeviationStatus;\r\n            declaredEventStatus = response.value.declaredEventStatus;\r\n            hasIncidentConfig = response.value.hasIncidentConfig == true;\r\n        }\r\n        else {\r\n            preprocessStatus = response.error;\r\n            rtParserStatus = response.error;\r\n            serviceParserStatus = response.error;\r\n            rtAnomalyStatus = response.error;\r\n            baselineScoreStatus = response.serror;\r\n            simpleThresholdStatus = response.error;\r\n            simpleDeviationStatus = response.error;\r\n            declaredEventStatus = response.error;\r\n        }\r\n        \r\n        if (project == null || project.anomalyModelType != \&quot;share-anomaly\&quot;) {\r\n            callback(serviceParserStatus, rtParserStatus, rtAnomalyStatus, baselineScoreStatus, simpleThresholdStatus, simpleDeviationStatus, declaredEventStatus, hasIncidentConfig);\r\n        } else {\r\n            getRefrenceRuntimeStatus(project, function (status) {\r\n                var refStatus = \&quot;NOT_ACTIVE\&quot;;\r\n                status.forEach(function(item) {\r\n                    if (item.rtAnomalyStatus == \&quot;ACTIVE\&quot;) {\r\n                        refStatus = \&quot;ACTIVE\&quot;;\r\n                    }\r\n                });\r\n                callback(serviceParserStatus, rtParserStatus, rtAnomalyStatus, baselineScoreStatus, simpleThresholdStatus, simpleDeviationStatus, declaredEventStatus, hasIncidentConfig, refStatus);\r\n            });\r\n        }\r\n    });\r\n}\r\n\r\nfunction getRefrenceRuntimeStatus(project, callback) {\r\n    ServicePlugin.loadProjectByName(project[&apos;anomalyReference&apos;], function(response) {\r\n        if (response.status == \&quot;OK\&quot;) {\r\n            var project = response.value;\r\n            ServicePlugin.getProjectRuntimeStatuses(project, function(response) {\r\n                if (response.status == \&quot;OK\&quot;) {\r\n                    callback(response.value);\r\n                }\r\n            });\r\n        }\r\n    });\r\n}\r\n\r\nfunction stopModel(project, serviceType, instance, callback) {\r\n    if (!project) return;\r\n\r\n    var modelType = \&quot;\&quot;;\r\n    if (serviceType == \&quot;parser\&quot;) {\r\n        if (instance == \&quot;RT\&quot;) {\r\n            modelType = \&quot;continuous ingestion model\&quot;;\r\n        } else {\r\n            modelType = \&quot;custom ingestion model\&quot;\r\n        }\r\n    } else if (serviceType == \&quot;anomaly\&quot;) {\r\n        modelType = \&quot;anomaly model\&quot;;\r\n    } else {\r\n        return;\r\n    }\r\n    \r\n    ServicePlugin.stopModelDialog(\&quot;Default\&quot;, modelType, callback);\r\n}\r\n\r\nfunction purgeModel(project, serviceType, instance) {\r\n    if (!project) return;\r\n\r\n    var purgeService = null;\r\n    var modelType = \&quot;\&quot;;\r\n    if (serviceType == \&quot;parser\&quot;) {\r\n        purgeService = \&quot;purgeParserModel\&quot;;\r\n        if (instance == \&quot;RT\&quot;) {\r\n            modelType = \&quot;continuous ingestion model\&quot;;\r\n        } else {\r\n            modelType = \&quot;custom ingestion model\&quot;\r\n        }\r\n    } else if (serviceType == \&quot;anomaly\&quot;) {\r\n        purgeService = \&quot;purgeAnomalyModel\&quot;;\r\n        modelType = \&quot;anomaly model\&quot;;\r\n    } else {\r\n        return;\r\n    }\r\n    \r\n    if(serviceType == \&quot;parser\&quot;){\r\n        ServicePlugin.purgeParserModelDialog(&apos;Default&apos;, modelType, function(info) {\r\n            CommonPlugin.pbShowProgressBar(\&quot;purgeProject\&quot;, \&quot;purge \&quot; + serviceType + \&quot; model...\&quot;);\r\n            ServicePlugin[purgeService](project, \&quot;Default\&quot;, instance, info.purgeRuntime, info.purgeCheckpoint, info.purgeInput, info.purgeOutput, function(response) {\r\n                if (response.status == \&quot;OK\&quot;) {\r\n                    message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Project \&quot; + serviceType + \&quot; model purged\&quot;, null);\r\n                } else {\r\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, CommonPlugin.getErrorFromThrownException(response.error), null);\r\n                }\r\n                CommonPlugin.pbHideProgressBar(\&quot;purgeProject\&quot;);\r\n            });\r\n        });\r\n    }else{\r\n        ServicePlugin.purgeModelDialog(&apos;Default&apos;, modelType, function(info) {\r\n            CommonPlugin.pbShowProgressBar(\&quot;purgeProject\&quot;, \&quot;purge \&quot; + serviceType + \&quot; model...\&quot;);\r\n            ServicePlugin[purgeService](project, \&quot;Default\&quot;, instance, info.purgeRuntime, info.purgeCheckpoint, function(response) {\r\n                if (response.status == \&quot;OK\&quot;) {\r\n                    message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Project \&quot; + serviceType + \&quot; model purged\&quot;, null);\r\n                } else {\r\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, CommonPlugin.getErrorFromThrownException(response.error), null);\r\n                }\r\n                CommonPlugin.pbHideProgressBar(\&quot;purgeProject\&quot;);\r\n            });\r\n        });\r\n    }\r\n}\r\n\r\nfunction updateActionData(callback)\r\n{\r\n    var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n    var content = getLocal(\&quot;CURRENT-CONTENT\&quot;) || {};\r\n    \r\n    getRuntimeStatus(project, \&quot;Default\&quot;, function(serviceParserStatus, rtParserStatus, rtAnomalyStatus, baselineScoreStatus, simpleThresholdStatus, simpleDeviationStatus, declaredEventStatus, hasIncidentConfig, refStatus) {\r\n        var action_data = [{\r\n            \&quot;value\&quot;   : \&quot;project/revert\&quot;,\r\n            \&quot;disable\&quot; : project == null || !content.changed,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;project/save\&quot;,\r\n            \&quot;disable\&quot; : project == null || !content.changed,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;update/sample/data\&quot;,\r\n            \&quot;disable\&quot; : project == null,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;tools/create/update\&quot;,\r\n            \&quot;disable\&quot; : project == null || content.changed,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;tools/config/incident\&quot;,\r\n            \&quot;disable\&quot; : project == null || content.changed || project.configs == null,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;tools/prep/incident\&quot;,\r\n            \&quot;disable\&quot; : project == null || content.changed || !hasIncidentConfig,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;tools/system/model\&quot;,\r\n            \&quot;disable\&quot; : project == null || content.changed,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;tools/reset\&quot;,\r\n            \&quot;disable\&quot; : project == null || content.changed,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;tools/hdfs/browser\&quot;,\r\n            \&quot;disable\&quot; : project == null,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;service-parser/start\&quot;,\r\n            \&quot;disable\&quot; : project == null || serviceParserStatus != \&quot;NOT_ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;service-parser/stop\&quot;,\r\n            \&quot;disable\&quot; : project == null || serviceParserStatus != \&quot;ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;: \&quot;service-parser/purge\&quot;,\r\n            \&quot;disable\&quot;: serviceParserStatus != \&quot;NOT_ACTIVE\&quot; || serviceParserStatus == \&quot;NOT_FOUND\&quot;\r\n        },{\r\n            \&quot;value\&quot;   : \&quot;rt-parser/start\&quot;,\r\n            \&quot;disable\&quot; : project == null || rtParserStatus != \&quot;NOT_ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;rt-parser/stop\&quot;,\r\n            \&quot;disable\&quot; : project == null || rtParserStatus != \&quot;ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;: \&quot;rt-parser/purge\&quot;,\r\n            \&quot;disable\&quot;: rtParserStatus != \&quot;NOT_ACTIVE\&quot; || rtParserStatus == \&quot;NOT_FOUND\&quot;\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;anomaly/start\&quot;,\r\n            \&quot;disable\&quot; : project == null || rtAnomalyStatus != \&quot;NOT_ACTIVE\&quot; || !hasIncidentConfig,\r\n            \&quot;display\&quot; : (project == null) || (project != null &amp;&amp; (project.anomalyModelType != \&quot;share-anomaly\&quot; &amp;&amp; project.anomalyModelType != \&quot;no-anomaly\&quot;))\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;anomaly/stop\&quot;,\r\n            \&quot;disable\&quot; : project == null || rtAnomalyStatus != \&quot;ACTIVE\&quot;,\r\n            \&quot;display\&quot; : (project == null) || (project != null &amp;&amp; (project.anomalyModelType != \&quot;share-anomaly\&quot; &amp;&amp; project.anomalyModelType != \&quot;no-anomaly\&quot;))\r\n        }, {\r\n            \&quot;value\&quot;: \&quot;anomaly/purge\&quot;,\r\n            \&quot;disable\&quot;: rtAnomalyStatus != \&quot;NOT_ACTIVE\&quot; || rtAnomalyStatus == \&quot;NOT_FOUND\&quot;,\r\n            \&quot;display\&quot; : (project == null) || (project != null &amp;&amp; (project.anomalyModelType != \&quot;share-anomaly\&quot; &amp;&amp; project.anomalyModelType != \&quot;no-anomaly\&quot;))\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;reference-anomaly/status\&quot;,\r\n            \&quot;disable\&quot; : refStatus != \&quot;ACTIVE\&quot;,\r\n            \&quot;display\&quot; : project != null &amp;&amp; (project.anomalyModelType == \&quot;share-anomaly\&quot; || project.anomalyModelTyp == \&quot;no-anomaly\&quot;)\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;tests/console\&quot;,\r\n            \&quot;disable\&quot; : project == null,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;switch/deployment\&quot;,\r\n            \&quot;disable\&quot; : project == null\r\n        }];\r\n        setOutput(\&quot;dout:1\&quot;, action_data);\r\n        \r\n        \r\n        var menu_data = [ {\r\n            \&quot;value\&quot;   : \&quot;menu/parserModel\&quot;,\r\n            \&quot;disable\&quot; : project == null || rtParserStatus == \&quot;NOT_FOUND\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/anomalyModel\&quot;,\r\n            \&quot;disable\&quot; : project == null || rtAnomalyStatus == \&quot;NOT_FOUND\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/baselineScoreOpen\&quot;,\r\n            \&quot;disable\&quot; : baselineScoreStatus == \&quot;NOT_FOUND\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/baselineScoreStart\&quot;,\r\n            \&quot;disable\&quot; : baselineScoreStatus != \&quot;NOT_ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/baselineScoreStop\&quot;,\r\n            \&quot;disable\&quot; : baselineScoreStatus != \&quot;ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/simpleThresholdOpen\&quot;,\r\n            \&quot;disable\&quot; : simpleThresholdStatus == \&quot;NOT_FOUND\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/simpleThresholdStart\&quot;,\r\n            \&quot;disable\&quot; : simpleThresholdStatus != \&quot;NOT_ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/simpleThresholdStop\&quot;,\r\n            \&quot;disable\&quot; : simpleThresholdStatus != \&quot;ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/simpleDeviationOpen\&quot;,\r\n            \&quot;disable\&quot; : simpleDeviationStatus == \&quot;NOT_FOUND\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/simpleDeviationStart\&quot;,\r\n            \&quot;disable\&quot; : simpleDeviationStatus != \&quot;NOT_ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/simpleDeviationStop\&quot;,\r\n            \&quot;disable\&quot; : simpleDeviationStatus != \&quot;ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/declaredEventOpen\&quot;,\r\n            \&quot;disable\&quot; : declaredEventStatus == \&quot;NOT_FOUND\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/declaredEventStart\&quot;,\r\n            \&quot;disable\&quot; : declaredEventStatus != \&quot;NOT_ACTIVE\&quot;,\r\n        }, {\r\n            \&quot;value\&quot;   : \&quot;menu/declaredEventStop\&quot;,\r\n            \&quot;disable\&quot; : declaredEventStatus != \&quot;ACTIVE\&quot;,\r\n        }];\r\n        setOutput(\&quot;dout:4\&quot;, menu_data);\r\n        if (lang.isFunction(callback)) {\r\n            callback();\r\n        }\r\n    });\r\n}\r\n\r\nif (port == \&quot;din:3\&quot; || port == \&quot;din:4\&quot;) {\r\n    updateActionData();\r\n}\r\nelse if (port == \&quot;din:0\&quot;) {\r\n    var actions = getInput(\&quot;din:0\&quot;) || [];\r\n    if (actions.length == 1) {\r\n        var action = actions[0];\r\n        switch (action.value) {\r\n            case \&quot;project/add\&quot;:\r\n                ServicePlugin.createProjectDialog(function(project) {\r\n                    ServicePlugin.createProject(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value.result != null) {\r\n                                var project = response.value.result;\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Project created.\&quot;, null);\r\n                                subscribeStatusChange(project, getLocal(\&quot;CURRENT-PROJECT\&quot;));\r\n                                setLocal(\&quot;CURRENT-PROJECT\&quot;, project);\r\n                                updateActionData();\r\n                                updateCollabMgr(\&quot;open\&quot;, project);\r\n                                setOutput(\&quot;dout:0\&quot;, {\r\n                                    action  : \&quot;load\&quot;,\r\n                                    project : project\r\n                                });\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value.error, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                    });\r\n                });\r\n                break;\r\n            case \&quot;project/edit\&quot;:\r\n                var content = getLocal(\&quot;CURRENT-CONTENT\&quot;) || {};\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;) || {};\r\n                function loadProject () {\r\n                    ServicePlugin.openProjectDialog(axController, StatusService, CommonPlugin, \&quot;Edit Project\&quot;, function(project) {\r\n                        CommonPlugin.pbShowProgressBar(\&quot;loadProject\&quot;, \&quot;Load project...\&quot;);\r\n                        var referenceProjects = project.referenceProjects;\r\n                        ServicePlugin.loadProjectByUUID(project.uuid, function (response) {\r\n                            CommonPlugin.pbHideProgressBar(\&quot;loadProject\&quot;);\r\n                            if (response.status == \&quot;OK\&quot;) {\r\n                                if (response.value != null) {\r\n                                    var preProject = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                                    if (preProject != null) {\r\n                                        setLocal(\&quot;PRE-PROJECT\&quot;, preProject);\r\n                                    }\r\n                                    var project = response.value;\r\n                                    project.referenceProjects = referenceProjects;\r\n                                    subscribeStatusChange(project, getLocal(\&quot;CURRENT-PROJECT\&quot;));\r\n                                    setLocal(\&quot;CURRENT-PROJECT\&quot;, project);\r\n                                    updateActionData();\r\n                                    setOutput(\&quot;dout:0\&quot;, {\r\n                                        action  : \&quot;load\&quot;,\r\n                                        project : project\r\n                                    });\r\n                                    updateCollabMgr(\&quot;open\&quot;, project);\r\n                                }\r\n                                else {\r\n                                    message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Project not found\&quot;, null);\r\n                                }\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                            }\r\n                        });\r\n                        \r\n                    });\r\n                }\r\n                if (content.changed) {\r\n                    require([\&quot;af/utils/I18N\&quot;, \&quot;af/controls/AppMessageBox\&quot;], function(I18N, AppMessageBox) {\r\n                        var alert = new AppMessageBox({\r\n                            buttons : 2,\r\n                            title : I18N.getString(\&quot;af.frame\&quot;, \&quot;app.dialog.confirm\&quot;),\r\n                            message  : I18N.getString(\&quot;af.frame\&quot;,\&quot;app.dirty.confirm.warning\&quot;, [I18N.getString(\&quot;af.frame\&quot;,\&quot;app.editor.op.closing\&quot;), project.prjName || \&quot;\&quot;]),\r\n                            okHandler  : function() {\r\n                                loadProject();\r\n                            },\r\n                            cancelHandler : function() {\r\n                                // no... abort\r\n                            }\r\n                        });\r\n                        alert.show();\r\n                    });\r\n                } else {\r\n                    loadProject();\r\n                }\r\n                \r\n                break;\r\n            case \&quot;project/revert\&quot;:\r\n                var content = getLocal(\&quot;CURRENT-CONTENT\&quot;) || {};\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;) || {};\r\n                message(\&quot;confirm\&quot;, \&quot;Confirmation Required\&quot;, \&quot;revert the project changes?\&quot;, function(ok) {\r\n                    if (ok) {\r\n                        var referenceProjects = project.referenceProjects;\r\n                        CommonPlugin.pbShowProgressBar(\&quot;loadProject\&quot;, \&quot;Load project...\&quot;);\r\n                        ServicePlugin.loadProjectByUUID(project.uuid, function (response) {\r\n                            CommonPlugin.pbHideProgressBar(\&quot;loadProject\&quot;);\r\n                            if (response.status == \&quot;OK\&quot;) {\r\n                                if (response.value != null) {\r\n                                    var project = response.value;\r\n                                     project.referenceProjects = referenceProjects;\r\n                                    setLocal(\&quot;CURRENT-PROJECT\&quot;, project);\r\n                                    updateActionData();\r\n                                    setOutput(\&quot;dout:0\&quot;, {\r\n                                        action  : \&quot;load\&quot;,\r\n                                        project : project\r\n                                    });\r\n                                }\r\n                                else {\r\n                                    message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Project not found\&quot;, null);\r\n                                }\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                            }\r\n                        });\r\n                    }\r\n                });\r\n                break;\r\n            case \&quot;project/save\&quot;:\r\n                setOutput(\&quot;dout:0\&quot;, {\r\n                    action  : \&quot;save\&quot;,\r\n                });\r\n                updateCollabMgr(\&quot;save\&quot;, project);\r\n                break;\r\n            case \&quot;project/delete\&quot;:\r\n                ServicePlugin.deleteProjectDialog(axController, StatusService, CommonPlugin, function(projects) {\r\n                    var currentProjectDeleted = false;\r\n                    var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                    if (project != null) {\r\n                        for (var i=0; i&lt;projects.length; i++) {\r\n                            if (project.uuid == projects[i][\&quot;uuid\&quot;]) {\r\n                                currentProjectDeleted = true;\r\n                            }\r\n                        }\r\n                    }\r\n                                    \r\n                    ServicePlugin.openResetOptionDialog(CommonPlugin, \&quot;Confirmation Required\&quot;, \&quot;Reset/Delete generated models and artifacts?\&quot;,function(options) {\r\n                        CommonPlugin.pbShowProgressBar(\&quot;deleteProject\&quot;, \&quot;Deleting selected projects and cleaning up generated artifacts...\&quot;);\r\n                        ServicePlugin.deleteProjects(projects, options, function(response) {\r\n                            updateCollabMgr(\&quot;close\&quot;, project);\r\n                            if (response.status == \&quot;OK\&quot; &amp;&amp; response.value == true) {\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Projects deleted.\&quot;, null);\r\n                                if (currentProjectDeleted) {\r\n                                    setLocal(\&quot;CURRENT-PROJECT\&quot;, null);\r\n                                    setOutput(\&quot;dout:0\&quot;, {\r\n                                        action  : \&quot;close\&quot;,\r\n                                    });\r\n                                }\r\n                                CommonPlugin.pbHideProgressBar(\&quot;deleteProject\&quot;);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                            }\r\n                            updateActionData();\r\n                        });\r\n                    });\r\n                });\r\n                break;\r\n            case \&quot;update/sample/data\&quot;:\r\n                function doUpload(project) {\r\n                    if (project != null) {\r\n                        var data = JSON.parse(action.data);\r\n                        CommonPlugin.pbShowProgressBar(\&quot;addSampleData\&quot;, \&quot;Adding sample data...\&quot;);\r\n                        ServicePlugin.addSampleData(project, data, function(response) {\r\n                            if (response.status == \&quot;OK\&quot;) {\r\n                                if (response.value.result != null) {\r\n                                    project = response.value.result;\r\n                                    setLocal(\&quot;CURRENT-PROJECT\&quot;, project);\r\n                                    message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Sample data added/updated.\&quot;, null);\r\n                                    setOutput(\&quot;dout:0\&quot;, {\r\n                                        action  : \&quot;refresh\&quot;,\r\n                                        project : project\r\n                                    });\r\n                                }\r\n                                else {\r\n                                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value.error, null);\r\n                                }\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                            }\r\n                            CommonPlugin.pbHideProgressBar(\&quot;addSampleData\&quot;);\r\n                            updateActionData();\r\n                        });\r\n                    }\r\n                }\r\n                var content = getLocal(\&quot;CURRENT-CONTENT\&quot;) || {};\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (content.changed) {\r\n                    message(\&quot;confirm\&quot;, \&quot;Confirmation Required\&quot;, \&quot;Changes not saved, upload sample will re-load project. the changes will be overrided...\&quot;, function(ok) {\r\n                        if (ok) {\r\n                            doUpload(project);\r\n                        }\r\n                    });\r\n                } else {\r\n                    doUpload(project);\r\n                }\r\n                \r\n                break;\r\n            case \&quot;tools/create/update\&quot;:\r\n                ServicePlugin.openUpdateOptionDialog(CommonPlugin, \&quot;Deployment Default: Confirmation Required\&quot;, \&quot;Update generated models and artifacts?\&quot;,function(options) {\r\n                    setOutput(\&quot;dout:0\&quot;, {\r\n                        action  : \&quot;update\&quot;,\r\n                        options : options\r\n                    });\r\n                });\r\n                break;\r\n            case \&quot;tools/system/model\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    prompt(\&quot;System Model\&quot;, \&quot;Update system model?\&quot;,\r\n                        [\r\n                            {name: \&quot;deploy\&quot;, label: \&quot;Select &lt;b&gt;Deploy&lt;/b&gt; mode to pre-computed baseline\&quot;, type: \&quot;label\&quot;},\r\n                            {name: \&quot;demo\&quot;, label: \&quot;Select &lt;b&gt;Debug&lt;/b&gt; mode to compute baseline from ingested metric data\&quot;, type: \&quot;label\&quot;},\r\n                        ],\r\n                        [\r\n                            {label: \&quot;Cancel\&quot;, value: \&quot;\&quot;},\r\n                            {label: \&quot;Deploy\&quot;, value: \&quot;deploy\&quot;},\r\n                            {label: \&quot;Debug\&quot;,   value: \&quot;demo\&quot;},\r\n                        ],\r\n                        {\r\n                            width: \&quot;500px\&quot;,\r\n                            height: \&quot;80px\&quot;\r\n                        },\r\n                        function(mode, data) {\r\n                            if (mode != \&quot;\&quot;) {\r\n                                var options = {\r\n                                        updateParserModel: false,\r\n                                        resetParserSource: false,\r\n                                        resetParserTarget: false,\r\n                                        purgeParserModel: false,\r\n                                        updateAnomalyModel: false,\r\n                                        purgeAnomalyModel: false,\r\n                                        updateSystemModel: true,\r\n                                        preRelease: mode == \&quot;demo\&quot;,\r\n                                    };\r\n                                CommonPlugin.pbShowProgressBar(\&quot;updateSystemModel\&quot;, \&quot;Updating system model...\&quot;);\r\n                                ServicePlugin.updateProject(project, \&quot;Default\&quot;, options, function(response) {\r\n                                    if (response.status == \&quot;OK\&quot;) {\r\n                                        message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;System model updated.\&quot;, null);\r\n                                    }\r\n                                    else {\r\n                                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                                    }\r\n                                    CommonPlugin.pbHideProgressBar(\&quot;updateSystemModel\&quot;);\r\n                                });\r\n                            }\r\n                        }\r\n                    );\r\n                }\r\n                break;\r\n            case \&quot;tools/config/incident\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    message(\&quot;confirm\&quot;, \&quot;Confirmation Required\&quot;, \&quot;Create/Update incident detection configurations?\&quot;, function(ok) {\r\n                        if (ok) {\r\n                            CommonPlugin.pbShowProgressBar(\&quot;updateIncidentConfig\&quot;, \&quot;Updating incident detection configurations...\&quot;);\r\n                            ServicePlugin.updateIncidentConfig(project, &apos;Default&apos;, function(response) {\r\n                                if (response.status == \&quot;OK\&quot;) {\r\n                                    message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Incident detection configurations updated.\&quot;, null);\r\n                                }\r\n                                else {\r\n                                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                                }\r\n                                CommonPlugin.pbHideProgressBar(\&quot;updateIncidentConfig\&quot;);\r\n                                updateActionData();\r\n                            });\r\n                        }\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;tools/prep/incident\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    var widgetPath = \&quot;/app/dbp/user/via_common/dbpm/VIA - Time Range Picker/TimeRangePicker\&quot;;\r\n                    var widgetConfig = {\r\n                        predefined : [],\r\n                        datesOnly  : true\r\n                    };\r\n                    var model = \&quot;absolute:\&quot; + ( ( Date.now() - 86400000*8 ) / 1000 ) + \&quot;/\&quot; + ( Date.now() / 1000 );\r\n                    CommonPlugin.popupWidget(this.axflow.config.controller, \&quot;Set batch process time range\&quot;, 330, 350, false, model, widgetPath, widgetConfig, function(value) {\r\n                        // value = \&quot;absolute:1570518000/1571122800\&quot;\r\n                        if (value != null &amp;&amp; value != \&quot;\&quot; &amp;&amp; value.indexOf(\&quot;absolute:\&quot;) == 0) {\r\n                            var toks = value.substring(\&quot;absolute:\&quot;.length).split(\&quot;/\&quot;);\r\n                            if (toks.length == 2) {\r\n                                var startEpoch = Number(toks[0]);\r\n                                var endEpoch = Number(toks[1]);\r\n                                CommonPlugin.pbShowProgressBar(\&quot;runBatchProcess\&quot;, \&quot;Preparing env for incident detection...\&quot;);\r\n                                ServicePlugin.runBatchProcess(project, \&quot;Default\&quot;, startEpoch, endEpoch, function(response) {\r\n                                    if (response.status == \&quot;OK\&quot; &amp;&amp; response.value == true) {\r\n                                        message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Incident preparation processes started.\&quot;, null);\r\n                                    }\r\n                                    else {\r\n                                        if (response.error &amp;&amp; lang.isString(response.error)) {\r\n                                            var stacktrace_sep = response.error.indexOf(\&quot; in &lt;eval&gt; at line number\&quot;);\r\n                                            if (stacktrace_sep != -1) {\r\n                                                response.error = response.error.substring(0, stacktrace_sep);\r\n                                            }\r\n                                        }\r\n                                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                                    }\r\n                                    CommonPlugin.pbHideProgressBar(\&quot;runBatchProcess\&quot;);\r\n                                });\r\n                            }\r\n                        }\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;tools/reset\&quot;:\r\n                ServicePlugin.openResetOptionDialog(CommonPlugin, \&quot;Deployment Default: Confirmation Required\&quot;, \&quot;Reset/Delete generated models and artifacts?\&quot;,function(options) {\r\n                    setOutput(\&quot;dout:0\&quot;, {\r\n                        action  : \&quot;reset\&quot;,\r\n                        options : options\r\n                    });\r\n                });\r\n                break;\r\n            case \&quot;tools/hdfs/browser\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    setOutput(\&quot;dout:2\&quot;, [{\r\n                        timestamp : Date.now(),\r\n                        url : project.hdfsServerURL,\r\n                        NuovaStella : ServicePlugin,\r\n                    }])\r\n                }\r\n                break;\r\n            case \&quot;service-parser/start\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    ServicePlugin.checkDeploymentStartable(CommonPlugin, project, \&quot;Default\&quot;, function () {\r\n                        CommonPlugin.pbShowProgressBar(\&quot;startServiceParserModel\&quot;, \&quot;Starting service parser model...\&quot;);\r\n                        ServicePlugin.openRuntimeProfileDialog(project, {\r\n                            commonPlugin : CommonPlugin,\r\n                            controller : axController,\r\n                            callback : function(value){\r\n                                ServicePlugin.startParserModelWithProfile(project, \&quot;Default\&quot;, \&quot;Service\&quot;, value, function(response) {\r\n                                    if (response.status == \&quot;OK\&quot;) {\r\n                                        if (response.value == \&quot;ACTIVE\&quot;) {\r\n                                            message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Service parser  model started.\&quot;, null);\r\n                                        }\r\n                                        else {\r\n                                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                                        }\r\n                                    }\r\n                                    else {\r\n                                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                                    }\r\n                                    CommonPlugin.pbHideProgressBar(\&quot;startServiceParserModel\&quot;);\r\n                                    updateActionData();\r\n                                });    \r\n                            },\r\n                            cancelCallback : function(){\r\n                                CommonPlugin.pbHideProgressBar(\&quot;startServiceParserModel\&quot;);\r\n                            }\r\n                        }, \&quot;parser\&quot;, \&quot;Default\&quot;, \&quot;Service\&quot;);\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;service-parser/stop\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    stopModel(project, \&quot;parser\&quot;, \&quot;Service\&quot;, function () {\r\n                        CommonPlugin.pbShowProgressBar(\&quot;stopServiceParserModel\&quot;, \&quot;Stopping service parser model...\&quot;);\r\n                        ServicePlugin.stopParserModel(project, \&quot;Default\&quot;, \&quot;Service\&quot;, function(response) {\r\n                            if (response.status == \&quot;OK\&quot;) {\r\n                                if (response.value == \&quot;NOT_ACTIVE\&quot;) {\r\n                                    message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Service parser stopped.\&quot;, null);\r\n                                }\r\n                                else {\r\n                                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                                }\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                            }\r\n                            CommonPlugin.pbHideProgressBar(\&quot;stopServiceParserModel\&quot;);\r\n                            updateActionData();\r\n                        });\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;service-parser/purge\&quot;:\r\n                purgeModel(getLocal(\&quot;CURRENT-PROJECT\&quot;), \&quot;parser\&quot;, \&quot;Service\&quot;);\r\n                break;\r\n            case \&quot;rt-parser/start\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    ServicePlugin.checkDeploymentStartable(CommonPlugin, project, \&quot;Default\&quot;, function () {\r\n                        CommonPlugin.pbShowProgressBar(\&quot;startParserModel\&quot;, \&quot;Starting parser model...\&quot;);\r\n                        ServicePlugin.openRuntimeProfileDialog(project, {\r\n                            commonPlugin : CommonPlugin,\r\n                            controller : axController,\r\n                            callback : function(value){\r\n                                ServicePlugin.startParserModelWithProfile(project, \&quot;Default\&quot;, \&quot;RT\&quot;, value, function(response) {\r\n                                    if (response.status == \&quot;OK\&quot;) {\r\n                                        if (response.value == \&quot;ACTIVE\&quot;) {\r\n                                            message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Parser model started.\&quot;, null);\r\n                                        }\r\n                                        else {\r\n                                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                                        }\r\n                                    }\r\n                                    else {\r\n                                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                                    }\r\n                                    CommonPlugin.pbHideProgressBar(\&quot;startParserModel\&quot;);\r\n                                    updateActionData();\r\n                                });    \r\n                            },\r\n                            cancelCallback : function(){\r\n                                CommonPlugin.pbHideProgressBar(\&quot;startParserModel\&quot;);\r\n                            }\r\n                        }, \&quot;parser\&quot;, \&quot;Default\&quot;, \&quot;RT\&quot;);\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;rt-parser/stop\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    stopModel(project, \&quot;parser\&quot;, \&quot;RT\&quot;, function () {\r\n                        CommonPlugin.pbShowProgressBar(\&quot;stopParserModel\&quot;, \&quot;Stopping parser model...\&quot;);\r\n                        ServicePlugin.stopParserModel(project, \&quot;Default\&quot;, \&quot;RT\&quot;, function(response) {\r\n                            if (response.status == \&quot;OK\&quot;) {\r\n                                if (response.value == \&quot;NOT_ACTIVE\&quot;) {\r\n                                    message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Parser model stopped.\&quot;, null);\r\n                                }\r\n                                else {\r\n                                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                                }\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                            }\r\n                            CommonPlugin.pbHideProgressBar(\&quot;stopParserModel\&quot;);\r\n                            updateActionData();\r\n                        });\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;rt-parser/purge\&quot;:\r\n                purgeModel(getLocal(\&quot;CURRENT-PROJECT\&quot;), \&quot;parser\&quot;, \&quot;RT\&quot;);\r\n                break;\r\n            case \&quot;anomaly/start\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    ServicePlugin.checkDeploymentStartable(CommonPlugin, project, \&quot;Default\&quot;, function () {\r\n                        CommonPlugin.pbShowProgressBar(\&quot;startAnomalyModel\&quot;, \&quot;Starting anomaly model...\&quot;);\r\n                        ServicePlugin.openRuntimeProfileDialog(project, {\r\n                            commonPlugin : CommonPlugin,\r\n                            controller : axController,\r\n                            callback : function(value){\r\n                                ServicePlugin.startAnomalyModelWithProfile(project, \&quot;Default\&quot;, \&quot;RT\&quot;, value, function(response) {\r\n                                    if (response.status == \&quot;OK\&quot;) {\r\n                                        if (response.value == \&quot;ACTIVE\&quot;) {\r\n                                            message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Anomaly model started.\&quot;, null);\r\n                                        }\r\n                                        else {\r\n                                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                                        }\r\n                                    }\r\n                                    else {\r\n                                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                                    }\r\n                                    CommonPlugin.pbHideProgressBar(\&quot;startAnomalyModel\&quot;);\r\n                                    updateActionData();\r\n                                });\r\n                            },\r\n                            cancelCallback : function(){\r\n                                CommonPlugin.pbHideProgressBar(\&quot;startAnomalyModel\&quot;);\r\n                            }\r\n                        }, \&quot;anomaly\&quot;, \&quot;Default\&quot;, \&quot;RT\&quot;);\r\n\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;anomaly/stop\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    stopModel(project, \&quot;anomaly\&quot;, \&quot;RT\&quot;, function () {\r\n                        CommonPlugin.pbShowProgressBar(\&quot;stopAnomalyModel\&quot;, \&quot;Stopping anomaly model...\&quot;);\r\n                        ServicePlugin.stopAnomalyModel(project, \&quot;Default\&quot;, \&quot;RT\&quot;, function(response) {\r\n                            if (response.status == \&quot;OK\&quot;) {\r\n                                if (response.value == \&quot;NOT_ACTIVE\&quot;) {\r\n                                    message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Anomaly model stopped.\&quot;, null);\r\n                                }\r\n                                else {\r\n                                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                                }\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                            }\r\n                            CommonPlugin.pbHideProgressBar(\&quot;stopAnomalyModel\&quot;);\r\n                            updateActionData();\r\n                        });\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;anomaly/purge\&quot;:\r\n                purgeModel(getLocal(\&quot;CURRENT-PROJECT\&quot;), \&quot;anomaly\&quot;, \&quot;RT\&quot;);\r\n                break;\r\n            case \&quot;tests/console\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    setOutput(\&quot;dout:3\&quot;, [{\r\n                        timestamp : Date.now(),\r\n                        project   : project,\r\n                        NuovaStella : ServicePlugin,\r\n                    }]);\r\n                }\r\n                break;\r\n            case \&quot;tests/runtime\&quot;:\r\n                setOutput(\&quot;dout:5\&quot;, [{\r\n                    timestamp : Date.now(),\r\n                    NuovaStella : ServicePlugin,\r\n                }]);\r\n                break;\r\n            case \&quot;import/project\&quot;:\r\n                var data = JSON.parse(action.data);\r\n                if(data.status == &apos;ERROR&apos;){\r\n                    message(\&quot;error\&quot;, \&quot;Project\&quot;, data.error);\r\n                    return;\r\n                }\r\n                CommonPlugin.pbShowProgressBar(\&quot;importProject\&quot;, \&quot;Import project...\&quot;);\r\n                ServicePlugin.listProjectPickerList(function(response) {\r\n                    if (response.status != \&quot;OK\&quot;) {\r\n                        message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        CommonPlugin.pbHideProgressBar(\&quot;importProject\&quot;);\r\n                        return;\r\n                    };\r\n                    \r\n                    var projects = response.value;\r\n                    ServicePlugin.importProjectData(data, function(response) {\r\n                        if (response.status != \&quot;OK\&quot;) {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                            CommonPlugin.pbHideProgressBar(\&quot;importProject\&quot;);\r\n                            return;\r\n                        };\r\n                        \r\n                        var uuid = response.value.uuid;\r\n                        var project = response.value.result;\r\n                        var oldProject = null;\r\n                        var projectExists = false;\r\n                        for (var i = 0; i &lt; projects.length; i++) {\r\n                            if (projects[i].prjName == project.prjName) {\r\n                                oldProject = projects[i];\r\n                                projectExists = true;\r\n                                break;\r\n                            }\r\n                        }\r\n                        \r\n                        if (!projectExists) {\r\n                            ServicePlugin.doImportProject(uuid, null, function (response) {\r\n                                CommonPlugin.pbHideProgressBar(\&quot;importProject\&quot;);\r\n                                if (response.status != \&quot;OK\&quot;) {\r\n                                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                                    return;\r\n                                };\r\n                                \r\n                                if (!response.value.result) {\r\n                                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                                    return;\r\n                                }\r\n\r\n                                var project = response.value.result;\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Project imported.\&quot;, null);\r\n                                subscribeStatusChange(project, getLocal(\&quot;CURRENT-PROJECT\&quot;));\r\n                                setLocal(\&quot;CURRENT-PROJECT\&quot;, project);\r\n                                updateActionData();\r\n                                setOutput(\&quot;dout:0\&quot;, {\r\n                                    action  : \&quot;load\&quot;,\r\n                                    project : project\r\n                                });\r\n                            });\r\n                        } else {\r\n                            CommonPlugin.pbHideProgressBar(\&quot;importProject\&quot;);\r\n                            require([\&quot;af/utils/I18N\&quot;, \&quot;af/controls/AppMessageBox\&quot;], function(I18N, AppMessageBox) {\r\n                                var alert = new AppMessageBox({\r\n                                    buttons : 2,\r\n                                    title : I18N.getString(\&quot;af.frame\&quot;, \&quot;app.dialog.confirm\&quot;),\r\n                                    message  : \&quot;The project already exsits. Do you want to cover it?\&quot;,\r\n                                    okHandler  : function() {\r\n                                        CommonPlugin.pbShowProgressBar(\&quot;importProject\&quot;, \&quot;Import project...\&quot;);\r\n                                        ServicePlugin.doImportProject(uuid,  oldProject.uuid, function(response){\r\n                                            CommonPlugin.pbHideProgressBar(\&quot;importProject\&quot;);\r\n                                            \r\n                                            if (response.status != \&quot;OK\&quot;) {\r\n                                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                                                return;\r\n                                            };\r\n                                            \r\n                                            if (!response.value.result) {\r\n                                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                                                return;\r\n                                            }\r\n                                            \r\n                                            var project = response.value.result;\r\n                                            message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Project imported.\&quot;, null);\r\n                                            subscribeStatusChange(project, getLocal(\&quot;CURRENT-PROJECT\&quot;));\r\n                                            setLocal(\&quot;CURRENT-PROJECT\&quot;, project);\r\n                                            updateActionData();\r\n                                            setOutput(\&quot;dout:0\&quot;, {\r\n                                                action  : \&quot;load\&quot;,\r\n                                                project : project\r\n                                            });\r\n                                        });\r\n                                    },\r\n                                    cancelHandler : function() {\r\n                                        CommonPlugin.pbShowProgressBar(\&quot;importProject\&quot;, \&quot;Import project...\&quot;);\r\n                                        ServicePlugin.deleteImportProject(uuid, function(response){\r\n                                            CommonPlugin.pbHideProgressBar(\&quot;importProject\&quot;);\r\n                                        });\r\n                                    }\r\n                                });\r\n                                alert.show();\r\n                            });\r\n                        }\r\n                    });\r\n                });\r\n\r\n                break;\r\n            case \&quot;export/project\&quot;:\r\n                ServicePlugin.openProjectDialog(axController, StatusService, CommonPlugin, \&quot;Export Project\&quot;, function(project) {\r\n                    CommonPlugin.pbShowProgressBar(\&quot;exportProject\&quot;, \&quot;Exporting project...\&quot;);\r\n                    ServicePlugin.loadProjectByUUID(project.uuid, function(response){\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            var project = response.value;\r\n                            var filename = project.svc + \&quot;_\&quot;\r\n                                 + (project.comp != \&quot;\&quot; &amp;&amp; project.comp != \&quot;*\&quot; ? project.comp : \&quot;any\&quot;) + \&quot;_\&quot;\r\n                                 + (project.app != \&quot;\&quot; &amp;&amp; project.app != \&quot;*\&quot; ? project.app : \&quot;any\&quot;) + \&quot;.zip\&quot;;\r\n                            ServicePlugin.exportProjectFileName(project, function(response) {\r\n                                CommonPlugin.pbHideProgressBar(\&quot;exportProject\&quot;);\r\n                                if (response.status == \&quot;OK\&quot;) {\r\n                                    var uuid = response.value;\r\n                                    window.open(\&quot;/vitria-oi/rest/app/dojoclient/user/*/*/\&quot; + filename + \&quot;?op=downloadcsv&amp;uid=\&quot;+uuid);\r\n                                }\r\n                            });\r\n                        } else {\r\n                            CommonPlugin.pbHideProgressBar(\&quot;exportProject\&quot;);\r\n                        }\r\n                    });\r\n                });\r\n                break;\r\n            case \&quot;switch/deployment\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project == null) {\r\n                    message(\r\n                        \&quot;warn\&quot;,\r\n                        \&quot;No Open Project\&quot;,\r\n                        \&quot;No project opened, please open project you want to deploy......\&quot;,\r\n                        function(value) {\r\n                            // value will be true... continue\r\n                        }\r\n                    );\r\n                    return;\r\n                }\r\n                var content = getLocal(\&quot;CURRENT-CONTENT\&quot;) || {};\r\n                if (content.changed) {\r\n                    message(\&quot;confirm\&quot;, \&quot;Confirmation Required\&quot;, \&quot;Changes not saved, switch to deployment will not take the changes...\&quot;, function(ok) {\r\n                        if (ok) {\r\n                            var referenceProjects = project.referenceProjects;\r\n                            ServicePlugin.loadProjectByUUID(project.uuid, function (response) {\r\n                                if (response.status == \&quot;OK\&quot;) {\r\n                                    if (response.value != null) {\r\n                                        var project = response.value;\r\n                                        project.referenceProjects = referenceProjects;\r\n                                        setLocal(\&quot;CURRENT-PROJECT\&quot;, project);\r\n                                        setOutput(\&quot;dout:0\&quot;, {\r\n                                            action  : \&quot;load\&quot;,\r\n                                            project : project\r\n                                        });\r\n                                        setOutput(\&quot;dout:6\&quot;, {\r\n                                            action  : \&quot;load\&quot;,\r\n                                            project : project\r\n                                        });\r\n                                    }\r\n                                }\r\n                                else {\r\n                                    message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                                }\r\n                                \r\n                                setTimeout(function() {\r\n                                    setOutput(\&quot;dout:6\&quot;, {\r\n                                        &apos;action&apos;: &apos;switch/deployment&apos;\r\n                                    });\r\n                                }, 200);\r\n                            });\r\n                        }\r\n                    });\r\n                } else {\r\n                    setOutput(\&quot;dout:6\&quot;, {\r\n                        &apos;action&apos;: &apos;switch/deployment&apos;\r\n                    });\r\n                }\r\n                break;\r\n        }\r\n    }\r\n}\r\nelse if (port == \&quot;din:1\&quot;) {\r\n    var content = getInput(\&quot;din:1\&quot;) || [];\r\n    if (content.length == 1) {\r\n        content = content[0];\r\n        var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n        if (project != null) {\r\n            if (project.delimiterType != content.delimiterType || project.delimiter != content.delimiter) {\r\n                project.delimiterType = content.delimiterType;\r\n                project.delimiter     = content.delimiter;\r\n                setLocal(\&quot;CURRENT-PROJECT\&quot;, project);\r\n            }\r\n        }\r\n        setLocal(\&quot;CURRENT-CONTENT\&quot;, content);\r\n        updateActionData();\r\n    }\r\n}\r\nelse if (port == \&quot;din:2\&quot;) {\r\n    var actions = getInput(\&quot;din:2\&quot;) || [];\r\n    if (actions.length == 1) {\r\n        var action = actions[0];\r\n        switch (action.value) {\r\n            case \&quot;menu/preprocessModel\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    ServicePlugin.getPreProcessModelURL(project, \&quot;Default\&quot;, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value != null) {\r\n                                window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;PreProcess model not found\&quot;, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/parserModel\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    ServicePlugin.getParserModelURL(project, \&quot;Default\&quot;,  function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value != null) {\r\n                                window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Parser model not found\&quot;, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/anomalyModel\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    ServicePlugin.getAnomalyModelURL(project, \&quot;Default\&quot;, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value != null) {\r\n                                window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Anomaly model not found\&quot;, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/baselineScoreOpen\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    ServicePlugin.getBaselineScoreModelURL(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value != null) {\r\n                                window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Baseline Score model not found\&quot;, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/baselineScoreStart\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    CommonPlugin.pbShowProgressBar(\&quot;startBaselineScoreModel\&quot;, \&quot;Starting baseline score model...\&quot;);\r\n                    ServicePlugin.startBaselineScoreModel(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value == \&quot;ACTIVE\&quot;) {\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Baseline Score model started.\&quot;, null);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                        CommonPlugin.pbHideProgressBar(\&quot;startBaselineScoreModel\&quot;);\r\n                        updateActionData();\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/baselineScoreStop\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    CommonPlugin.pbShowProgressBar(\&quot;stopBaselineScoreModel\&quot;, \&quot;Stopping baseline score model...\&quot;);\r\n                    ServicePlugin.stopBaselineScoreModel(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value == \&quot;NOT_ACTIVE\&quot;) {\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Baseline Score model stopped.\&quot;, null);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                        CommonPlugin.pbHideProgressBar(\&quot;stopBaselineScoreModel\&quot;);\r\n                        updateActionData();\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/simpleThresholdOpen\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    ServicePlugin.getSimpleThresholdModelURL(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value != null) {\r\n                                window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Simple Threshold model not found\&quot;, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/simpleThresholdStart\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    CommonPlugin.pbShowProgressBar(\&quot;startSimpleThresholdModel\&quot;, \&quot;Starting simple threshold model...\&quot;);\r\n                    ServicePlugin.startSimpleThresholdModel(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value == \&quot;ACTIVE\&quot;) {\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Simple Threshold model started.\&quot;, null);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                        CommonPlugin.pbHideProgressBar(\&quot;startSimpleThresholdModel\&quot;);\r\n                        updateActionData();\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/simpleThresholdStop\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    CommonPlugin.pbShowProgressBar(\&quot;stopSimpleThresholdModel\&quot;, \&quot;Stopping simple threshold model...\&quot;);\r\n                    ServicePlugin.stopSimpleThresholdModel(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value == \&quot;NOT_ACTIVE\&quot;) {\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Simple Threshold model stopped.\&quot;, null);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                        CommonPlugin.pbHideProgressBar(\&quot;stopSimpleThresholdModel\&quot;);\r\n                        updateActionData();\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/simpleDeviationOpen\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    ServicePlugin.getSimpleDeviationModelURL(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value != null) {\r\n                                window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Simple Deviation model not found\&quot;, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/simpleDeviationStart\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    CommonPlugin.pbShowProgressBar(\&quot;startSimpleDeviationModel\&quot;, \&quot;Starting simple deviation model...\&quot;);\r\n                    ServicePlugin.startSimpleDeviationModel(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value == \&quot;ACTIVE\&quot;) {\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Simple Deviation model started.\&quot;, null);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                        CommonPlugin.pbHideProgressBar(\&quot;startSimpleDeviationModel\&quot;);\r\n                        updateActionData();\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/simpleDeviationStop\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    CommonPlugin.pbShowProgressBar(\&quot;stopSimpleDeviationModel\&quot;, \&quot;Stopping simple deviation model...\&quot;);\r\n                    ServicePlugin.stopSimpleDeviationModel(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value == \&quot;NOT_ACTIVE\&quot;) {\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Simple Deviation model stopped.\&quot;, null);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                        CommonPlugin.pbHideProgressBar(\&quot;stopSimpleDeviationModel\&quot;);\r\n                        updateActionData();\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/declaredEventOpen\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    ServicePlugin.getDeclaredEventModelURL(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value != null) {\r\n                                window.open(\&quot;/vitria-oi/app/#uri=\&quot;+response.value, \&quot;_blank\&quot;);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, \&quot;Declared Event model not found\&quot;, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/declaredEventStart\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    CommonPlugin.pbShowProgressBar(\&quot;startDeclaredEventModelModel\&quot;, \&quot;Starting declared event model...\&quot;);\r\n                    ServicePlugin.startDeclaredEventModelModel(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value == \&quot;ACTIVE\&quot;) {\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Declared Event model started.\&quot;, null);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                        CommonPlugin.pbHideProgressBar(\&quot;startDeclaredEventModelModel\&quot;);\r\n                        updateActionData();\r\n                    });\r\n                }\r\n                break;\r\n            case \&quot;menu/declaredEventStop\&quot;:\r\n                var project = getLocal(\&quot;CURRENT-PROJECT\&quot;);\r\n                if (project != null) {\r\n                    CommonPlugin.pbShowProgressBar(\&quot;stopDeclaredEventModelModel\&quot;, \&quot;Stopping declared event model...\&quot;);\r\n                    ServicePlugin.stopDeclaredEventModelModel(project, function(response) {\r\n                        if (response.status == \&quot;OK\&quot;) {\r\n                            if (response.value == \&quot;NOT_ACTIVE\&quot;) {\r\n                                message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Declared Event model stopped.\&quot;, null);\r\n                            }\r\n                            else {\r\n                                message(\&quot;error\&quot;, \&quot;Project\&quot;, response.value, null);\r\n                            }\r\n                        }\r\n                        else {\r\n                            message(\&quot;error\&quot;, \&quot;Project\&quot;, response.error, null);\r\n                        }\r\n                        CommonPlugin.pbHideProgressBar(\&quot;stopDeclaredEventModelModel\&quot;);\r\n                        updateActionData();\r\n                    });\r\n                }\r\n                break;\r\n            default:\r\n                ServicePlugin.getQuickLinks(function(response) {\r\n                    if (response.status == \&quot;OK\&quot; &amp;&amp; response.value != null) {\r\n                        var url = response.value[action.value];\r\n                        if (url != null) {\r\n                            window.open(\&quot;/vitria-oi/app/#uri=\&quot;+url, \&quot;_blank\&quot;);\r\n                        }\r\n                    }\r\n                });\r\n                break;\r\n        }\r\n    }\r\n}\r\n\r\nfunction subscribeStatusChange(project, oldProject){\r\n    if(oldProject != null){\r\n        stopSubscribeClientEvent(&apos;so:&apos; + oldProject.uuid + &apos;:Default:status&apos;, function(){ \r\n            console.log(&apos;stop subscribe the status change of &apos; + oldProject.prjName); \r\n        });\r\n    }\r\n    console.log(&apos;start subscribe the status change of &apos; + project.prjName);\r\n    startSubscribeClientEvent(&apos;so:&apos; + project.uuid + &apos;:Default:status&apos;, updateActionData);\r\n}\r\n\r\n&quot;' >
+</Input>
+
+      <Input key='node:2/cfg:outPorts/default' value='[{&quot;portId&quot;:&quot;dout:0&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Notify&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:1&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Action Data&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:2&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Browser HDFS Info&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:3&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Test Console&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:4&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Menu Data&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:5&quot;,&quot;portType&quot;:&quot;event[]&quot;,&quot;portLabel&quot;:&quot;Runtime Console&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:6&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Action&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Input key='node:4/cfg:tile/default' value='[{&quot;id&quot;:&quot;ROOT#1#Main Tile&quot;,&quot;path&quot;:[&quot;Default&quot;],&quot;name&quot;:&quot;Main Tile&quot;}]' >
+</Input>
+
+      <Input key='node:2/cfg:schema/default' value='&quot;setOutputSchema(\&quot;dout:1\&quot;, [{\n    name  : \&quot;value\&quot;,\n    label : \&quot;value\&quot;,\n    type  : \&quot;string\&quot;,\n}, {\n    name  : \&quot;disable\&quot;,\n    label : \&quot;disable\&quot;,\n    type  : \&quot;boolean\&quot;,\n}, {\n    name  : \&quot;display\&quot;,\n    label : \&quot;display\&quot;,\n    type  : \&quot;boolean\&quot;,\n}]);\n\nsetOutputSchema(\&quot;dout:2\&quot;, [{\n    name  : \&quot;timestamp\&quot;,\n    label : \&quot;Timestamp\&quot;,\n    type  : \&quot;number\&quot;,\n}, {\n    name  : \&quot;url\&quot;,\n    label : \&quot;URL\&quot;,\n    type  : \&quot;string\&quot;,\n}]);\n\nsetOutputSchema(\&quot;dout:3\&quot;, [{\n    name  : \&quot;timestamp\&quot;,\n    label : \&quot;Timestamp\&quot;,\n    type  : \&quot;number\&quot;,\n}, {\n    name  : \&quot;url\&quot;,\n    label : \&quot;URL\&quot;,\n    type  : \&quot;string\&quot;,\n}]);\n\nsetOutputSchema(\&quot;dout:4\&quot;, [{\n    name  : \&quot;value\&quot;,\n    label : \&quot;value\&quot;,\n    type  : \&quot;string\&quot;,\n}, {\n    name  : \&quot;disable\&quot;,\n    label : \&quot;disable\&quot;,\n    type  : \&quot;boolean\&quot;,\n}, {\n    name  : \&quot;display\&quot;,\n    label : \&quot;display\&quot;,\n    type  : \&quot;boolean\&quot;,\n}]);\n\nsetOutputSchema(\&quot;dout:5\&quot;, [{\n    name  : \&quot;timestamp\&quot;,\n    label : \&quot;Timestamp\&quot;,\n    type  : \&quot;number\&quot;,\n}]);\n&quot;' >
+</Input>
+
+      <Input key='node:4/in:0/evaluate' value='&quot;always&quot;' >
+</Input>
+
+      <Input key='node:8/cfg:inPorts/default' value='[{&quot;portId&quot;:&quot;din:0&quot;,&quot;portType&quot;:&quot;any[]&quot;,&quot;portLabel&quot;:&quot;UI Event&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Input key='node:8/cfg:model/default' value='&quot;if (port != null) {\n    var events = getInput(\&quot;din:0\&quot;) || [];\n    if (events.length &gt; 0) {\n        events.forEach(function(event) {\n            switch (event[\&quot;__TYPE__\&quot;]) {\n                case \&quot;save-complete\&quot;:\n                    message(\&quot;growl\&quot;, \&quot;Project\&quot;, \&quot;Project saved.\&quot;, null);\n                    break;\n            }\n        });\n    }\n}\n\n&quot;' >
+</Input>
+
+      <Input key='node:10/cfg:widget/default' value='[{&quot;viewer&quot;:&quot;dbp.Renderer&quot;,&quot;label&quot;:&quot;Dashboard Module&quot;,&quot;properties&quot;:{&quot;generalProperties&quot;:&quot;{\&quot;_model\&quot;:\&quot;/app/dbp/space/VIA Common Library/dbpm/VIA - HDFS Interface/HDFSWidget\&quot;,\&quot;disableDelete\&quot;:true}&quot;},&quot;schema&quot;:[{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;},{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}]}]' >
+</Input>
+
+      <Input key='node:10/cfg:width/default' value='800' >
+</Input>
+
+      <Input key='node:10/cfg:height/default' value='600' >
+</Input>
+
+      <Input key='node:12/cfg:widget/default' value='[{&quot;schema&quot;:[{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;},{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;viewer&quot;:&quot;dbp.Renderer&quot;,&quot;label&quot;:&quot;Dashboard Module&quot;,&quot;properties&quot;:{&quot;generalProperties&quot;:&quot;{\&quot;_model\&quot;:\&quot;/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Service/TestWidget\&quot;}&quot;}}]' >
+</Input>
+
+      <Input key='node:12/cfg:width/default' value='1000' >
+</Input>
+
+      <Input key='node:12/cfg:height/default' value='600' >
+</Input>
+
+      <Input key='node:16/cfg:tile/default' value='[{&quot;id&quot;:&quot;ROOT#1#Menu1&quot;,&quot;path&quot;:[&quot;Default&quot;],&quot;name&quot;:&quot;Menu1&quot;}]' >
+</Input>
+
+      <Input key='node:18/cfg:widget/default' value='[{&quot;schema&quot;:[{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}],&quot;viewer&quot;:&quot;dbp.Renderer&quot;,&quot;label&quot;:&quot;Dashboard Module&quot;,&quot;properties&quot;:{&quot;generalProperties&quot;:&quot;{\&quot;_model\&quot;:\&quot;/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Service/RuntimeWidget\&quot;}&quot;}}]' >
+</Input>
+
+      <Input key='node:18/cfg:width/default' value='900' >
+</Input>
+
+      <Input key='node:18/cfg:height/default' value='500' >
+</Input>
+
+      <Input key='node:20/cfg:outPorts/default' value='[{&quot;portId&quot;:&quot;dout:0&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Plugins&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;},{&quot;portId&quot;:&quot;dout:1&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Context&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Input key='node:22/cfg:inPorts/default' value='[{&quot;portId&quot;:&quot;din:0&quot;,&quot;portType&quot;:&quot;any&quot;,&quot;portLabel&quot;:&quot;Action&quot;,&quot;portValue&quot;:&quot;&quot;,&quot;portTrigger&quot;:&quot;always&quot;}]' >
+</Input>
+
+      <Schema id="node:1/out:0">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:1/out:1">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:1/out:2">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:1/out:3">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/din:0">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/dout:1">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:6/in:0">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:6/out:0">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:4/out:0">
+        <JSON value='{&quot;name&quot;:&quot;schema&quot;,&quot;label&quot;:&quot;Schema&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;result&quot;,&quot;label&quot;:&quot;Result&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivot&quot;,&quot;label&quot;:&quot;Pivot&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;output&quot;,&quot;label&quot;:&quot;Output&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;schemaChanged&quot;,&quot;label&quot;:&quot;Schema Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivotChanged&quot;,&quot;label&quot;:&quot;Pivot Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;outputChanged&quot;,&quot;label&quot;:&quot;Output Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/din:1">
+        <JSON value='{&quot;name&quot;:&quot;schema&quot;,&quot;label&quot;:&quot;Schema&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;result&quot;,&quot;label&quot;:&quot;Result&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivot&quot;,&quot;label&quot;:&quot;Pivot&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;output&quot;,&quot;label&quot;:&quot;Output&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;schemaChanged&quot;,&quot;label&quot;:&quot;Schema Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivotChanged&quot;,&quot;label&quot;:&quot;Pivot Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;outputChanged&quot;,&quot;label&quot;:&quot;Output Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:4/out:1">
+        <JSON value='{&quot;name&quot;:&quot;schema&quot;,&quot;label&quot;:&quot;Schema&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;result&quot;,&quot;label&quot;:&quot;Result&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivot&quot;,&quot;label&quot;:&quot;Pivot&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;output&quot;,&quot;label&quot;:&quot;Output&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;schemaChanged&quot;,&quot;label&quot;:&quot;Schema Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivotChanged&quot;,&quot;label&quot;:&quot;Pivot Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;outputChanged&quot;,&quot;label&quot;:&quot;Output Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:4/out:2">
+        <JSON value='{&quot;name&quot;:&quot;schema&quot;,&quot;label&quot;:&quot;Schema&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;result&quot;,&quot;label&quot;:&quot;Result&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivot&quot;,&quot;label&quot;:&quot;Pivot&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;output&quot;,&quot;label&quot;:&quot;Output&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;schemaChanged&quot;,&quot;label&quot;:&quot;Schema Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivotChanged&quot;,&quot;label&quot;:&quot;Pivot Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;outputChanged&quot;,&quot;label&quot;:&quot;Output Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:4/out:3">
+        <JSON value='{&quot;name&quot;:&quot;schema&quot;,&quot;label&quot;:&quot;Schema&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;result&quot;,&quot;label&quot;:&quot;Result&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivot&quot;,&quot;label&quot;:&quot;Pivot&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;output&quot;,&quot;label&quot;:&quot;Output&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;schemaChanged&quot;,&quot;label&quot;:&quot;Schema Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivotChanged&quot;,&quot;label&quot;:&quot;Pivot Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;outputChanged&quot;,&quot;label&quot;:&quot;Output Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:8/din:0">
+        <JSON value='{&quot;name&quot;:&quot;schema&quot;,&quot;label&quot;:&quot;Schema&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;result&quot;,&quot;label&quot;:&quot;Result&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivot&quot;,&quot;label&quot;:&quot;Pivot&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;output&quot;,&quot;label&quot;:&quot;Output&quot;,&quot;type&quot;:&quot;any[]&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;schemaChanged&quot;,&quot;label&quot;:&quot;Schema Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;pivotChanged&quot;,&quot;label&quot;:&quot;Pivot Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;outputChanged&quot;,&quot;label&quot;:&quot;Output Changed&quot;,&quot;type&quot;:&quot;boolean&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/dout:2">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:10/in:0">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:10/out:0">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:10/out:1">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:12/in:0">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:12/out:0">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:12/out:1">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/dout:3">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;url&quot;,&quot;label&quot;:&quot;URL&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/dout:4">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:14/in:0">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:14/out:0">
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;value&quot;,&quot;type&quot;:&quot;string&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;disable&quot;,&quot;label&quot;:&quot;disable&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;display&quot;,&quot;label&quot;:&quot;display&quot;,&quot;type&quot;:&quot;boolean&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:16/out:0">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:16/out:1">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:16/out:2">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:16/out:3">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/din:2">
+        <JSON value='{&quot;name&quot;:&quot;type&quot;,&quot;label&quot;:&quot;Type&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;value&quot;,&quot;label&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:true,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+        <JSON value='{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;Data&quot;,&quot;type&quot;:&quot;string&quot;,&quot;_isDimension&quot;:false,&quot;_isMeasure&quot;:false}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/dout:5">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:18/in:0">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:18/out:0">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:18/out:1">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+      </Schema>
+      <Schema id="node:2/din:4">
+        <JSON value='{&quot;name&quot;:&quot;timestamp&quot;,&quot;label&quot;:&quot;Timestamp&quot;,&quot;type&quot;:&quot;number&quot;}' >
+</JSON>
+
+      </Schema>
+      <DynInput id="node:2">
+        <Port id='din:0' type='event[]' label='Actions' evaluate='always' _isArray='true' >
+</Port>
+
+        <Port id='din:1' type='event[]' label='Content' evaluate='always' _isArray='true' >
+</Port>
+
+        <Port id='din:2' type='event[]' label='Menus' evaluate='always' _isArray='true' >
+</Port>
+
+        <Port id='din:3' type='any' label='Plugins' evaluate='always' _isArray='true' >
+</Port>
+
+        <Port id='din:4' type='any[]' label='Updates' evaluate='always' _isArray='true' >
+</Port>
+
+      </DynInput>
+      <DynInput id="node:8">
+        <Port id='din:0' type='any[]' label='UI Event' evaluate='always' >
+</Port>
+
+      </DynInput>
+      <DynInput id="node:22">
+        <Port id='din:0' type='any' label='Action' evaluate='always' _isArray='true' >
+</Port>
+
+      </DynInput>
+      <DynOutput id="node:2">
+        <Port id='dout:0' type='any' label='Notify' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:1' type='event[]' label='Action Data' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:2' type='event[]' label='Browser HDFS Info' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:3' type='event[]' label='Test Console' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:4' type='event[]' label='Menu Data' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:5' type='event[]' label='Runtime Console' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:6' type='any' label='Action' propagate='always' _isArray='true' >
+</Port>
+
+      </DynOutput>
+      <DynOutput id="node:20">
+        <Port id='dout:0' type='any' label='Plugins' propagate='always' _isArray='true' >
+</Port>
+
+        <Port id='dout:1' type='any' label='Context' propagate='always' _isArray='true' >
+</Port>
+
+      </DynOutput>
+      <Version id="node:1" version="1"/>
+      <Version id="node:2" version="2"/>
+      <Version id="node:4" version="1"/>
+      <Version id="node:6" version="2"/>
+      <Version id="node:8" version="2"/>
+      <Version id="node:10" version="1"/>
+      <Version id="node:12" version="1"/>
+      <Version id="node:14" version="2"/>
+      <Version id="node:16" version="1"/>
+      <Version id="node:18" version="1"/>
+      <Version id="node:20" version="1"/>
+      <Version id="node:22" version="1"/>
+      <Version type="Aggregate" version="1"/>
+      <Version type="Columns" version="1"/>
+      <Version type="DynPivot" version="1"/>
+      <Version type="Filter" version="1"/>
+      <Version type="Footer" version="1"/>
+      <Version type="GeoJsonOverlay" version="1"/>
+      <Version type="RestQuery" version="1"/>
+      <Version type="Group" version="1"/>
+      <Version type="Header" version="1"/>
+      <Version type="GeoHeatMapOverlay" version="1"/>
+      <Version type="Join" version="1"/>
+      <Version type="LocalStore" version="2"/>
+      <Version type="MenuBar" version="1"/>
+      <Version type="ModelMeta" version="1"/>
+      <Version type="ToolbarOverlay" version="3"/>
+      <Version type="WidgetOverlay" version="1"/>
+      <Version type="Pivot" version="1"/>
+      <Version type="Widget" version="1"/>
+      <Version type="PortIn" version="1"/>
+      <Version type="PortOut" version="1"/>
+      <Version type="GlobalProperty" version="3"/>
+      <Version type="PutData" version="1"/>
+      <Version type="ResourceMeta" version="1"/>
+      <Version type="Rows" version="1"/>
+      <Version type="UserScript" version="2"/>
+      <Version type="Sort" version="1"/>
+      <Version type="SQL" version="2"/>
+      <Version type="SQLConnect" version="1"/>
+      <Version type="DwrMessage" version="1"/>
+      <Version type="GeoEditableOverlay" version="1"/>
+      <Version type="GeoOverlay" version="2"/>
+      <Version type="TextAnnotations" version="1"/>
+      <Version type="Tile" version="1"/>
+      <Version type="Union" version="1"/>
+      <Version type="ScriptVariable" version="1"/>
+    </DataFlow>
+    <DashboardPlugins>
+      <DashboardPlugin uri="/app/dbp/space/VIA Common Library/dbpm/VIA - Common" alias="Common"/>
+      <DashboardPlugin uri="/app/dbp/space/VIA Common Library/dbpm/VIA - HDFS Interface" alias="HDFS"/>
+      <DashboardPlugin uri="/app/dbp/space/VIA Common Library/dbpm/VIA - Data Source Plugin" alias="DataSource"/>
+      <DashboardPlugin uri="/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Service" alias=""/>
+      <DashboardPlugin uri="/app/dbp/space/VIAOps Signal Onboarding/dbpm/VIAOps - Signal Onboarding Status Service" alias="StatusService"/>
+    </DashboardPlugins>
+  </ModelInfo>
+</AnalyticsExplorerView>

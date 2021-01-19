@@ -1,0 +1,15 @@
+{
+  "contents": [{
+    "fileref": "ModelContentFile0",
+    "name": "default"
+  }],
+  "lastDate": "1608021012703",
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "DO_Sprint8_20200821",
+    "_RESOURCE_Type": "dbpm",
+    "__references__": "",
+    "modelStatus": "valid",
+    "name": "VIAOps - Signal Onboarding Status Service V2"
+  }
+}

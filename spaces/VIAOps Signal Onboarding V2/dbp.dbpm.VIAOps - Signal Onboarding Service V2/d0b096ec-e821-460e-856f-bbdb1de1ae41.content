@@ -1,0 +1,10 @@
+// val retval = source1.vtMap( line => {
+val retvalBase = source1.mapPartitions( lines => {
+    import javax.script.ScriptEngineManager
+    import javax.script.Invocable
+    
+    val manager = new ScriptEngineManager
+    val engine = manager.getEngineByName("JavaScript")
+    // read script file
+    engine.eval("""
+var mapJSONtoCSV = function(jsonText, isRuntime) {

@@ -1,0 +1,51 @@
+TODO
+===============================================================================================================
+
+- if service/subservice/app changed, need to present user with option to cleanup generated models and artifacts
+  else they will be orphaned and have to be cleaned up manually
+
+- need to generate and incorporate dimension filters
+
+- A10 data break into 4 different pipelines
+  - CPU, GLOBAL, PORTS, MEMORY
+  - trying sharing same source
+  - when field is ignored, we need to remove column from sample table
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+NOTE
+===============================================================================================================
+
+- avoid using forEach()... less efficient... may be due to function invocation or internal inefficiency in loop
+    var start = Date.now();
+    for (var i=0, n=result.length; i<n; i++) {
+        var tmp = result[i][schema[0]["name"]];
+    }
+    print("FOR-LOOP: " + (Date.now()-start) + "ms");
+    // FOR-LOOP: 28ms
+    
+    var start = Date.now();
+    result.forEach(function(record) {
+        var tmp = record[schema[0]["name"]];
+    });
+    print("FOR-EACH: " + (Date.now()-start) + "ms");
+    // FOR-EACH: 34ms
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+DONE
+===============================================================================================================
+
+- source data directory should be sourceGroup, not targetGroup
+  - source file URL incorrect
+
+- correctly identifying double vs long
+
+- handle long epoch timestamp
+
+---------------------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,36 @@
+};
+var toCsvLine = function(arr) {
+    var buf = [];
+    for (var j=0, jN=arr.length; j<jN; j++) {
+        var val = arr[j];
+        if (val != null) {
+            if (typeof val == "string") {
+                buf.push('"'+val+'"');
+            }
+            else {
+                buf.push(String(val));
+            }
+        }
+        else {
+            buf.push("");
+        }
+    }
+    return buf.join(",");
+};
+var convert = function(jsonText) {
+    var retval = mapJSONtoCSV(jsonText, true);
+    if (retval != null && retval.type == "text/csv" && retval.cols != null && retval.data != null) {
+        var csv = [];
+        for (var j=0, jN=retval.data.length; j<jN; j++) {
+            csv.push(toCsvLine(retval.data[j]));
+        }
+        return csv.join("\n");
+    }
+    return null;
+};
+""".stripMargin)
+    
+    val inv = engine.asInstanceOf[Invocable]
+    // call function from script file
+    inv.invokeFunction("convert", line).asInstanceOf[String]
+})

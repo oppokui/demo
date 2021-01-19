@@ -1,0 +1,1 @@
+select * from viaops_signal_onboarding_model_info where uuid='${uuid}' and name='${name}'

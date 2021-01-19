@@ -1,0 +1,2 @@
+DELETE FROM viaops_anomaly_baseline_meta_store
+WHERE adm_name=?

@@ -1,0 +1,7 @@
+INSERT INTO viaops_qdc_table (
+    metric_id,
+    sql_qdc,
+    json_qdc,
+    aggr_func,
+    parse_target_group
+) VALUES (?, ?, ?, ?, ?)

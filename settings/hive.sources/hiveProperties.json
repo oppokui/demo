@@ -1,0 +1,4 @@
+{
+  "fs.defaultDataSource": "hive_metastore_db",
+  "fs.defaultHDFSSource": "hive_warehouse"
+}

@@ -1,0 +1,36 @@
+{
+    "data-source" : {
+        "incident-summary"   : "viaops_runtime_db",        
+        "metric-info"        : "viaops_config_db",
+        "metric-qdc"         : "viaops_config_db",
+        "reference-data"     : "do_sample_ref_db",
+        "parse-model"        : "viaops_config_db",
+        "baseline-model"     : "viaops_config_db",
+        "anomaly-model"      : "viaops_config_db",
+        "incident-model"     : "viaops_config_db",
+        "incident-group"     : "viaops_config_db",
+        "notification-model" : "viaops_config_db",
+        "config-property"    : "viaops_config_db",
+        "parser-audit"       : "VT_ODA_QS"
+    },
+    
+    "default-values" : {
+        "space"           : "Signal Onboarding 001",
+        "#hdfs-server-url" : "hdfs://master:8020",
+
+        "target-path"     : "/do_dev/warehouse/",
+        "incident-path"   : "/do_dev/viaops/stream_anomaly",
+        "grouping-path"   : "/do_dev/viaops/incident_plus_da",
+        "declared-path"   : "/do_dev/viaops/planned_maintenance"
+    },
+    
+    "analytic-service-manifest":"/app/dbp/user/do_admin/dbpm/DO - Manifest/AnalyticServiceManifest",
+    "dependent-plugin-manifest":"/app/dbp/user/do_admin/dbpm/DO - Manifest/DependentPluginManifest",
+
+    "quick-links" : {
+        "menu/trendAnalysis"     : "/app/ax/user/do_admin/axv/DO - Trend Analysis Comp",
+        "menu/dimensionAnalysis" : "/app/ax/user/do_admin/axv/DO - Dimension Analysis Comp",
+        "menu/incidentAnalysis"  : "/app/ax/user/do_admin/axv/DO - Incident Analysis Comp",
+        "menu/configTool"        : "/app/ax/user/do_admin/axv/DO - Config Comp"
+    }
+}

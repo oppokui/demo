@@ -1,0 +1,2 @@
+DELETE FROM viaops_anomaly_sol
+WHERE adm_name=?

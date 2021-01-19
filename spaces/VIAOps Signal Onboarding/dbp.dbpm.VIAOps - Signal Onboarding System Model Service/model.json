@@ -1,0 +1,54 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "02d73dc2-ea8e-4b3a-82fb-5e358dd6792b"
+    },
+    {
+      "fileref": "ModelContentFile2",
+      "name": "09f60857-f103-4eb1-8874-e841888b6d5a"
+    },
+    {
+      "fileref": "ModelContentFile3",
+      "name": "601fd5ba-8e8c-4020-81d7-977e9aeb988b"
+    },
+    {
+      "fileref": "ModelContentFile4",
+      "name": "6a7a6cef-adb1-4781-8ee5-d472ceb8bd3b"
+    },
+    {
+      "fileref": "ModelContentFile5",
+      "name": "b0a95f58-6440-4fa7-8a22-04fd8fd20083"
+    },
+    {
+      "fileref": "ModelContentFile6",
+      "name": "2dc4269a-bb9a-4e8a-8419-e7c4bbdf50e8"
+    },
+    {
+      "fileref": "ModelContentFile7",
+      "name": "8259dfd4-e155-4832-8d18-d25cb4aa3701"
+    },
+    {
+      "fileref": "ModelContentFile8",
+      "name": "e85b3358-b446-436d-86a1-e8b556b307c8"
+    },
+    {
+      "fileref": "ModelContentFile9",
+      "name": "e50c0523-0f03-45a3-823d-c8505fa90325"
+    }
+  ],
+  "lastDate": "1608021001572",
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "DO_Sprint12_20201216",
+    "_RESOURCE_Type": "dbpm",
+    "__indexed_contents__": "02d73dc2-ea8e-4b3a-82fb-5e358dd6792b,09f60857-f103-4eb1-8874-e841888b6d5a,e50c0523-0f03-45a3-823d-c8505fa90325,601fd5ba-8e8c-4020-81d7-977e9aeb988b,6a7a6cef-adb1-4781-8ee5-d472ceb8bd3b,b0a95f58-6440-4fa7-8a22-04fd8fd20083,2dc4269a-bb9a-4e8a-8419-e7c4bbdf50e8,8259dfd4-e155-4832-8d18-d25cb4aa3701,e85b3358-b446-436d-86a1-e8b556b307c8",
+    "__references__": "",
+    "modelStatus": "valid",
+    "name": "VIAOps - Signal Onboarding System Model Service"
+  }
+}

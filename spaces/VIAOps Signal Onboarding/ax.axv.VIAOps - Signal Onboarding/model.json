@@ -1,0 +1,21 @@
+{
+  "contents": [
+    {
+      "fileref": "ModelContentFile0",
+      "name": "default"
+    },
+    {
+      "fileref": "ModelContentFile1",
+      "name": "locale"
+    }
+  ],
+  "lastDate": "1608021001580",
+  "owner": "viaops_admin",
+  "properties": {
+    "_RESOURCE_Description": "DO_Sprint12_20201216",
+    "_RESOURCE_Type": "axv",
+    "__references__": "/app/ax/space/VIAOps Signal Onboarding/axv/VIAOps - Signal Onboarding Editor",
+    "modelStatus": "invalid",
+    "name": "VIAOps - Signal Onboarding"
+  }
+}

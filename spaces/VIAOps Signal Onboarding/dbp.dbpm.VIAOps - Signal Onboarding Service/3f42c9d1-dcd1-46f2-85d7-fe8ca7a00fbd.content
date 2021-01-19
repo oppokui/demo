@@ -1,0 +1,1 @@
+select uuid from viaops_signal_onboarding_project where uuid='${uuid}'
