@@ -1,0 +1,5 @@
+{
+  "configuration.xml": "<configuration/>",
+  "fs.defaultFS": "hdfs://hadoop-hdfs-nn",
+  "fs.wkdir": "/DO/warehouse"
+}
