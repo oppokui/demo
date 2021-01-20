@@ -1,2 +1,2 @@
 "group_rule_name","max_lookback","expire_after","mode","modified_ts","kd_only","at_only","kd_excl","req_dims","cdk_minCount","cdk_minPct","cdv_minCount","cdv_minPct","relative_time"
-"Log alt_source","3600","86400","p","20-Jan-2021 10:32:19","n","y","","","2","0","0","0","600"
+"Log alt_source","3600","86400","p","20-Jan-2021 12:44:03","n","y","","","3","0","0","0","600"
