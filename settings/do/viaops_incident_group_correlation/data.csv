@@ -3,5 +3,5 @@
 "Log alt_source","Faults","Logs","Faults|Logs|Syslog|logMsgs|err|${alt_source}","","y","n","High","5","y","","600"
 "Log alt_source","Faults","Logs","Faults|Logs|Syslog|logMsgs|info|${alt_source}","","y","n","Low","5","y","","600"
 "Log alt_source","Faults","Logs","Faults|Logs|Syslog|logMsgs|notice|${alt_source}","","y","n","Low","5","y","","600"
-"Log alt_source","Faults","Logs","Faults|Logs|Syslog|logMsgs|warn|${alt_source}","","y","n","High","5","y","","600"
+"Log alt_source","Faults","Logs","Faults|Logs|Syslog|logMsgs|warn|${alt_source}","","y","n","High","5","y","","601"
 "Log alt_source","Faults","Traps","Faults|Traps|IF-MIB|linkStateChange|${alt_source}","","n","n","Low","5","n","before/after","600"
